@@ -14,7 +14,12 @@ class CreatePersonalDetailsTable extends Migration
     public function up()
     {
         Schema::create('personal_details', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
+            $table->string('fullName');
+            $table->string('email');
+            $table->string('mobileNo');
+            $table->string('image')->nullable();
+            $table->string('address');
             $table->timestamps();
         });
     }

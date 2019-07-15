@@ -14,8 +14,16 @@ class CreatePersonalProfilesTable extends Migration
     public function up()
     {
         Schema::create('personal_profiles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
+            $table->string('lookingFor');
+            $table->string('availableFor');
+            $table->string('expectedSalary');
+            $table->string('careerObjective');
+            $table->string('careerSummary');
+            $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade');
         });
     }
 

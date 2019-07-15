@@ -20,4 +20,18 @@
 Route::get('/', 'frontendController@index');
 
 //cv Form
-Route::get('/cvForm', 'frontendController@cvForm');
+Route::group(['prefix' => '/cvForm'], function () {
+    Route::get('/', 'frontendController@cvForm');
+    Route::post('/', 'frontendController@cvFormAction');
+    Route::get('/personalProfile', 'frontendController@personalProfile');
+    Route::post('/personalProfile', 'frontendController@personalProfileAction');
+    Route::get('/personalProfile/skill','frontendController@skill');
+    Route::post('/personalProfile/skill','frontendController@skillAction');
+
+    Route::get('/personalProfile/skill/education', 'frontendController@education');
+    Route::post('/personalProfile/skill/education', 'frontendController@educationAction');
+    Route::get('/personalProfile/skill/education/experience','frontendController@experience');
+    Route::post('/personalProfile/skill/education/experience','frontendController@experienceAction');
+    Route::get('/personalProfile/skill/education/experience/reference','frontendController@reference');
+
+});
