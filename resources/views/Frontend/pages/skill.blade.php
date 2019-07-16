@@ -5,7 +5,7 @@
 @section('content')
     <div class="box box-info">
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile/skill')}}" method="post">
+        <form action="{{url('/cvForm/personalProfile/skill/'.$id)}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
@@ -14,6 +14,7 @@
                 <div id="skill" class="skill">
 
                 </div>
+                <input type="hidden"name="id" value="{{$id}}">
             </div>
             <div class="box-footer">
                 <button type="button" class="btn btn-primary">Back</button>
@@ -34,11 +35,11 @@
                 html += '<div class="row">';
                 html += '<div class="form-group col-md-6">';
                 html += '<label for="exampleInputEmail1">Skill</label>';
-                html += '<input type="text" class="form-control" name="skill" id="" placeholder="Referee Name">';
+                html += '<input type="text" class="form-control" name="skill[]" id="" placeholder="Referee Name">';
                 html += '</div>';
                 html += '<div class="form-group col-md-6">';
                 html += '<label for="exampleInputEmail1">Skill Level</label>';
-                html += '<input type="text" class="form-control" name="skillLevel" id="" placeholder="Referee Name">';
+                html += '<input type="text" class="form-control" name="skillLevel[]" id="" placeholder="Referee Name">';
                 html += '</div>';
 
                 html += '</div>';

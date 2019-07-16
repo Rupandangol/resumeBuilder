@@ -15,7 +15,13 @@ class CreateAcademicQualificationsTable extends Migration
     {
         Schema::create('academic_qualifications', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('institute');
+            $table->string('location');
+            $table->string('startTime');
+            $table->string('endTime');
+            $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

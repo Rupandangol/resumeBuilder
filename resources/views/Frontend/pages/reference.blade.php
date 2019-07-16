@@ -5,7 +5,7 @@
 @section('content')
     <div class="box box-info">
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile/skill/education/experience/reference')}}" method="post">
+        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/reference')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
@@ -14,6 +14,7 @@
                 <div id="reference" class="reference">
 
                 </div>
+                <input type="hidden" value="{{$id}}" name="id">
             </div>
             <div class="box-footer">
                 <button type="button" class="btn btn-primary">Back</button>
@@ -33,11 +34,11 @@
                 html = '<div class="sub">';
                 html += '<div class="form-group">';
                 html += '<label for="exampleInputEmail1">Referee Name</label>';
-                html += '<input type="text" class="form-control" name="referee" id="" placeholder="Referee Name">';
+                html += '<input type="text" class="form-control" name="referee[]" id="" placeholder="Referee Name">';
                 html += '</div>';
                 html += '<div class="form-group">';
                 html += '<label>Referee Contact Details</label>';
-                html += '<textarea class="form-control" rows="3" name="refereeContact" placeholder="Enter ..."></textarea>';
+                html += '<textarea class="form-control" rows="3" name="refereeContact[]" placeholder="Enter ..."></textarea>';
                 html += '</div>';
                 if (number > 1) {
                     html += '<button type="button" name="remove" style="margin-left: 90%" id="" class="btn btn-danger remove">Remove</button>';

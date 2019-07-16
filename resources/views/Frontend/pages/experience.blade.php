@@ -8,7 +8,7 @@
 @section('content')
     <div class="box box-info">
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile/skill/education/experience')}}" method="post">
+        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
 
@@ -19,6 +19,7 @@
                 <div id="experience" class="experience">
 
                 </div>
+                <input type="hidden" name="id" value="{{$id}}">
             </div>
             <div class="box-footer">
                 <button class="btn btn-primary">Back</button>
@@ -67,14 +68,14 @@
 
                 if (number > 1) {
                     html += '<button type="button" style="margin-left: 90%" name="remove" id="" class="btn btn-danger remove">Remove</button>';
-                    html+='<hr>';
+                    html += '<hr>';
                     html += '</div>';
 
                     $('.experience').append(html);
                 }
                 else {
                     html += '<button type="button" style="margin-left: 90%" name="add" id="add" class="btn btn-success">Add</button>';
-                    html+='<hr>';
+                    html += '<hr>';
                     html += '</div>';
 
                     $('.experience').html(html);
