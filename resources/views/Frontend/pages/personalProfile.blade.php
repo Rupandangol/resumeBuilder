@@ -2,6 +2,9 @@
 @section('contentHeader')
     <h2 style="text-align: center">Cv<b>Builder</b></h2>
 @endsection
+@section('my-header')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.css">
+@endsection
 
 @section('content')
     {{--personal profiles--}}
@@ -17,16 +20,25 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Personal Profile</h3>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Looking For</label>
-                    <input type="text" class="form-control" name="lookingFor" id="" placeholder="Looking For">
+                <label for="exampleInputEmail1">Looking For</label>
+                <div class="input-group">
+                    <input type="text" name="lookingFor" placeholder="Looking For" class="form-control">
+                    <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
                 </div>
+                <br>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Available For</label>
                     <input type="text" class="form-control" name="availableFor" id="" placeholder="Available For">
                 </div>
+
+                <label for="exampleInputEmail1">Preferred job Category</label>
+                <div class="input-group">
+                    <input type="text" name="" placeholder="Looking For" class="form-control">
+                    <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                </div>
+                <br>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Available For</label>
+                    <label for="exampleInputEmail1">Expected Salary</label>
                     <input type="text" class="form-control" name="expectedSalary" id="" placeholder="Expected Salary">
                 </div>
                 <div class="form-group">
@@ -46,4 +58,19 @@
     </div>
     {{--end of personal profile--}}
 
+@endsection
+
+@section('my-footer')
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.map"></script>
+    <script>
+        $(document).ready(function () {
+            $('#lookingForInfo').qtip({
+                content:'Write which level you are applying For Eg:mid Level/senior',
+                style:'lookingForInfo'
+            });
+        })
+    </script>
 @endsection

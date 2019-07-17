@@ -84,14 +84,10 @@
 
             <div class="sectionContent">
                 <ul class="keySkills">
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
+                    @foreach($skill as $value)
+                        <li>{{$value->skill}}</li>
+                    @endforeach
+
                 </ul>
             </div>
             <div class="clear"></div>
@@ -104,19 +100,14 @@
             </div>
 
             <div class="sectionContent">
-                <article>
-                    <h2>College/University</h2>
-                    <p class="subDetails">Qualification</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-                        hendrerit. Curabitur non consequat enim.</p>
-                </article>
-
-                <article>
-                    <h2>College/University</h2>
-                    <p class="subDetails">Qualification</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-                        hendrerit. Curabitur non consequat enim.</p>
-                </article>
+                @foreach($education as $value)
+                    <article>
+                        <h2>{{ucfirst($value->institute)}}</h2>
+                        <p class="subDetails">{{ucfirst($value->location)}}</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
+                            hendrerit. Curabitur non consequat enim.</p>
+                    </article>
+                @endforeach
             </div>
             <div class="clear"></div>
         </section>

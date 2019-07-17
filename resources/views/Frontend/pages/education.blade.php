@@ -46,6 +46,10 @@
                 html += '<label for="exampleInputEmail1">Location</label>';
                 html += '<input type="text" class="form-control" name="location[]" id="" placeholder="location">';
                 html += '</div>';
+                html += '<div class="form-group">';
+                html += '<label for="exampleInputEmail1">Grade</label>';
+                html += '<input type="text" class="form-control" name="grade[]" id="" placeholder="location">';
+                html += '</div>';
                 html += '<div class="row">';
                 html += '<div class="form-group col-md-6">';
                 html += '<label for="exampleInputEmail1">Start Date</label>';

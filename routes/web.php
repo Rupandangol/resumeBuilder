@@ -40,10 +40,12 @@ Route::group(['prefix' => '/cvForm'], function () {
     Route::get('/personalProfile/skill/{id}/education/experience/reference/template', 'frontendController@template');
     Route::get('/personalProfile/skill/{id}/education/experience/reference/template/template1', 'frontendController@template1');
     Route::post('/personalProfile/skill/{id}/education/experience/reference/template/template1', 'frontendController@template1Action');
+
 //    end of template
 
-
+//    download
+    Route::post('/personalProfile/skill/{id}/education/experience/reference/template/template1/download', 'pdfController@download');
 //    test
 
 });
-Route::get('/test','pdfController@templateItem1');
+Route::get('/test', 'pdfController@templateItem1');

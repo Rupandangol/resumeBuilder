@@ -221,7 +221,6 @@ class frontendController extends Controller
         $data['skill'] = Skill::where(['cv_id' => $id])->get();
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
-
         return view('Frontend.pages.templateItem.templateItem1', $data);
     }
 

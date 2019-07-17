@@ -19,7 +19,7 @@
                 <br>
                 <div class="input-group">
                     <span class="input-group-addon">@</span>
-                    <input type="text" name="fullName" class="form-control" placeholder="Full Name">
+                    <input required type="text" name="fullName" class="form-control" placeholder="Full Name">
                 </div>
                 <br>
                 <div class="input-group">
