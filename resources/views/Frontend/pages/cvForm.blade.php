@@ -10,7 +10,7 @@
 
 
         {{--personal details--}}
-        <form action="{{url('/cvForm')}}" method="post">
+        <form action="{{url('/cvForm')}}" enctype="multipart/form-data" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">

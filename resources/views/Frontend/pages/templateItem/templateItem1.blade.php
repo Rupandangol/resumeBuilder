@@ -18,12 +18,14 @@
 <div id="cv" class="instaFade">
     <div class="mainDetails">
         <div id="headshot" class="quickFade">
-            <img src="" alt="Alan Smith"/>
+            <img src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt="{{$personalDetail->image}}"/>
         </div>
 
         <div id="name">
             <h1 class="quickFade delayTwo">{{$personalDetail->fullName}}</h1>
-            <h2 class="quickFade delayThree">Job Title</h2>
+            @foreach($personalProfile as $value)
+            <h2 class="quickFade delayThree">{{$value->availableFor}}</h2>
+                @endforeach
         </div>
 
         <div id="contactDetails" class="quickFade delayFour">
@@ -63,7 +65,7 @@
                 @foreach($experience as $value)
                     <article>
                         <h2>{{$value->jobTitle}}</h2>
-                        <p class="subDetails">April 2011 - Present</p>
+                        <p class="subDetails">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}} - {{\Carbon\Carbon::parse($value->endtTime)->format('M Y')}}</p>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
                             hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id
                             sapien
