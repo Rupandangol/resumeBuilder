@@ -7,7 +7,7 @@ use App\Model\Experience;
 use App\Model\PersonalDetail;
 use App\Model\PersonalProfile;
 use App\Model\Reference;
-use App\Skill;
+use App\Model\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
@@ -92,6 +92,7 @@ class frontendController extends Controller
         $this->validate($request, [
             'skill' => 'required',
             'skillLevel' => 'required',
+            'about'=>'required'
         ]);
         $skill = $request->skill;
         $count = 0;
@@ -101,6 +102,7 @@ class frontendController extends Controller
         for ($i = 0; $i < $count; $i++) {
             $data['skill'] = $request->skill[$i];
             $data['skillLevel'] = $request->skillLevel[$i];
+            $data['about']=$request->about[$i];
             $data['cv_id'] = $request->id;
             Skill::create($data);
         }

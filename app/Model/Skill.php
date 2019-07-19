@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,7 @@ class Skill extends Model
     protected $fillable = [
         'skill',
         'skillLevel',
+        'about',
         'cv_id'
     ];
 }

@@ -14,7 +14,7 @@
                 <div id="skill" class="skill">
 
                 </div>
-                <input type="hidden"name="id" value="{{$id}}">
+                <input type="hidden" name="id" value="{{$id}}">
             </div>
             <div class="box-footer">
                 <button type="button" class="btn btn-primary">Back</button>
@@ -41,8 +41,12 @@
                 html += '<label for="exampleInputEmail1">Skill Level</label>';
                 html += '<input type="text" class="form-control" name="skillLevel[]" id="" placeholder="Referee Name">';
                 html += '</div>';
-
                 html += '</div>';
+                html += '<div class="form-group">';
+                html += '<label>About</label>';
+                html += '<textarea class="form-control" rows="3" name="about" placeholder="Enter ..."></textarea>';
+                html += '</div>'
+
 
                 if (number > 1) {
                     html += '<button type="button" name="remove" style="margin-left: 90%" id="" class="btn btn-danger remove">Remove</button>';

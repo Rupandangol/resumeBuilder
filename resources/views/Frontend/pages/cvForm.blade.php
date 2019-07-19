@@ -18,7 +18,7 @@
                 </div>
                 <br>
                 <div class="input-group">
-                    <span class="input-group-addon">@</span>
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <input required type="text" name="fullName" class="form-control" placeholder="Full Name">
                 </div>
                 <br>
@@ -28,7 +28,7 @@
                 </div>
                 <br>
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                     <input type="text" name="mobileNo" class="form-control" placeholder="Mobile No">
                 </div>
                 <br>

@@ -35,6 +35,9 @@ Route::group(['prefix' => '/cvForm'], function () {
     Route::get('/personalProfile/skill/{id}/education/experience/reference', 'frontendController@reference');
     Route::post('/personalProfile/skill/{id}/education/experience/reference', 'frontendController@referenceAction');
 
+//    update
+    Route::get('/personalProfile/skill/{id}/education/experience/referenceUpdate','frontendController@referenceUpdate');
+
 
 //    Template
     Route::get('/personalProfile/skill/{id}/education/experience/reference/template', 'frontendController@template');

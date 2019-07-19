@@ -7,7 +7,7 @@ use App\Model\Experience;
 use App\Model\PersonalDetail;
 use App\Model\PersonalProfile;
 use App\Model\Reference;
-use App\Skill;
+use App\Model\Skill;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 

@@ -5,7 +5,7 @@
 @section('content')
     <div class="box box-info">
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/reference')}}" method="post">
+        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/referenceUpdate')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
@@ -17,7 +17,7 @@
                 <input type="hidden" value="{{$id}}" name="id">
             </div>
             <div class="box-footer">
-                <a href="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experienceUpdate')}}" class="btn btn-primary">Back</a>
+                <button type="button" class="btn btn-primary">Back</button>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>
