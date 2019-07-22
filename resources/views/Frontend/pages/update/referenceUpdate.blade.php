@@ -5,13 +5,20 @@
 @section('content')
     <div class="box box-info">
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/referenceUpdate')}}" method="post">
+        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/referenceUpdate')}}"
+              method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
                     <h3 class="box-title">Reference</h3>
                 </div>
                 <div id="reference" class="reference">
+                    <div class="sub">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Referee Name</label>
+                            <input type="text" class="form-control" name="referee[]" id="" placeholder="Referee Name">
+                        </div>
+                    </div>
 
                 </div>
                 <input type="hidden" value="{{$id}}" name="id">

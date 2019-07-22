@@ -8,12 +8,16 @@ use App\Model\PersonalDetail;
 use App\Model\PersonalProfile;
 use App\Model\Reference;
 use App\Model\Skill;
+use App\Traits\CvHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 
 class frontendController extends Controller
 {
+    use CvHelper;
+    private $_data = [];
+
     public function index()
     {
         return view('Frontend.pages.dashboard');
@@ -21,16 +25,21 @@ class frontendController extends Controller
 
     public function cvForm()
     {
-        return view('Frontend.pages.cvForm');
+        $this->checkSession();
+        return view('Frontend.pages.cvForm', $this->_data);
     }
+
 
     public function cvFormAction(Request $request)
     {
+        $checkSession = session('cv_user_id', false);
+
+
         $this->validate($request, [
             'fullName' => 'required',
             'email' => 'required',
             'mobileNo' => 'required',
-            'image' => 'required',
+//        'image' => 'required',
             'address' => 'required'
         ]);
         $data['fullName'] = $request->fullName;
@@ -46,11 +55,19 @@ class frontendController extends Controller
             })->crop(200, 200)->save(public_path('/Uploads/userImage/' . $newName));
             $data['image'] = $newName;
         }
-        if (PersonalDetail::create($data)) {
-            return redirect()->intended('/cvForm/personalProfile');
+        if (!$checkSession) {
+
+            if ($created = PersonalDetail::create($data)) {
+                session()->put('cv_user_id', $created->id);
+                return redirect(route('page2'));
+            } else {
+                PersonalDetail::find($checkSession)->update($data);
+            }
+
         } else {
             return redirect()->back()->with('fail', 'fail');
         }
+
     }
 
     public function personalProfile()
@@ -92,7 +109,7 @@ class frontendController extends Controller
         $this->validate($request, [
             'skill' => 'required',
             'skillLevel' => 'required',
-            'about'=>'required'
+            'about' => 'required'
         ]);
         $skill = $request->skill;
         $count = 0;
@@ -102,7 +119,7 @@ class frontendController extends Controller
         for ($i = 0; $i < $count; $i++) {
             $data['skill'] = $request->skill[$i];
             $data['skillLevel'] = $request->skillLevel[$i];
-            $data['about']=$request->about[$i];
+            $data['about'] = $request->about[$i];
             $data['cv_id'] = $request->id;
             Skill::create($data);
         }
@@ -235,6 +252,51 @@ class frontendController extends Controller
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
         return view('Frontend.pages.templateItem.templateItem1', $data);
+    }
+
+    public function template2($id)
+    {
+        $itemTemplate['id'] = $id;
+        return view('Frontend.pages.templateList.template2', $itemTemplate);
+    }
+
+    public function template2Action(Request $request)
+    {
+        $id = $request->id;
+
+        $data['personalDetail'] = PersonalDetail::find($id);
+        $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->get();
+        $data['education'] = AcademicQualification::where(['cv_id' => $id])->get();
+        $data['skill'] = Skill::where(['cv_id' => $id])->get();
+        $data['experience'] = Experience::where(['cv_id' => $id])->get();
+        $data['reference'] = Reference::where(['cv_id' => $id])->get();
+
+        return view('Frontend.pages.templateItem.templateItem2', $data);
+    }
+
+    public function template3($id)
+    {
+        $itemTemplate['id'] = $id;
+        return view('Frontend.pages.templateList.template3', $itemTemplate);
+    }
+
+    public function template3Action(Request $request)
+    {
+        $id = $request->id;
+
+        $data['personalDetail'] = PersonalDetail::find($id);
+        $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->get();
+        $data['education'] = AcademicQualification::where(['cv_id' => $id])->get();
+        $data['skill'] = Skill::where(['cv_id' => $id])->get();
+        $data['experience'] = Experience::where(['cv_id' => $id])->get();
+        $data['reference'] = Reference::where(['cv_id' => $id])->get();
+        return view('Frontend.pages.templateItem.templateItem3', $data);
+    }
+
+    public function referenceUpdate(Request $request)
+    {
+
+        return $request->id;
     }
 
 

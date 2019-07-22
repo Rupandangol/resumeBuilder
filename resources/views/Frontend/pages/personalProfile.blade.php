@@ -11,7 +11,6 @@
 
     <div class="box box-info">
 
-
         {{--personal details--}}
         <form action="{{url('/cvForm/personalProfile')}}" method="post">
             {{csrf_field()}}
@@ -20,6 +19,8 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Personal Profile</h3>
                 </div>
+                {{session('cv_user_id','asd')}}
+
                 <label for="exampleInputEmail1">Looking For</label>
                 <div class="input-group">
                     <input type="text" name="lookingFor" placeholder="Looking For" class="form-control">

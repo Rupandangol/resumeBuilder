@@ -18,8 +18,8 @@ class CreatePersonalProfilesTable extends Migration
             $table->string('lookingFor');
             $table->string('availableFor');
             $table->string('expectedSalary');
-            $table->string('careerObjective');
-            $table->string('careerSummary');
+            $table->text('careerObjective');
+            $table->text('careerSummary');
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
 

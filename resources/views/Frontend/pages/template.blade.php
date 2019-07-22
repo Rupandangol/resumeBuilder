@@ -7,6 +7,11 @@
 @endsection
 @section('content')
     <div class="container">
+        <form method="post" action="{{route('updateReference',$id)}}">
+            <input type="hidden" value="{{$id}}">
+            <button class="btn btn-primary" type="submit">Back</button>
+        </form>
+        <br><br>
         <div class="row">
             <div class="template_image col-md-4">
                 <a href="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/reference/template/template1')}}"><img

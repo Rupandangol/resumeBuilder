@@ -21,16 +21,25 @@ class pdfController extends Controller
     public function download(Request $request)
     {
         $id = $request->id;
+        $url = url()->current();
+        $item = explode('/', $url);
+        $itemFile = explode('template', $item[11]);
 
         $data['personalDetail'] = PersonalDetail::find($id);
         $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->get();
         $data['education'] = AcademicQualification::where(['cv_id' => $id])->get();
-        $data['skill'] = Skill::where(['cv_id' => $id])->get();
+        $skills = Skill::where(['cv_id' => $id])->get();
+        $skillData = '';
+        foreach ($skills as $skill) {
+            $skillData .= "<dd><h2>" . $skill->skill . "</h2><p>" . $skill->about . "</p></dd>";
+        }
+        $data['skill'] =$skillData;
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
 
 
-        $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem1', $data);
+        $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem' . $itemFile[1], $data);
+        return $pdf->stream();
         return $pdf->download($data['personalDetail']->fullName . '.pdf');
 
     }

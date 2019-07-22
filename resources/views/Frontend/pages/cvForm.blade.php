@@ -7,7 +7,12 @@
 
 @section('content')
     <div class="box box-info">
-
+<?php
+            echo "<pre>";
+        print_r($profile);
+        print_r($detail);
+        echo "</pre>";
+        ?>
 
         {{--personal details--}}
         <form action="{{url('/cvForm')}}" enctype="multipart/form-data" method="post">

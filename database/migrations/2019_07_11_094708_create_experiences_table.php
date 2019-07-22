@@ -20,7 +20,7 @@ class CreateExperiencesTable extends Migration
             $table->string('location');
             $table->string('startTime');
             $table->string('endTime');
-            $table->string('jobSummary');
+            $table->text('jobSummary');
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade')->onDelete('cascade');
