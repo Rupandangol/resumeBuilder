@@ -24,7 +24,7 @@
                 <br>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input required type="text" name="fullName" class="form-control" placeholder="Full Name">
+                    <input type="text" name="fullName" class="form-control" placeholder="Full Name">
                 </div>
                 <br>
                 <div class="input-group">

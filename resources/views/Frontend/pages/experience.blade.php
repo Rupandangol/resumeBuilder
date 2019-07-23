@@ -8,7 +8,7 @@
 @section('content')
     <div class="box box-info">
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience')}}" method="post">
+        <form action="" method="post">
             {{csrf_field()}}
             <div class="box-body">
 
@@ -19,10 +19,10 @@
                 <div id="experience" class="experience">
 
                 </div>
-                <input type="hidden" name="id" value="{{$id}}">
+                <input type="hidden" name="id" value="">
             </div>
             <div class="box-footer">
-                <button class="btn btn-primary">Back</button>
+                <a href="{{route('page4')}}" class="btn btn-primary">back</a>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>

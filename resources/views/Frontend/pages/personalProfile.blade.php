@@ -12,9 +12,16 @@
     <div class="box box-info">
 
         {{--personal details--}}
-        <form action="{{url('/cvForm/personalProfile')}}" method="post">
+        <form action="{{url('/personalProfile')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
+
+                <?php
+                echo "<pre>";
+                print_r($profile);
+                echo "</pre>";
+                ?>
+
 
                 <div class="box-header with-border">
                     <h3 class="box-title">Personal Profile</h3>
@@ -52,7 +59,7 @@
                 </div>
             </div>
             <div class="box-footer">
-                <button type="button" class="btn btn-primary">Back</button>
+                <a href="{{url('/cvForm')}}" class="btn btn-primary">Back</a>
                 <button type="submit" class="btn btn-primary">Next</button>
             </div>
         </form>

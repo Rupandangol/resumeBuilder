@@ -59,24 +59,29 @@ class frontendController extends Controller
 
             if ($created = PersonalDetail::create($data)) {
                 session()->put('cv_user_id', $created->id);
-                return redirect(route('page2'));
+
             } else {
-                PersonalDetail::find($checkSession)->update($data);
+                return redirect()->back()->with('fail', 'fail');
             }
 
         } else {
-            return redirect()->back()->with('fail', 'fail');
+            PersonalDetail::find($checkSession)->update($data);
+
         }
+        return redirect(route('page2'));
 
     }
 
     public function personalProfile()
     {
-        return view('Frontend.pages.personalProfile');
+        $this->checkSession();
+        return view('Frontend.pages.personalProfile', $this->_data);
     }
 
     public function personalProfileAction(Request $request)
     {
+        $checkSession = session('cv_user_id', false);
+
         $this->validate($request, [
             'lookingFor' => 'required',
             'availableFor' => 'required',
@@ -84,60 +89,87 @@ class frontendController extends Controller
             'careerObjective' => 'required',
             'careerSummary' => 'required',
         ]);
-        $item = DB::table('personal_details')->latest('created_at')->first();
+
         $data['lookingFor'] = $request->lookingFor;
         $data['availableFor'] = $request->availableFor;
         $data['expectedSalary'] = $request->expectedSalary;
         $data['careerObjective'] = $request->careerObjective;
         $data['careerSummary'] = $request->careerSummary;
-        $data['cv_id'] = $item->id;
-        if (PersonalProfile::create($data)) {
-            return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id']);
+        $data['cv_id'] = $checkSession;
+
+        if (PersonalProfile::where('cv_id', $data['cv_id'])->first()) {
+            PersonalProfile::where('cv_id', $data['cv_id'])->first()->update($data);
+        } else {
+            PersonalProfile::create($data);
+
         }
-        return redirect()->back()->with('fail', 'fail');
+        return redirect(route('page3'));
+
 
     }
 
-    public function skill($id)
+    public function skill()
     {
-        $itemSkill['id'] = $id;
-        return view('Frontend.pages.skill', $itemSkill);
+        return view('Frontend.pages.skill');
     }
 
     public function skillAction(Request $request)
     {
+
+
         $this->validate($request, [
             'skill' => 'required',
             'skillLevel' => 'required',
             'about' => 'required'
         ]);
-        $skill = $request->skill;
+        $skills = $request->skill;
         $count = 0;
-        foreach ($skill as $skil) {
-            $count++;
+
+        if (Skill::where('cv_id', session('cv_user_id'))->first()) {
+
+            foreach ($skills as $skil) {
+                $count++;
+            }
+            Skill::where('cv_id', session('cv_user_id'))->delete();
+            for ($i = 0; $i < $count; $i++) {
+                $data['skill'] = $request->skill[$i];
+                $data['skillLevel'] = $request->skillLevel[$i];
+                $data['about'] = $request->about[$i];
+                $data['cv_id'] = session('cv_user_id', false);
+                Skill::create($data);
+            }
+
+
+        } else {
+            foreach ($skills as $skil) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['skill'] = $request->skill[$i];
+                $data['skillLevel'] = $request->skillLevel[$i];
+                $data['about'] = $request->about[$i];
+                $data['cv_id'] = session('cv_user_id', false);
+                Skill::create($data);
+            }
         }
-        for ($i = 0; $i < $count; $i++) {
-            $data['skill'] = $request->skill[$i];
-            $data['skillLevel'] = $request->skillLevel[$i];
-            $data['about'] = $request->about[$i];
-            $data['cv_id'] = $request->id;
-            Skill::create($data);
-        }
-        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education');
+
+        return redirect(route('page4'));
 
 
     }
 
 
-    public function education($id)
+    public function education()
     {
-        $itemEducation['id'] = $id;
-        return view('Frontend.pages.education', $itemEducation);
+
+        return view('Frontend.pages.education');
     }
 
 
     public function educationAction(Request $request)
     {
+        $check = $request->checkMe;
+
         $this->validate($request, [
             'institute' => 'required',
             'location' => 'required',
@@ -146,87 +178,109 @@ class frontendController extends Controller
         ]);
         $education = $request->institute;
         $count = 0;
-        foreach ($education as $value) {
-            $count++;
+
+
+        if (AcademicQualification::where('cv_id', session('cv_user_id'))->first()) {
+            foreach ($education as $value) {
+                $count++;
+            }
+            AcademicQualification::where('cv_id', session('cv_user_id'))->delete();
+
+            for ($i = 0; $i < $count; $i++) {
+                $data['institute'] = $request->institute[$i];
+                $data['location'] = $request->location[$i];
+                $data['startTime'] = $request->startTime[$i];
+                if (!$check) {
+                    $data['endTime'] = 'Still Attending';
+                } else {
+                    $data['endTime'] = $request->endTime[$i];
+                }
+                $data['cv_id'] = session('cv_user_id', false);
+                AcademicQualification::create($data);
+            }
+        } else {
+            foreach ($education as $value) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['institute'] = $request->institute[$i];
+                $data['location'] = $request->location[$i];
+                $data['startTime'] = $request->startTime[$i];
+                if (!$check) {
+                    $data['endTime'] = 'Still Attending';
+                } else {
+                    $data['endTime'] = $request->endTime[$i];
+                }
+                $data['cv_id'] = session('cv_user_id', false);
+                AcademicQualification::create($data);
+            }
         }
-        for ($i = 0; $i < $count; $i++) {
-            $data['institute'] = $request->institute[$i];
-            $data['location'] = $request->location[$i];
-            $data['startTime'] = $request->startTime[$i];
-            $data['endTime'] = $request->endTime[$i];
-            $data['cv_id'] = $request->id;
-            AcademicQualification::create($data);
-        }
-
-
-        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience');
-
+        return redirect(route('page5'));
     }
 
-    public function experience($id)
+    public function experience()
     {
-        $itemExperience['id'] = $id;
-        return view('/Frontend/pages/experience', $itemExperience);
+        return view('/Frontend/pages/experience');
     }
 
     public function experienceAction(Request $request)
     {
-        $this->validate($request, [
-            'jobTitle' => 'required',
-            'companyName' => 'required',
-            'location' => 'required',
-            'startTime' => 'required',
-            'endTime' => 'required',
-            'jobSummary' => 'required'
-        ]);
-
-        $experience = $request->jobTitle;
-        $count = 0;
-        foreach ($experience as $value) {
-            $count++;
-        }
-        for ($i = 0; $i < $count; $i++) {
-            $data['jobTitle'] = $request->jobTitle[$i];
-            $data['companyName'] = $request->companyName[$i];
-            $data['location'] = $request->location[$i];
-            $data['startTime'] = $request->startTime[$i];
-            $data['endTime'] = $request->endTime[$i];
-            $data['jobSummary'] = $request->jobSummary[$i];
-            $data['cv_id'] = $request->id;
-            Experience::create($data);
-        }
-
-
-        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience/reference');
+//        $this->validate($request, [
+//            'jobTitle' => 'required',
+//            'companyName' => 'required',
+//            'location' => 'required',
+//            'startTime' => 'required',
+//            'endTime' => 'required',
+//            'jobSummary' => 'required'
+//        ]);
+//
+//        $experience = $request->jobTitle;
+//        $count = 0;
+//        foreach ($experience as $value) {
+//            $count++;
+//        }
+//        for ($i = 0; $i < $count; $i++) {
+//            $data['jobTitle'] = $request->jobTitle[$i];
+//            $data['companyName'] = $request->companyName[$i];
+//            $data['location'] = $request->location[$i];
+//            $data['startTime'] = $request->startTime[$i];
+//            $data['endTime'] = $request->endTime[$i];
+//            $data['jobSummary'] = $request->jobSummary[$i];
+//            $data['cv_id'] = $request->id;
+//            Experience::create($data);
+//        }
+//
+//
+//        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience/reference');
     }
 
 
-    public function reference($id)
+    public function reference()
     {
-        $itemReference['id'] = $id;
-        return view('/Frontend/pages/reference', $itemReference);
+
+        return view('/Frontend/pages/reference');
     }
 
     public function referenceAction(Request $request)
     {
-        $this->validate($request, [
-            'referee' => 'required',
-            'refereeContact' => 'required'
-        ]);
-        $reference = $request->referee;
-        $count = 0;
-        foreach ($reference as $value) {
-            $count++;
-        }
-        for ($i = 0; $i < $count; $i++) {
-            $data['referee'] = $request->referee[$i];
-            $data['refereeContact'] = $request->refereeContact[$i];
-            $data['cv_id'] = $request->id;
-            Reference::create($data);
-        }
-
-
-        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience/reference/template');
+//        $this->validate($request, [
+//            'referee' => 'required',
+//            'refereeContact' => 'required'
+//        ]);
+//        $reference = $request->referee;
+//        $count = 0;
+//        foreach ($reference as $value) {
+//            $count++;
+//        }
+//        for ($i = 0; $i < $count; $i++) {
+//            $data['referee'] = $request->referee[$i];
+//            $data['refereeContact'] = $request->refereeContact[$i];
+//            $data['cv_id'] = $request->id;
+//            Reference::create($data);
+//        }
+//
+//
+//        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience/reference/template');
     }
 
     public function template($id)

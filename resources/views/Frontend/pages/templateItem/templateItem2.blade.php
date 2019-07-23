@@ -165,7 +165,7 @@
 
             {{--</dd>--}}
         {{--@endforeach--}}
-        {{htmlspecialchars_decode($skill)}}
+{{--        {{htmlspecialchars_decode($skill)}}--}}
 
         <dd class="clear"></dd>
 
