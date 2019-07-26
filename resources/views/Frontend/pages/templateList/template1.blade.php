@@ -34,20 +34,24 @@
                             <br>
 
                             <div class="row">
-                                <form class="col-md-4" method="post"
-                                      action="{{url('cvForm/personalProfile/skill/'.$id.'/education/experience/reference/template/template1')}}">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="id" value="{{$id}}">
-                                    <button type="submit" class="btn btn-default btn-lg">Preview Your Cv</button>
-                                </form>
+                                <a href="{{route('preview1')}}" class="btn btn-default btn-lg col-md-4" >Preview Your Cv</a>
+                                {{--<form class="col-md-4" method="post"--}}
+                                      {{--action="">--}}
+                                    {{--{{csrf_field()}}--}}
+                                    {{--<input type="hidden" name="id" value="{{$id}}">--}}
+                                    {{--<button type="submit" class="btn btn-default btn-lg">Preview Your Cv</button>--}}
+                                {{--</form>--}}
                                 <form method="post" class="col-md-4"
-                                      action="{{url('/cvForm/personalProfile/skill/'.$id.'/education/experience/reference/template/template1/download')}}">
+                                      action="">
                                     {{csrf_field()}}
-                                    <input type="hidden" name="id" value="{{$id}}">
+                                    {{--<input type="hidden" name="id" value="{{$id}}">--}}
                                     <button type="submit" class="btn btn-default btn-lg">Download</button>
                                 </form>
-                            </div>
 
+
+                            </div>
+                            <br>
+                            <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>
 
                         </div>
 

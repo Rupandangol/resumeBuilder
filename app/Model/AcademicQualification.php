@@ -11,6 +11,8 @@ class AcademicQualification extends Model
         'institute',
         'location',
         'startTime',
+        'subject',
+        'grade',
         'endTime',
         'cv_id'
     ];

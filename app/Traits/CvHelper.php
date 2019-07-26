@@ -22,7 +22,7 @@ trait CvHelper
             $this->_data['skill'] = [];
             $this->_data['education'] = [];
             $this->_data['experience'] = [];
-            $this->_data['reference'] = [];
+            $this->_data['references'] = [];
         } else {
 
             $this->_data['detail'] = PersonalDetail::find($checkSession);
@@ -30,7 +30,7 @@ trait CvHelper
             $this->_data['skill'] = Skill::where('cv_id', $checkSession)->get();
             $this->_data['education'] = AcademicQualification::where('cv_id', $checkSession)->get();
             $this->_data['experience'] = Experience::where('cv_id', $checkSession)->get();
-            $this->_data['reference'] = Reference::where('cv_id', $checkSession)->get();
+            $this->_data['references'] = Reference::where('cv_id', $checkSession)->get();
         }
     }
 

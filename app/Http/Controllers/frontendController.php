@@ -41,6 +41,8 @@ class frontendController extends Controller
             'mobileNo' => 'required',
 //        'image' => 'required',
             'address' => 'required'
+        ],[
+            'required' => 'Do not leave empty box',
         ]);
         $data['fullName'] = $request->fullName;
         $data['email'] = $request->email;
@@ -110,7 +112,8 @@ class frontendController extends Controller
 
     public function skill()
     {
-        return view('Frontend.pages.skill');
+        $this->checkSession();
+        return view('Frontend.pages.skill', $this->_data);
     }
 
     public function skillAction(Request $request)
@@ -119,8 +122,11 @@ class frontendController extends Controller
 
         $this->validate($request, [
             'skill' => 'required',
+            'skill.*' => 'required',
             'skillLevel' => 'required',
-            'about' => 'required'
+            'skillLevel.*' => 'required',
+            'about' => 'required',
+            'about.*' => 'required'
         ]);
         $skills = $request->skill;
         $count = 0;
@@ -161,57 +167,80 @@ class frontendController extends Controller
 
     public function education()
     {
+        $this->checkSession();
 
-        return view('Frontend.pages.education');
+
+        return view('Frontend.pages.education', $this->_data);
     }
 
 
     public function educationAction(Request $request)
     {
+
+        $id = session('cv_user_id', false);
         $check = $request->checkMe;
 
         $this->validate($request, [
             'institute' => 'required',
+            'institute.*' => 'required',
             'location' => 'required',
+            'location.*' => 'required',
             'startTime' => 'required',
-            'endTime' => 'required'
+            'startTime.*' => 'required',
+            'subject' => 'required',
+            'subject.*' => 'required',
+            'endTime' => 'required',
+            'endTime.*' => 'required'
         ]);
-        $education = $request->institute;
-        $count = 0;
+//        $request->validate([
+//            'institute' => 'required',
+//            'location' => 'required',
+//            'startTime' => 'required',
+//            'endTime' => 'required'
+//        ]);
 
 
-        if (AcademicQualification::where('cv_id', session('cv_user_id'))->first()) {
+        if (AcademicQualification::where('cv_id', $id)->first()) {
+
+            $education = $request->institute;
+            $count = 0;
             foreach ($education as $value) {
                 $count++;
             }
-            AcademicQualification::where('cv_id', session('cv_user_id'))->delete();
+            AcademicQualification::where('cv_id', $id)->delete();
 
             for ($i = 0; $i < $count; $i++) {
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
+                $data['subject'] = $request->subject[$i];
+                $data['grade'] = $request->grade[$i];
                 $data['startTime'] = $request->startTime[$i];
-                if (!$check) {
-                    $data['endTime'] = 'Still Attending';
-                } else {
-                    $data['endTime'] = $request->endTime[$i];
-                }
-                $data['cv_id'] = session('cv_user_id', false);
+//                if (!$check) {
+//                    $data['endTime'] = 'Still Attending';
+//                } else {
+                $data['endTime'] = $request->endTime[$i];
+//                }
+                $data['cv_id'] = $id;
                 AcademicQualification::create($data);
             }
         } else {
+            $education = $request->institute;
+            $count = 0;
             foreach ($education as $value) {
                 $count++;
             }
             for ($i = 0; $i < $count; $i++) {
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
+                $data['grade'] = $request->grade[$i];
+                $data['subject'] = $request->subject[$i];
                 $data['startTime'] = $request->startTime[$i];
-                if (!$check) {
-                    $data['endTime'] = 'Still Attending';
-                } else {
-                    $data['endTime'] = $request->endTime[$i];
-                }
-                $data['cv_id'] = session('cv_user_id', false);
+//                if (!$check) {
+//                    $data['endTime'] = 'Still Attending';
+//                } else {
+                $data['endTime'] = $request->endTime[$i];
+//                }
+                $data['cv_id'] = $id;
                 AcademicQualification::create($data);
             }
         }
@@ -220,84 +249,129 @@ class frontendController extends Controller
 
     public function experience()
     {
-        return view('/Frontend/pages/experience');
+        $this->checkSession();
+
+        return view('/Frontend/pages/experience', $this->_data);
     }
 
     public function experienceAction(Request $request)
     {
-//        $this->validate($request, [
-//            'jobTitle' => 'required',
-//            'companyName' => 'required',
-//            'location' => 'required',
-//            'startTime' => 'required',
-//            'endTime' => 'required',
-//            'jobSummary' => 'required'
-//        ]);
-//
-//        $experience = $request->jobTitle;
-//        $count = 0;
-//        foreach ($experience as $value) {
-//            $count++;
-//        }
-//        for ($i = 0; $i < $count; $i++) {
-//            $data['jobTitle'] = $request->jobTitle[$i];
-//            $data['companyName'] = $request->companyName[$i];
-//            $data['location'] = $request->location[$i];
-//            $data['startTime'] = $request->startTime[$i];
-//            $data['endTime'] = $request->endTime[$i];
-//            $data['jobSummary'] = $request->jobSummary[$i];
-//            $data['cv_id'] = $request->id;
-//            Experience::create($data);
-//        }
-//
-//
-//        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience/reference');
+        $id = session('cv_user_id', false);
+        $this->validate($request, [
+            'jobTitle' => 'required',
+            'jobTitle.*' => 'required',
+            'companyName' => 'required',
+            'companyName.*' => 'required',
+            'location' => 'required',
+            'location.*' => 'required',
+            'startTime' => 'required',
+            'startTime.*' => 'required',
+            'endTime' => 'required',
+            'endTime.*' => 'required',
+            'jobSummary' => 'required',
+            'jobSummary.*' => 'required'
+        ]);
+
+        $experience = $request->jobTitle;
+        $count = 0;
+
+        if (Experience::where('cv_id', $id)->first()) {
+            foreach ($experience as $value) {
+                $count++;
+            }
+            Experience::where('cv_id', $id)->delete();
+            for ($i = 0; $i < $count; $i++) {
+                $data['jobTitle'] = $request->jobTitle[$i];
+                $data['companyName'] = $request->companyName[$i];
+                $data['location'] = $request->location[$i];
+                $data['startTime'] = $request->startTime[$i];
+                $data['endTime'] = $request->endTime[$i];
+                $data['jobSummary'] = $request->jobSummary[$i];
+                $data['cv_id'] = $id;
+                Experience::create($data);
+            }
+        } else {
+
+            foreach ($experience as $value) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['jobTitle'] = $request->jobTitle[$i];
+                $data['companyName'] = $request->companyName[$i];
+                $data['location'] = $request->location[$i];
+                $data['startTime'] = $request->startTime[$i];
+                $data['endTime'] = $request->endTime[$i];
+                $data['jobSummary'] = $request->jobSummary[$i];
+                $data['cv_id'] = $id;
+
+                Experience::create($data);
+            }
+
+        }
+        return redirect(route('page6'));
     }
 
 
     public function reference()
     {
-
-        return view('/Frontend/pages/reference');
+        $this->checkSession();
+        return view('/Frontend/pages/reference', $this->_data);
     }
 
     public function referenceAction(Request $request)
     {
-//        $this->validate($request, [
-//            'referee' => 'required',
-//            'refereeContact' => 'required'
-//        ]);
-//        $reference = $request->referee;
-//        $count = 0;
-//        foreach ($reference as $value) {
-//            $count++;
-//        }
-//        for ($i = 0; $i < $count; $i++) {
-//            $data['referee'] = $request->referee[$i];
-//            $data['refereeContact'] = $request->refereeContact[$i];
-//            $data['cv_id'] = $request->id;
-//            Reference::create($data);
-//        }
-//
-//
-//        return redirect()->intended('/cvForm/personalProfile/skill/' . $data['cv_id'] . '/education/experience/reference/template');
+
+        $this->validate($request, [
+            'referee' => 'required',
+            'referee.*' => 'required',
+            'refereeContact' => 'required',
+            'refereeContact.*' => 'required'
+        ]);
+        $reference = $request->referee;
+        $count = 0;
+
+        if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
+            Reference::where('cv_id', session('cv_user_id', false))->delete();
+            foreach ($reference as $value) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['referee'] = $request->referee[$i];
+                $data['refereeContact'] = $request->refereeContact[$i];
+                $data['cv_id'] = session('cv_user_id', false);
+                Reference::create($data);
+            }
+        } else {
+            foreach ($reference as $value) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['referee'] = $request->referee[$i];
+                $data['refereeContact'] = $request->refereeContact[$i];
+                $data['cv_id'] = session('cv_user_id', false);
+                Reference::create($data);
+            }
+        }
+
+
+        return redirect(route('page7'));
     }
 
-    public function template($id)
+    public function template()
     {
-        $itemTemplate['id'] = $id;
-        return view('/Frontend/pages/template', $itemTemplate);
+
+        return view('/Frontend/pages/template');
     }
 
-    public function template1($id)
+    public function template1()
     {
-        $itemTemplate1['id'] = $id;
-        return view('Frontend.pages.templateList.template1', $itemTemplate1);
+
+        return view('Frontend.pages.templateList.template1');
     }
 
-    public function template1Action(Request $request)
+    public function template1Action()
     {
-        $id = $request->id;
+        $id = session('cv_user_id', false);
 
         $data['personalDetail'] = PersonalDetail::find($id);
         $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->get();
@@ -308,15 +382,15 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem1', $data);
     }
 
-    public function template2($id)
+    public function template2()
     {
-        $itemTemplate['id'] = $id;
-        return view('Frontend.pages.templateList.template2', $itemTemplate);
+
+        return view('Frontend.pages.templateList.template2');
     }
 
-    public function template2Action(Request $request)
+    public function template2Action()
     {
-        $id = $request->id;
+        $id = session('cv_user_id', false);
 
         $data['personalDetail'] = PersonalDetail::find($id);
         $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->get();
@@ -328,15 +402,14 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem2', $data);
     }
 
-    public function template3($id)
+    public function template3()
     {
-        $itemTemplate['id'] = $id;
-        return view('Frontend.pages.templateList.template3', $itemTemplate);
+        return view('Frontend.pages.templateList.template3');
     }
 
-    public function template3Action(Request $request)
+    public function template3Action()
     {
-        $id = $request->id;
+        $id = session('cv_user_id', false);
 
         $data['personalDetail'] = PersonalDetail::find($id);
         $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->get();
@@ -344,13 +417,13 @@ class frontendController extends Controller
         $data['skill'] = Skill::where(['cv_id' => $id])->get();
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
-        return view('Frontend.pages.templateItem.templateItem3', $data);
+        return view('Frontend.pages.templateItem.templateItem4', $data);
     }
 
-    public function referenceUpdate(Request $request)
+    public function flushSession()
     {
-
-        return $request->id;
+        $this->resetSession();
+        return redirect(route('page1'));
     }
 
 

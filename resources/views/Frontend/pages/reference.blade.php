@@ -4,9 +4,14 @@
 @endsection
 @section('content')
     <div class="box box-info">
-        <?php
-        $reference = [];
-        ?>
+{{--errorMessage--}}
+        @if($errors->has('referee.*')||$errors->has('refereeContact.*'))
+            <div class="alert alert-danger">
+                <p>
+                    Do not leave empty box
+                </p>
+            </div>
+        @endif
         {{--personal details--}}
         <form action="" method="post">
             {{csrf_field()}}
@@ -26,16 +31,19 @@
                     </thead>
 
                     <tbody id="appendReferenceHere">
-                    @forelse($reference as $value)
+                    @forelse($references as $value)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="text" name="referee[]" value="{{$value->referee}}"></td>
+                            <td><input type="text" name="refereeContact[]" value="{{$value->refereeContact}}"></td>
+                            <td>
+                                <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
+                                            class="fa fa-trash"></i></button>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td><input type="text" name="referee"></td>
-                            <td><input type="text" name="refereeContact"></td>
+                            <td><input type="text" name="referee[]"></td>
+                            <td><input type="text" name="refereeContact[]"></td>
                             <td>
                                 <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
                                             class="fa fa-trash"></i></button>
@@ -64,9 +72,12 @@
             $('#addReference').on('click', function (e) {
                 e.preventDefault();
                 var appendTrRef = "<tr>\n" +
-                    "                            <td><input type=\"text\" name=\"referee\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"refereeContact\"></td>\n" +
-                    "                            <td><button id=\"removeReference\" type=\"button\" class=\"btn btn-danger removeReference\"><i class=\"fa fa-trash\"></i></button></td>\n" +
+                    "                            <td><input type=\"text\" name=\"referee[]\"></td>\n" +
+                    "                            <td><input type=\"text\" name=\"refereeContact[]\"></td>\n" +
+                    "                            <td>\n" +
+                    "                                <button id=\"removeReference\" type=\"button\" class=\"btn btn-danger removeReference\"><i\n" +
+                    "                                            class=\"fa fa-trash\"></i></button>\n" +
+                    "                            </td>\n" +
                     "                        </tr>";
                 $('#appendReferenceHere').append(appendTrRef);
 

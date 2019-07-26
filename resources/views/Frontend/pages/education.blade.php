@@ -7,14 +7,18 @@
 
 @section('content')
     <div class="box box-info">
+        @if($errors->has('institute.*')||$errors->has('location.*')||$errors->has('subject.*')||$errors->has('grade.*')||$errors->has('startTime.*')||$errors->has('endTime.*'))
+            <div class="alert alert-danger">
+                <p>
+                    Do not leave empty box
+                </p>
+            </div>
+        @endif
         {{--personal details--}}
         <form action="{{route('page4')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
 
-                <?php
-                $education = [];
-                ?>
 
                 <div class="box-header with-border">
                     <h3 class="box-title">Education</h3>
@@ -25,6 +29,7 @@
                         <th>Institute</th>
                         <th>Location</th>
                         <th>Grade</th>
+                        <th>Level</th>
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th colspan="2">Action</th>
@@ -33,20 +38,25 @@
                     <tbody id="appendEducationHere">
                     @forelse($education as $value)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="text" name="institute[]" value="{{$value->institute}}"></td>
+                            <td><input type="text" name="location[]" value="{{$value->location}}"></td>
+                            <td><input type="text" name="subject[]" value="{{$value->subject}}"></td>
+                            <td><input type="text" name="grade[]" value="{{$value->grade}}"></td>
+                            <td><input type="text" name="startTime[]" value="{{$value->startTime}}"></td>
+                            <td><input type="text" name="endTime[]" value="{{$value->endTime}}"></td>
+                            <td>
+                                <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
+                            </td>
+                            <td>
+                                <input name="checkMe" type="checkbox"> <b>Check me out</b>
+                            </td>
                         </tr>
-
 
                     @empty
                         <tr>
                             <td><input type="text" name="institute[]"></td>
                             <td><input type="text" name="location[]"></td>
+                            <td><input type="text" name="subject[]"></td>
                             <td><input type="text" name="Grade[]"></td>
                             <td><input type="text" name="startTime[]"></td>
                             <td><input type="text" name="endTime[]"></td>
@@ -65,8 +75,9 @@
 
                 </table>
                 <button id="addEducation" class="btn btn-success btn-block">Add Education</button>
-                    <a href="{{route('page3')}}" class="btn btn-default">back</a>
-                <button class="btn btn-default" type="submit">next</button>
+                <br>
+                <a href="{{route('page3')}}" class="btn btn-default">back</a>
+                <button class="btn btn-default pull-right" type="submit">next</button>
             </div>
         </form>
         <!-- /input-group -->
@@ -82,6 +93,7 @@
                 var appendTrEdu = "<tr>\n" +
                     "                            <td><input type=\"text\" name=\"institute[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
+                    "                            <td><input type=\"text\" name=\"subject[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"Grade[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"startTime[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"endTime[]\"></td>\n" +
@@ -91,7 +103,8 @@
                     "                            <td>\n" +
                     "                                <input name=\"checkMe\" type=\"checkbox\"> <b>Check me out</b>\n" +
                     "                            </td>\n" +
-                    "                        </tr>\n";
+                    "                        </tr>";
+
                 $('#appendEducationHere').append(appendTrEdu);
                 removeEdu();
             });

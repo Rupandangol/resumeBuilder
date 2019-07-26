@@ -8,10 +8,7 @@
             <div class="container">
                 <div class="navbar-header">
                     <a href="../../index2.html" class="navbar-brand"><b>Talent</b>CONNECTS</a>
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                            data-target="#navbar-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
+                    <a href="{{route('flushSession')}}" class="btn btn-success">make new CV</a>
                 </div>
 
                 {{--login info and others--}}

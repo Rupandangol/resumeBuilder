@@ -5,9 +5,13 @@
 @section('content')
     <div class="box box-info">
 
-        <?php
-        $skills = [];
-        ?>
+        @if($errors->has('skill.*')||$errors->has('skillLevel.*')||$errors->has('about.*'))
+            <div class="alert alert-danger">
+                <p>
+                    Do not leave empty box
+                </p>
+            </div>
+        @endif
 
         {{--personal details--}}
         <form action="{{route('page3')}}" method="post">
@@ -31,12 +35,17 @@
 
                     <tbody id="appendDataHere">
 
-                    @forelse($skills as $value)
+                    @forelse($skill as $value)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><input type="text" name="skill[]" value="{{$value->skill}}"></td>
+                            <td><input type="text" name="skillLevel[]" value="{{$value->skillLevel}}"></td>
+                            <td><input type="text" name="about[]" value="{{$value->about}}"></td>
+
+                            <td>
+                                <button id="remove-appended" class="btn btn-danger remove-appended"><i
+                                            class="fa fa-trash"></i></button>
+                            </td>
+
                         </tr>
 
 
@@ -45,7 +54,6 @@
                             <td><input type="text" name="skill[]"></td>
                             <td><input type="text" name="skillLevel[]"></td>
                             <td><input type="text" name="about[]"></td>
-                            <input type="hidden" name="id" value="">
 
                             <td>
                                 <button id="remove-appended" class="btn btn-danger remove-appended"><i
@@ -75,7 +83,7 @@
                 {{--</div>--}}
 
                 <a href="{{route('page2')}}" style="border-radius: 24px" class="btn btn-default">Back</a>
-                <button style="border-radius: 24px" type="submit" class="btn btn-default pull-right" >Next</button>
+                <button style="border-radius: 24px" type="submit" class="btn btn-default pull-right">Next</button>
             </div>
 
         </form>
