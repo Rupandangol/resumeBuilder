@@ -1,6 +1,15 @@
 @extends('Frontend.master')
+
+@section('progressBar')
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:72.5%">
+        </div>
+    </div>
+@endsection
+
 @section('contentHeader')
-    <h2 style="text-align: center">Cv<b>Builder</b></h2>
+    <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
 @endsection
 @section('content')
     <div class="box box-info">
@@ -13,7 +22,7 @@
             </div>
         @endif
         {{--personal details--}}
-        <form action="" method="post">
+        <form id="myRef" action="" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
@@ -108,6 +117,14 @@
             }
         })
     </script>
+    <script>
+        $(function () {
+            $("#myRef").submit(function () {
+                $('#myInnerBar').css({'width': '87%'})
+            })
+        })
+    </script>
+
 
 
     {{--<script>--}}

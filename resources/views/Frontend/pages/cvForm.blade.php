@@ -1,7 +1,16 @@
 @extends('Frontend.master')
 
+@section('progressBar')
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:0%">
+        </div>
+    </div>
+@endsection
+
+
 @section('contentHeader')
-    <h2 style="text-align: center">Cv<b>Builder</b></h2>
+    <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
 @endsection
 
 
@@ -14,7 +23,7 @@
             </div>
         @endif
         {{--personal details--}}
-        <form action="{{url('/cvForm')}}" enctype="multipart/form-data" method="post">
+        <form id="myDetail" action="{{url('/cvForm')}}" enctype="multipart/form-data" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 {{--@if($detail)--}}
@@ -92,5 +101,14 @@
 @endsection
 
 @section('my-footer')
+
+    <script>
+        $(function () {
+            $("#myDetail").submit(function () {
+                $('#myInnerBar').css({'width': '14.5%'})
+            })
+        })
+    </script>
+
 
 @endsection

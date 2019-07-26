@@ -1,9 +1,15 @@
 @include('Frontend.layouts.header')
-
+<style type="text/css">
+    .headSticky{
+        position:fixed;
+        top: 0;
+        width: 100%;
+    }
+</style>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
 
-    <header class="main-header">
+    <header class="main-header headSticky">
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -167,6 +173,7 @@
     </header>
     <!-- Full Width Column -->
     <div class="content-wrapper">
+@yield('progressBar')
         <div class="container">
             <!-- Content Header (Page header) -->
         @yield('contentHeader')

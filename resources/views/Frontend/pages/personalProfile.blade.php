@@ -1,9 +1,20 @@
 @extends('Frontend.master')
+
+@section('progressBar')
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:14.5%">
+        </div>
+    </div>
+@endsection
+
+
 @section('contentHeader')
-    <h2 style="text-align: center">Cv<b>Builder</b></h2>
+    <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
 @endsection
 @section('my-header')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.css">
+
 @endsection
 
 @section('content')
@@ -19,7 +30,7 @@
             </div>
         @endif
         {{--personal details--}}
-        <form action="{{url('/personalProfile')}}" method="post">
+        <form id="myProfile" action="{{url('/personalProfile')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
@@ -110,4 +121,16 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.map"></script>
+
+    <script>
+        $(function () {
+            $("#myProfile").submit(function () {
+
+                $('#myInnerBar').css({'width': '29%'})
+
+            })
+        })
+    </script>
+
+
 @endsection
