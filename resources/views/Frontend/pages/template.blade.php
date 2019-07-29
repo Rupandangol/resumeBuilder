@@ -44,20 +44,33 @@
         {{--end of dropdown--}}
         <div class="row">
             <div class="template_image col-md-4">
-                <a href="{{route('template1View')}}"><img
+                <a class="myTemplate" data-href="{{route('template1View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/1.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">
-                <a href="{{route('template2View')}}"><img
+                <a  href="{{route('template2View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/2.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">
-                <a href="{{route('template3View')}}"><img
+                <a  href="{{route('template3View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/4.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
         </div>
     </div>
+@endsection
+@section('my-footer')
+    <script>
+        $(function () {
+            $(".myTemplate").on('click',function (e) {
+                e.preventDefault();
+                $('#myInnerBar').css({'width': '100%'})
+                var test=$(this).data('href');
+                console.log(test);
+                window.location.replace(test);
+            })
+        })
+    </script>
 @endsection

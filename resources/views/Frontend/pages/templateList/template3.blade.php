@@ -2,9 +2,9 @@
 
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41">
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
         <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:100%">
+             aria-valuemin="0" aria-valuemax="100" style="width:100%;position: sticky;top: 0;">
         </div>
     </div>
 @endsection

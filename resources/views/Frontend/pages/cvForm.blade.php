@@ -16,7 +16,6 @@
 
 @section('content')
     <div class="box box-info">
-
         @if($errors->has('fullName')||$errors->has('email')||$errors->has('mobileNo')||$errors->has('address'))
             <div class="alert alert-danger">
                 <p>Do not leave empty box</p>

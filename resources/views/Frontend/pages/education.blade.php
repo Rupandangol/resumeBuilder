@@ -57,7 +57,9 @@
                                 <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                             </td>
                             <td>
-                                <input name="checkMe" type="checkbox"> <b>Check me out</b>
+                                <input class="checkThis" type="checkbox"> <b>Check me out</b>
+                                <input class="checkThen" type="hidden" name="checkMe" value="false">
+
                             </td>
                         </tr>
 
@@ -73,7 +75,8 @@
                                 <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                             </td>
                             <td>
-                                <input name="checkMe" type="checkbox"> <b>Check me out</b>
+                                <input class="checkThis" type="checkbox"> <b>Check me out</b>
+                                <input class="checkThen" type="hidden" name="checkMe" value="false">
                             </td>
                         </tr>
 
@@ -99,7 +102,7 @@
         $(function () {
             $('#addEducation').on('click', function (e) {
                 e.preventDefault();
-                var appendTrEdu = "<tr>\n" +
+                var appendTrEdu =  "<tr>\n" +
                     "                            <td><input type=\"text\" name=\"institute[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"subject[]\"></td>\n" +
@@ -110,7 +113,8 @@
                     "                                <button class=\"btn btn-danger removeEdu\"><i class=\"fa fa-trash\"></i></button>\n" +
                     "                            </td>\n" +
                     "                            <td>\n" +
-                    "                                <input name=\"checkMe\" type=\"checkbox\"> <b>Check me out</b>\n" +
+                    "                                <input class=\"checkThis\" type=\"checkbox\"> <b>Check me out</b>\n" +
+                    "                                <input class=\"checkThen\" type=\"hidden\" name=\"checkMe\" value=\"false\">\n" +
                     "                            </td>\n" +
                     "                        </tr>";
 
@@ -149,10 +153,27 @@
             $("#myEducation").submit(function () {
                 $('#myInnerBar').css({'width': '58%'})
             })
+            
+            
+            
+            $(".checkThis").on('click',function () {
+                var test=$(this).is(':checked');
+                console.log(test);
+                var test1=$(this).parent().find('.checkThen');
+                console.log(test1);
+                if(test===true){
+                    test1.val('true');
+                }else{
+                    test1.val('false');
+                }
+                console.log(test1.val())
+            })
         })
+        
+        
     </script>
 
-
+    
     {{--<script>--}}
     {{--$(document).ready(function () {--}}
     {{--var count = 1;--}}
