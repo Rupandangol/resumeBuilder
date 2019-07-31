@@ -10,6 +10,7 @@ class PersonalProfile extends Model
     protected $fillable = [
         'lookingFor',
         'availableFor',
+        'jobCategory',
         'expectedSalary',
         'careerObjective',
         'careerSummary',

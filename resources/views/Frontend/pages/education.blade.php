@@ -31,14 +31,19 @@
 
                 <div class="box-header with-border">
                     <h3 class="box-title">Education</h3>
+                    <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="If you are attending School/Collage you can leave Grade and endTime inputs of that row block">
+                        <i class="fa fa-info-circle fa-lg"></i>
+                    </button>
                 </div>
                 <table class="table table-borderless table-hover">
                     <thead>
                     <tr>
                         <th>Institute</th>
                         <th>Location</th>
-                        <th>Grade</th>
                         <th>Level</th>
+                        <th>Grade</th>
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th colspan="2">Action</th>
@@ -51,14 +56,15 @@
                             <td><input type="text" name="location[]" value="{{$value->location}}"></td>
                             <td><input type="text" name="subject[]" value="{{$value->subject}}"></td>
                             <td><input type="text" name="grade[]" value="{{$value->grade}}"></td>
-                            <td><input type="text" name="startTime[]" value="{{$value->startTime}}"></td>
-                            <td><input type="text" name="endTime[]" value="{{$value->endTime}}"></td>
+                            <td><input type="date" name="startTime[]" value="{{$value->startTime}}"></td>
+                            <td><input type="date" name="endTime[]" value="{{$value->endTime}}"></td>
                             <td>
                                 <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                             </td>
                             <td>
-                                <input class="checkThis" type="checkbox"> <b>Check me out</b>
-                                <input class="checkThen" type="hidden" name="checkMe" value="false">
+                                <input class="checkThis" type="checkbox" @if($value->attending==='true') checked @endif>
+                                <b>Attending</b>
+                                <input class="checkThen" type="hidden" name="attending[]" value="{{$value->attending}}">
 
                             </td>
                         </tr>
@@ -69,17 +75,16 @@
                             <td><input type="text" name="location[]"></td>
                             <td><input type="text" name="subject[]"></td>
                             <td><input type="text" name="Grade[]"></td>
-                            <td><input type="text" name="startTime[]"></td>
-                            <td><input type="text" name="endTime[]"></td>
+                            <td><input type="date" name="startTime[]"></td>
+                            <td><input type="date" name="endTime[]"></td>
                             <td>
                                 <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                             </td>
                             <td>
-                                <input class="checkThis" type="checkbox"> <b>Check me out</b>
-                                <input class="checkThen" type="hidden" name="checkMe" value="false">
+                                <input class="checkThis" type="checkbox"> <b>Attending</b>
+                                <input class="checkThen" type="hidden" name="attending[]" value="false">
                             </td>
                         </tr>
-
 
                     @endforelse
 
@@ -102,26 +107,28 @@
         $(function () {
             $('#addEducation').on('click', function (e) {
                 e.preventDefault();
-                var appendTrEdu =  "<tr>\n" +
+                var appendTrEdu = "  <tr>\n" +
                     "                            <td><input type=\"text\" name=\"institute[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"subject[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"Grade[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"startTime[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"endTime[]\"></td>\n" +
+                    "                            <td><input type=\"date\" name=\"startTime[]\"></td>\n" +
+                    "                            <td><input type=\"date\" name=\"endTime[]\"></td>\n" +
                     "                            <td>\n" +
                     "                                <button class=\"btn btn-danger removeEdu\"><i class=\"fa fa-trash\"></i></button>\n" +
                     "                            </td>\n" +
                     "                            <td>\n" +
-                    "                                <input class=\"checkThis\" type=\"checkbox\"> <b>Check me out</b>\n" +
-                    "                                <input class=\"checkThen\" type=\"hidden\" name=\"checkMe\" value=\"false\">\n" +
+                    "                                <input class=\"checkThis\" type=\"checkbox\"> <b>Attending</b>\n" +
+                    "                                <input class=\"checkThen\" type=\"hidden\" name=\"attending[]\" value=\"false\">\n" +
                     "                            </td>\n" +
                     "                        </tr>";
 
                 $('#appendEducationHere').append(appendTrEdu);
+                attending();
                 removeEdu();
             });
             removeEdu();
+            attending();
 
 
             function removeEdu() {
@@ -142,6 +149,21 @@
                 }
             }
 
+            function attending() {
+                $(".checkThis").on('click', function () {
+                    var test = $(this).is(':checked');
+                    console.log(test);
+                    var test1 = $(this).parent().find('.checkThen');
+                    console.log(test1);
+                    if (test === true) {
+                        test1.val('true');
+                    } else {
+                        test1.val('false');
+                    }
+                    console.log(test1.val())
+                })
+            }
+
 
         })
 
@@ -152,28 +174,11 @@
         $(function () {
             $("#myEducation").submit(function () {
                 $('#myInnerBar').css({'width': '58%'})
-            })
-            
-            
-            
-            $(".checkThis").on('click',function () {
-                var test=$(this).is(':checked');
-                console.log(test);
-                var test1=$(this).parent().find('.checkThen');
-                console.log(test1);
-                if(test===true){
-                    test1.val('true');
-                }else{
-                    test1.val('false');
-                }
-                console.log(test1.val())
-            })
+            });
         })
-        
-        
     </script>
 
-    
+
     {{--<script>--}}
     {{--$(document).ready(function () {--}}
     {{--var count = 1;--}}

@@ -17,6 +17,7 @@ class CreatePersonalProfilesTable extends Migration
             $table->Increments('id');
             $table->string('lookingFor');
             $table->string('availableFor');
+            $table->string('jobCategory');
             $table->string('expectedSalary');
             $table->text('careerObjective');
             $table->text('careerSummary');

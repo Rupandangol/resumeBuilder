@@ -45,7 +45,7 @@
         <div class="row">
             <div class="template_image col-md-4">
                 <a class="myTemplate" data-href="{{route('template1View')}}"><img
-                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/1.png')}}" alt=""></a>
+                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/5.1.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">

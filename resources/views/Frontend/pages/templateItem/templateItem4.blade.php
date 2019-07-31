@@ -6,14 +6,24 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style type="text/css">
+        .myImage{
+            border-radius:30px;
+            height:160px;
+            margin-right:40px;
+        }
+    </style>
     <title>CvBuilder</title>
 </head>
-<body style="padding: 0;margin: 0; font-family: sans-serif">
-<div class="box-field">
+<body style="padding: 0;margin: 0; font-family: sans-serif  ">
+<div style="margin-left: 40px" class="box-field">
     <div>
-        <h1>{{ucfirst($personalDetail->fullName)}}</h1>
+        <img class="myImage pull-right" src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt="">
+
+        <h1 style="font-family: 'Times New Roman'">{{ucfirst($personalDetail->fullName)}}</h1>
         <p>Email:{{$personalDetail->email}}</p>
         <p>Mobile No:{{$personalDetail->mobileNo}}</p>
+
         {{--<p>web</p>--}}
         <p>location:{{$personalDetail->address}}</p>
         {{--Objective--}}
@@ -21,7 +31,6 @@
         <h1>Objective</h1>
         <p>{{$personalProfile->careerObjective}}</p>
         <hr>
-
         {{--Skill--}}
         <h1 style="font-family: 'Comic Sans  MS'">Skill</h1>
         <table>
@@ -48,7 +57,7 @@
                 <tbody>
                 <tr>
                     <td>{{ucfirst($value->companyName)}}</td>
-                    <td>
+                    <td >
                         <ul>
                             <li>
                                 {{ucfirst($value->jobTitle)}}

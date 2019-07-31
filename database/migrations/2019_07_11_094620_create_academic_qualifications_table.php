@@ -21,6 +21,7 @@ class CreateAcademicQualificationsTable extends Migration
             $table->string('location')->nullable();
             $table->string('startTime')->nullable();
             $table->string('endTime')->nullable();
+            $table->string('attending')->nullable();
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade')->onDelete('cascade');

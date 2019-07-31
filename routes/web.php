@@ -43,7 +43,7 @@ Route::get('/template', 'frontendController@template')->name('page7')->middlewar
 
 
 Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkTemplate');
-Route::get('/template1Preview', 'frontendController@template1Action')->name('preview1')->middleware('checkTemplate');
+Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkTemplate');
 //
 Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkTemplate');
 Route::get('/template2Preview', 'frontendController@template2Action')->name('preview2')->middleware('checkTemplate');

@@ -28,9 +28,8 @@
 
                         <div class="col-md-7 col-sm-7 col-xs-12">
                             <div class="product-image">
-                                <img src="{{URL::to('/Uploads/resumeTemplate/1.png')}}" alt="...">
+                                <img src="{{URL::to('/Uploads/resumeTemplate/5.1.png')}}" alt="...">
                             </div>
-
                         </div>
 
                         <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
@@ -43,7 +42,7 @@
                             <br>
 
                             <div class="row">
-                                <a href="{{route('preview1')}}" class="btn btn-default btn-lg col-md-4" >Preview Your Cv</a>
+                                <a style="margin-left: 14px" href="{{route('preview1')}}" class="btn btn-default btn-lg col-md-4" >Preview Your Cv</a>
                                 {{--<form class="col-md-4" method="post"--}}
                                       {{--action="">--}}
                                     {{--{{csrf_field()}}--}}

@@ -14,6 +14,8 @@
 @endsection
 @section('my-header')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
 
 @endsection
 
@@ -40,69 +42,91 @@
 
                     <label for="exampleInputEmail1">Looking For</label>
                     <div class="input-group">
-                        <input type="text" name="lookingFor" value="{{$profile->lookingFor}}" placeholder="Looking For"
+                        <input type="text" name="lookingFor" value="{{$profile->lookingFor}}"
+                               placeholder="Eg:Entry/mid...level"
                                class="form-control">
                         <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Available For</label>
-                        <input type="text" class="form-control" value="{{$profile->availableFor}}" name="availableFor"
-                               id="" placeholder="Available For">
+                        <select name="availableFor" class="form-control">
+                            <option>Part Time</option>
+                            <option>Full Time</option>
+                            <option>Freelance</option>
+                        </select>
                     </div>
 
-                    <label for="exampleInputEmail1">Preferred job Category</label>
-                    <div class="input-group">
-                        <input type="text" name="" placeholder="Looking For" value="" class="form-control">
-                        <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                    <label for="exampleInputEmail1">Job Category</label>
+                    <div class="form-group">
+                        <select name="jobCategory" class="form-control selectpicker">
+                            <option>Laravel Developer</option>
+                            <option>React Js Developer</option>
+                            <option>HR</option>
+                            <option>Marketing Executive</option>
+                        </select>
                     </div>
-                    <br>
+
                     <div class="form-group">
                         <label for="exampleInputEmail1">Expected Salary</label>
-                        <input type="text" class="form-control" value="{{$profile->expectedSalary}}"
+                        <input type="number" class="form-control" value="{{$profile->expectedSalary}}"
                                name="expectedSalary" id=""
                                placeholder="Expected Salary">
                     </div>
                     <div class="form-group">
                         <label>Career Objective</label>
-                        <textarea class="form-control" rows="3" name="careerObjective"
-                                  placeholder="Enter ..."></textarea>
+                        <input style="height: 50px" type="text" class="form-control" name="careerObjective" id=""
+                               placeholder="Enter..." value="{{$profile->careerObjective}}">
                     </div>
                     <div class="form-group">
                         <label>Career Summary</label>
-                        <textarea class="form-control" rows="3" name="careerSummary" placeholder="Enter ..."></textarea>
+                        <input style="height: 50px" type="text" class="form-control" name="careerSummary" id=""
+                               placeholder="Enter..." value="{{$profile->careerSummary}}">
                     </div>
                 @else
                     <label for="exampleInputEmail1">Looking For</label>
                     <div class="input-group">
-                        <input type="text" name="lookingFor" placeholder="Looking For" class="form-control">
+                        <input type="text" name="lookingFor" placeholder="Eg:Entry level/Mid level/senior Level"
+                               class="form-control">
                         <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Available For</label>
-                        <input type="text" class="form-control" name="availableFor" id="" placeholder="Available For">
+
+                        <select name="availableFor" class="form-control">
+                            <option>Part Time</option>
+                            <option>Full Time</option>
+                            <option>Freelance</option>
+                        </select>
+
                     </div>
 
-                    <label for="exampleInputEmail1">Preferred job Category</label>
-                    <div class="input-group">
-                        <input type="text" name="" placeholder="Looking For" class="form-control">
-                        <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                    <label for="exampleInputEmail1">Job Category</label>
+                    <div class="form-group">
+                        <select name="jobCategory" class="form-control selectpicker">
+                            <option>Laravel Developer</option>
+                            <option>React Js Developer</option>
+                            <option>HR</option>
+                            <option>Marketing Executive</option>
+                        </select>
                     </div>
-                    <br>
+
                     <div class="form-group">
                         <label for="exampleInputEmail1">Expected Salary</label>
-                        <input type="text" class="form-control" name="expectedSalary" id=""
+                        <input type="number" class="form-control" name="expectedSalary" id=""
                                placeholder="Expected Salary">
                     </div>
                     <div class="form-group">
                         <label>Career Objective</label>
-                        <textarea class="form-control" rows="3" name="careerObjective"
-                                  placeholder="Enter ..."></textarea>
+                        <input type="text" class="form-control" name="careerObjective" id=""
+                               placeholder="Enter...">
+
                     </div>
                     <div class="form-group">
                         <label>Career Summary</label>
-                        <textarea class="form-control" rows="3" name="careerSummary" placeholder="Enter ..."></textarea>
+                        <input type="text" class="form-control" name="careerSummary" id=""
+                               placeholder="Enter...">
                     </div>
                 @endif
             </div>
@@ -117,6 +141,8 @@
 @endsection
 
 @section('my-footer')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
     <script type="text/javascript"

@@ -14,6 +14,7 @@ class AcademicQualification extends Model
         'subject',
         'grade',
         'endTime',
+        'attending',
         'cv_id'
     ];
 }

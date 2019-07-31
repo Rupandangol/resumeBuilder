@@ -41,7 +41,7 @@ class frontendController extends Controller
             'mobileNo' => 'required',
 //        'image' => 'required',
             'address' => 'required'
-        ],[
+        ], [
             'required' => 'Do not leave empty box',
         ]);
         $data['fullName'] = $request->fullName;
@@ -87,6 +87,7 @@ class frontendController extends Controller
         $this->validate($request, [
             'lookingFor' => 'required',
             'availableFor' => 'required',
+            'jobCategory' => 'required',
             'expectedSalary' => 'required',
             'careerObjective' => 'required',
             'careerSummary' => 'required',
@@ -94,6 +95,7 @@ class frontendController extends Controller
 
         $data['lookingFor'] = $request->lookingFor;
         $data['availableFor'] = $request->availableFor;
+        $data['jobCategory'] = $request->jobCategory;
         $data['expectedSalary'] = $request->expectedSalary;
         $data['careerObjective'] = $request->careerObjective;
         $data['careerSummary'] = $request->careerSummary;
@@ -176,7 +178,6 @@ class frontendController extends Controller
 
     public function educationAction(Request $request)
     {
-
         $id = session('cv_user_id', false);
         $check = $request->checkMe;
 
@@ -189,9 +190,8 @@ class frontendController extends Controller
             'startTime.*' => 'required',
             'subject' => 'required',
             'subject.*' => 'required',
-            'endTime' => 'required',
-            'endTime.*' => 'required'
         ]);
+
 //        $request->validate([
 //            'institute' => 'required',
 //            'location' => 'required',
@@ -213,13 +213,16 @@ class frontendController extends Controller
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
-                $data['grade'] = $request->grade[$i];
+
                 $data['startTime'] = $request->startTime[$i];
-//                if (!$check) {
-//                    $data['endTime'] = 'Still Attending';
-//                } else {
-                $data['endTime'] = $request->endTime[$i];
-//                }
+                if ($request->attending[$i] === "true") {
+                    $data['grade'] = 'null';
+                    $data['endTime'] = 'attending';
+                } else {
+                    $data['grade'] = $request->grade[$i];
+                    $data['endTime'] = $request->endTime[$i];
+                }
+                $data['attending'] = $request->attending[$i];
                 $data['cv_id'] = $id;
                 AcademicQualification::create($data);
             }
@@ -232,14 +235,17 @@ class frontendController extends Controller
             for ($i = 0; $i < $count; $i++) {
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
-                $data['grade'] = $request->grade[$i];
                 $data['subject'] = $request->subject[$i];
+
                 $data['startTime'] = $request->startTime[$i];
-//                if (!$check) {
-//                    $data['endTime'] = 'Still Attending';
-//                } else {
-                $data['endTime'] = $request->endTime[$i];
-//                }
+                if ($request->attending[$i] === 'true') {
+                    $data['grade'] = 'null';
+                    $data['endTime'] = 'attending';
+                } else {
+                    $data['grade'] = $request->grade[$i];
+                    $data['endTime'] = $request->endTime[$i];
+                }
+                $data['attending'] = $request->attending[$i];
                 $data['cv_id'] = $id;
                 AcademicQualification::create($data);
             }
@@ -266,8 +272,6 @@ class frontendController extends Controller
             'location.*' => 'required',
             'startTime' => 'required',
             'startTime.*' => 'required',
-            'endTime' => 'required',
-            'endTime.*' => 'required',
             'jobSummary' => 'required',
             'jobSummary.*' => 'required'
         ]);
@@ -285,8 +289,15 @@ class frontendController extends Controller
                 $data['companyName'] = $request->companyName[$i];
                 $data['location'] = $request->location[$i];
                 $data['startTime'] = $request->startTime[$i];
-                $data['endTime'] = $request->endTime[$i];
+                if ($request->current[$i] === 'true') {
+                    $data['endTime'] = 'Current';
+
+                } else {
+                    $data['endTime'] = $request->endTime[$i];
+                }
+
                 $data['jobSummary'] = $request->jobSummary[$i];
+                $data['current']=$request->current[$i];
                 $data['cv_id'] = $id;
                 Experience::create($data);
             }
@@ -300,10 +311,16 @@ class frontendController extends Controller
                 $data['companyName'] = $request->companyName[$i];
                 $data['location'] = $request->location[$i];
                 $data['startTime'] = $request->startTime[$i];
-                $data['endTime'] = $request->endTime[$i];
-                $data['jobSummary'] = $request->jobSummary[$i];
-                $data['cv_id'] = $id;
+                if ($request->current[$i] === 'true') {
+                    $data['endTime'] = 'Current';
 
+                } else {
+                    $data['endTime'] = $request->endTime[$i];
+                }
+
+                $data['jobSummary'] = $request->jobSummary[$i];
+                $data['current']=$request->current[$i];
+                $data['cv_id'] = $id;
                 Experience::create($data);
             }
 

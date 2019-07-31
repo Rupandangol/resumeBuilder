@@ -1,130 +1,132 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Resume Builder</title>
-
-    <meta name="viewport" content="width=device-width"/>
-    <meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link type="text/css" rel="stylesheet" href="{{URL::to('/css/template1.css')}}">
-    <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        @page {
+            margin: 0;
+        }
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("/Uploads/resumeTemplate/5.png");
+            font-family: sans-serif, "Times New Roman";
+        }
+
+        #content {
+            padding: 10px;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #nav {
+            font-size: 15px;
+            width: 180px;
+            float: left;
+            margin-left: 20px;
+            color: white;
+        }
+
+        #myContact {
+            font-size: 11px;
+        }
+
+        #main {
+            width: 550px;
+            float: right;
+            margin-right: 30px;
+        }
+
+        #footer {
+            clear: both;
+        }
+
+        #myExp {
+            list-style-type: none;
+        }
+
+        #myEdu {
+            list-style-type: none;
+        }
+
+        #mySkill {
+            margin: 0;
+            font-size: 13px;
+        }
+
+    </style>
+
+
+    <title>Document</title>
 </head>
-<body id="top">
-<div id="cv" class="instaFade">
-    <div class="mainDetails">
-        <div id="headshot" class="quickFade">
-            <img src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt="{{$personalDetail->image}}"/>
-        </div>
 
-        <div id="name">
-            <h1 class="quickFade delayTwo">{{ucfirst($personalDetail->fullName)}}</h1>
-            @foreach($personalProfile as $value)
-                <h2 class="quickFade delayThree">{{ucfirst($value->availableFor)}}</h2>
+
+<body>
+
+<div id="container">
+    <div id="content">
+        <div id="nav">
+            <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px"
+                 src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
+
+            <h3>Contact</h3>
+            <p id="myContact">{{$personalDetail->email}}<br>Website<br>{{$personalDetail->location}}
+                <br>{{$personalDetail->mobileNo}}</p>
+            <br>
+
+
+            <h3 style="margin-bottom: 5px">Skill</h3>
+            <p id="mySkill">
+                @foreach($skill as $value)
+                    {{$value->skill}}<br>
+                @endforeach
+            </p>
+        </div>
+        <div id="main">
+            <h1 id="myName">{{ucfirst($personalDetail->fullName)}}</h1>
+            <p>{{ucfirst($personalProfile->jobCategory)}}</p>
+            <hr>
+            <h3>Objective</h3>
+            <p>{{$personalProfile->careerObjective}}</p>
+
+            <hr>
+            <h3>Experience</h3>
+            @foreach($experience as $value)
+                <p>{{$value->companyName}}</p>
+                <ul id="myExp">
+                    <li>{{$value->jobTitle}}</li>
+                    <li>Duration</li>
+                    <li>{{$value->location}}</li>
+                    <li>{{$value->jobSummary}}
+                    </li>
+                </ul>
+            @endforeach
+            <hr>
+
+            <h3>Education</h3>
+            @foreach($education as $value)
+                <p>{{$value->institute}}</p>
+                <ul id="myEdu">
+                    <li>{{$value->subject}},{{$value->grade}}</li>
+                    <li>Duration</li>
+                    <li>{{$value->location}}</li>
+                </ul>
             @endforeach
         </div>
+        <div id="footer">
 
-        <div id="contactDetails" class="quickFade delayFour">
-            <ul>
-                <li>e: <a href="mailto:joe@bloggs.com" target="_blank">{{$personalDetail->email}}</a></li>
-                {{--<li>w: <a href="http://www.bloggs.com">www.bloggs.com</a></li>--}}
-                <li>m: {{$personalDetail->mobileNo}}</li>
-            </ul>
+
         </div>
-        <div class="clear"></div>
-    </div>
-
-    <div id="mainArea" class="quickFade delayFive">
-        <section>
-            <article>
-                <div class="sectionTitle">
-                    <h1>Personal Profile</h1>
-                </div>
-
-                <div class="sectionContent">
-                    @foreach($personalProfile as $value)
-                        <p>{{$value->careerObjective}}</p>
-                        <p>{{$value->careerSummary}}</p>
-                    @endforeach
-                </div>
-            </article>
-            <div class="clear"></div>
-        </section>
-
-
-        <section>
-            <div class="sectionTitle">
-                <h1>Work Experience</h1>
-            </div>
-
-            <div class="sectionContent">
-                @foreach($experience as $value)
-                    <article>
-                        <h2>{{$value->jobTitle}}</h2>
-                        <p class="subDetails">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
-                            - {{\Carbon\Carbon::parse($value->endtTime)->format('M Y')}}</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-                            hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id
-                            sapien
-                            quis libero interdum porttitor.</p>
-                    </article>
-                @endforeach
-
-
-            </div>
-            <div class="clear"></div>
-        </section>
-
-
-        <section>
-            <div class="sectionTitle">
-                <h1>Key Skills</h1>
-            </div>
-
-            <div class="sectionContent">
-                <ul class="keySkills">
-                    @foreach($skill as $value)
-                        <li>{{$value->skill}}</li>
-                    @endforeach
-
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </section>
-
-
-        <section>
-            <div class="sectionTitle">
-                <h1>Education</h1>
-            </div>
-
-            <div class="sectionContent">
-                @foreach($education as $value)
-                    <article>
-                        <h2>{{ucfirst($value->institute)}}</h2>
-                        <p class="subDetails">{{ucfirst($value->location)}}</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus
-                            hendrerit. Curabitur non consequat enim.</p>
-                    </article>
-                @endforeach
-            </div>
-            <div class="clear"></div>
-        </section>
 
     </div>
+
 </div>
-<script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-    var pageTracker = _gat._getTracker("UA-3753241-1");
-    pageTracker._initData();
-    pageTracker._trackPageview();
-</script>
 </body>
 </html>
+

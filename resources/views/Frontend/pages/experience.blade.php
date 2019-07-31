@@ -31,6 +31,11 @@
 
                 <div class="box-header with-border">
                     <h3 class="box-title">Experience</h3>
+                    <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="If you are Currently involved in some Organization then leave End Time box of that row">
+                        <i class="fa fa-info-circle fa-lg "></i>
+                    </button>
                 </div>
                 <table class="table table-borderless table-hover">
                     <thead>
@@ -41,7 +46,7 @@
                         <td>Start Time</td>
                         <td>End Time</td>
                         <td>Job Summary</td>
-                        <td>Action</td>
+                        <td colspan="2">Action</td>
                     </tr>
                     </thead>
                     <tbody id="appendExperienceHere">
@@ -56,6 +61,14 @@
                             <td>
                                 <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
                             </td>
+                            <td>
+                                <input class="checkExp" type="checkbox"
+                                @if($value->current==='true')
+                                    checked
+                                        @endif
+                                > <b>Current</b>
+                                <input class="checkExpThis" name="current[]" value="{{$value->current}}" type="hidden">
+                            </td>
                         </tr>
 
                     @empty
@@ -68,6 +81,10 @@
                             <td><input type="text" name="jobSummary[]"></td>
                             <td>
                                 <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
+                            </td>
+                            <td>
+                                <input class="checkExp" type="checkbox"> <b>Current</b>
+                                <input class="checkExpThis" name="current[]" value="false" type="hidden">
                             </td>
                         </tr>
 
@@ -97,7 +114,7 @@
 
             $('#addExp').on('click', function (e) {
                 e.preventDefault();
-                var appendTrExperience = " <tr>\n" +
+                var appendTrExperience = "<tr>\n" +
                     "                            <td><input type=\"text\" name=\"jobTitle[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"companyName[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
@@ -107,13 +124,18 @@
                     "                            <td>\n" +
                     "                                <button class=\"btn btn-danger removeExperience\"><i class=\"fa fa-trash\"></i></button>\n" +
                     "                            </td>\n" +
+                    "                            <td>\n" +
+                    "                                <input class=\"checkExp\" type=\"checkbox\"> <b>Current</b>\n" +
+                    "                                <input class=\"checkExpThis\" name=\"current[]\" value=\"false\" type=\"hidden\">\n" +
+                    "                            </td>\n" +
                     "                        </tr>";
 
                 $('#appendExperienceHere').append(appendTrExperience);
-
+                currentExp();
                 removeExperience();
 
             });
+            currentExp();
             removeExperience();
 
             function removeExperience() {
@@ -134,6 +156,23 @@
                     $('.removeExperience').show();
                 }
             }
+
+            function currentExp() {
+                $(".checkExp").on('click', function () {
+                    var test = $(this).is(':checked');
+                    console.log(test);
+                    var test2 = $(this).parent().find('.checkExpThis');
+                    console.log(test2);
+                    if (test === true) {
+                        test2.val('true');
+                    } else {
+                        test2.val('false');
+                    }
+                    console.log(test2.val());
+
+                })
+            }
+
 
         });
     </script>
