@@ -13,7 +13,7 @@
 @endsection
 @section('content')
     <div class="box box-info">
-{{--errorMessage--}}
+        {{--errorMessage--}}
         @if($errors->has('referee.*')||$errors->has('refereeContact.*'))
             <div class="alert alert-danger">
                 <p>
@@ -43,7 +43,7 @@
                     @forelse($references as $value)
                         <tr>
                             <td><input type="text" name="referee[]" value="{{$value->referee}}"></td>
-                            <td><input type="text" name="refereeContact[]" value="{{$value->refereeContact}}"></td>
+                            <td><input type="number" name="refereeContact[]" value="{{$value->refereeContact}}"></td>
                             <td>
                                 <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
                                             class="fa fa-trash"></i></button>
@@ -52,7 +52,7 @@
                     @empty
                         <tr>
                             <td><input type="text" name="referee[]"></td>
-                            <td><input type="text" name="refereeContact[]"></td>
+                            <td><input type="number" name="refereeContact[]"></td>
                             <td>
                                 <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
                                             class="fa fa-trash"></i></button>
@@ -67,8 +67,10 @@
                 </table>
                 <button id="addReference" class="btn btn-success btn-block">Add Reference</button>
                 <br>
-                <a href="{{route('page5')}}" style="border-radius: 24px" class="btn btn-default" ><i class="fa fa-hand-o-left"></i></a>
-                <button style="border-radius: 24px" class="btn btn-default pull-right"><i class="fa fa-hand-o-right"></i></button>
+                <a href="{{route('page5')}}" style="border-radius: 24px" class="btn btn-default"><i
+                            class="fa fa-hand-o-left"></i></a>
+                <button style="border-radius: 24px" class="btn btn-default pull-right"><i
+                            class="fa fa-hand-o-right"></i></button>
 
             </div>
         </form>
@@ -80,14 +82,14 @@
         $(function () {
             $('#addReference').on('click', function (e) {
                 e.preventDefault();
-                var appendTrRef = "<tr>\n" +
+                var appendTrRef = "   <tr>\n" +
                     "                            <td><input type=\"text\" name=\"referee[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"refereeContact[]\"></td>\n" +
+                    "                            <td><input type=\"number\" name=\"refereeContact[]\"></td>\n" +
                     "                            <td>\n" +
                     "                                <button id=\"removeReference\" type=\"button\" class=\"btn btn-danger removeReference\"><i\n" +
                     "                                            class=\"fa fa-trash\"></i></button>\n" +
                     "                            </td>\n" +
-                    "                        </tr>";
+                    "                        </tr>\n";
                 $('#appendReferenceHere').append(appendTrRef);
 
                 removeAppend();
@@ -108,9 +110,9 @@
 
             function addRemoveRef() {
                 var checkOne = $('#appendReferenceHere').find('tr').length;
-                if(checkOne<2){
+                if (checkOne < 2) {
                     $('.removeReference').hide()
-                }else {
+                } else {
                     $('.removeReference').show()
                 }
 

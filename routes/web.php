@@ -46,7 +46,7 @@ Route::get('/template1View', 'frontendController@template1')->name('template1Vie
 Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkTemplate');
 //
 Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkTemplate');
-Route::get('/template2Preview', 'frontendController@template2Action')->name('preview2')->middleware('checkTemplate');
+Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkTemplate');
 //
 Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkTemplate');
 Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkTemplate');
@@ -56,9 +56,11 @@ Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->mi
 Route::get('/flush', 'frontendController@flushSession')->name('flushSession');
 
 ////    download
-//Route::post('/personalProfile/skill/{id}/education/experience/reference/template/template1/download', 'pdfController@download');
-//Route::post('/personalProfile/skill/{id}/education/experience/reference/template/template2/download', 'pdfController@download');
-//Route::post('/personalProfile/skill/{id}/education/experience/reference/template/template3/download', 'pdfController@download');
+Route::get('/downloadCv1', 'pdfController@downloadCv')->name('downloadCv1');
+Route::get('/downloadCv2', 'pdfController@downloadCv')->name('downloadCv2');
+Route::get('/downloadCv4', 'pdfController@downloadCv')->name('downloadCv4');
+
+
 ////    test
 
 

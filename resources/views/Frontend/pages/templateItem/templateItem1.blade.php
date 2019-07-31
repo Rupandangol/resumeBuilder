@@ -60,6 +60,19 @@
             font-size: 13px;
         }
 
+        #myProgressbar {
+            background-color: black;
+            border-radius: 9px;
+            width: 150px;
+            padding: 3px;
+        }
+
+        #myProgressbar > div {
+            background-color: orange;
+            height: 12px;
+            border-radius: 6px;
+        }
+
     </style>
 
 
@@ -85,7 +98,12 @@
             <p id="mySkill">
                 @foreach($skill as $value)
                     {{$value->skill}}<br>
-                @endforeach
+            <div id="myProgressbar">
+                <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}
+                    %
+                </div>
+            </div>
+            @endforeach
             </p>
         </div>
         <div id="main">
@@ -98,10 +116,16 @@
             <hr>
             <h3>Experience</h3>
             @foreach($experience as $value)
-                <p>{{$value->companyName}}</p>
+                <i style="float: left;">{{$value->companyName}}</i>
+                <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M.Y')}} to
+                    @if($value->endTime==='current')
+                        Current
+                    @else
+                        not Current
+                    @endif
+                </i>
                 <ul id="myExp">
                     <li>{{$value->jobTitle}}</li>
-                    <li>Duration</li>
                     <li>{{$value->location}}</li>
                     <li>{{$value->jobSummary}}
                     </li>
@@ -111,12 +135,29 @@
 
             <h3>Education</h3>
             @foreach($education as $value)
-                <p>{{$value->institute}}</p>
+
+                <i style="float:left;">{{$value->institute}}</i>
+                <i style="float:right; font-size: 12px">{{\Carbon\Carbon::parse($value->startTime)->format('M.Y')}}-
+
+                    @if($value->endTime==='attending')
+                        Attending
+                    @else
+                        Not Attending
+                    @endif
+                </i>
                 <ul id="myEdu">
                     <li>{{$value->subject}},{{$value->grade}}</li>
-                    <li>Duration</li>
                     <li>{{$value->location}}</li>
                 </ul>
+            @endforeach
+            <hr>
+            <h3>Reference</h3>
+            @foreach($reference as $value)
+                <p>{{$value->referee}}
+                    <br>
+                    {{$value->refereeContact}}
+                </p>
+
             @endforeach
         </div>
         <div id="footer">

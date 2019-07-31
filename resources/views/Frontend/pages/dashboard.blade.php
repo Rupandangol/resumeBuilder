@@ -26,7 +26,7 @@
     </div>
 
 
-    <div id="carouselExampleFade" class="carousel slide " data-ride="carousel">
+    <div id="carouselExampleFade" class="carousel slide " data-interval="3000" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img style="width:200px;height:450px" src="{{URL::to("/Uploads/carosel/1.png")}}" class="d-block w-100" alt="...">

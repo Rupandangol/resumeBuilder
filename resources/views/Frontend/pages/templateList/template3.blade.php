@@ -29,7 +29,7 @@
 
                         <div class="col-md-7 col-sm-7 col-xs-12">
                             <div class="product-image">
-                                <img src="{{URL::to('/Uploads/resumeTemplate/4.png')}}" alt="...">
+                                <img style="width: 600px;" src="{{URL::to('/Uploads/resumeTemplate/4.png')}}" alt="...">
                             </div>
 
                         </div>
@@ -45,12 +45,9 @@
 
                             <div class="row">
                                 <a href="{{route('preview3')}}" class="btn btn-default btn-lg col-md-4">Preview Your CV</a>
-                                <form method="post" class="col-md-4"
-                                      action="">
-                                    {{csrf_field()}}
-                                    {{--<input type="hidden" name="id" value="{{$id}}">--}}
-                                    <button type="submit" class="btn btn-default btn-lg">Download</button>
-                                </form>
+
+                                <a style="margin-left: 10px" href="{{route('downloadCv4')}}" class="btn btn-default btn-lg col-md-4">Download</a>
+
                             </div>
 
                             <br>

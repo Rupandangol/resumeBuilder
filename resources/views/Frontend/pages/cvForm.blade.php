@@ -45,7 +45,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                        <input type="text" name="mobileNo" value="{{$detail->mobileNo}}" class="form-control"
+                        <input type="number" name="mobileNo" value="{{$detail->mobileNo}}" class="form-control"
                                placeholder="Mobile No">
                     </div>
                     <br>
@@ -73,7 +73,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                        <input type="text" name="mobileNo" class="form-control" placeholder="Mobile No">
+                        <input type="number" name="mobileNo" class="form-control" placeholder="Mobile No">
                     </div>
                     <br>
                     <div class="input-group">

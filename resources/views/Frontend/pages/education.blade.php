@@ -55,7 +55,8 @@
                             <td><input type="text" name="institute[]" value="{{$value->institute}}"></td>
                             <td><input type="text" name="location[]" value="{{$value->location}}"></td>
                             <td><input type="text" name="subject[]" value="{{$value->subject}}"></td>
-                            <td><input type="text" name="grade[]" value="{{$value->grade}}"></td>
+                            <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"
+                                       value="{{$value->grade}}"></td>
                             <td><input type="date" name="startTime[]" value="{{$value->startTime}}"></td>
                             <td><input type="date" name="endTime[]" value="{{$value->endTime}}"></td>
                             <td>
@@ -74,7 +75,7 @@
                             <td><input type="text" name="institute[]"></td>
                             <td><input type="text" name="location[]"></td>
                             <td><input type="text" name="subject[]"></td>
-                            <td><input type="text" name="Grade[]"></td>
+                            <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
                             <td><input type="date" name="startTime[]"></td>
                             <td><input type="date" name="endTime[]"></td>
                             <td>
@@ -87,7 +88,6 @@
                         </tr>
 
                     @endforelse
-
                     </tbody>
 
                 </table>
@@ -107,11 +107,11 @@
         $(function () {
             $('#addEducation').on('click', function (e) {
                 e.preventDefault();
-                var appendTrEdu = "  <tr>\n" +
+                var appendTrEdu = "   <tr>\n" +
                     "                            <td><input type=\"text\" name=\"institute[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"subject[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"Grade[]\"></td>\n" +
+                    "                            <td><input type=\"text\" placeholder=\"eg:80% or 2.7gpa\" name=\"grade[]\"></td>\n" +
                     "                            <td><input type=\"date\" name=\"startTime[]\"></td>\n" +
                     "                            <td><input type=\"date\" name=\"endTime[]\"></td>\n" +
                     "                            <td>\n" +
@@ -121,7 +121,7 @@
                     "                                <input class=\"checkThis\" type=\"checkbox\"> <b>Attending</b>\n" +
                     "                                <input class=\"checkThen\" type=\"hidden\" name=\"attending[]\" value=\"false\">\n" +
                     "                            </td>\n" +
-                    "                        </tr>";
+                    "                        </tr>\n";
 
                 $('#appendEducationHere').append(appendTrEdu);
                 attending();

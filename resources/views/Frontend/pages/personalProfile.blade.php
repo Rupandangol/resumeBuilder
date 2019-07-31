@@ -45,7 +45,7 @@
                         <input type="text" name="lookingFor" value="{{$profile->lookingFor}}"
                                placeholder="Eg:Entry/mid...level"
                                class="form-control">
-                        <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                        <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-server"></i></span>
                     </div>
                     <br>
                     <div class="form-group">
@@ -74,7 +74,11 @@
                                placeholder="Expected Salary">
                     </div>
                     <div class="form-group">
-                        <label>Career Objective</label>
+                        <label>Career Objective
+                            {{--<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Write brief Career Objective">--}}
+                                {{--<i class="fa fa-info-circle"></i>--}}
+                            {{--</button>--}}
+                        </label>
                         <input style="height: 50px" type="text" class="form-control" name="careerObjective" id=""
                                placeholder="Enter..." value="{{$profile->careerObjective}}">
                     </div>
@@ -88,7 +92,7 @@
                     <div class="input-group">
                         <input type="text" name="lookingFor" placeholder="Eg:Entry level/Mid level/senior Level"
                                class="form-control">
-                        <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-info-circle"></i></span>
+                        <span id="lookingForInfo" class="input-group-addon"><i class="fa fa-server"></i></span>
                     </div>
                     <br>
                     <div class="form-group">

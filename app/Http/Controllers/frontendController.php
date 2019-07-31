@@ -192,13 +192,6 @@ class frontendController extends Controller
             'subject.*' => 'required',
         ]);
 
-//        $request->validate([
-//            'institute' => 'required',
-//            'location' => 'required',
-//            'startTime' => 'required',
-//            'endTime' => 'required'
-//        ]);
-
 
         if (AcademicQualification::where('cv_id', $id)->first()) {
 
@@ -213,16 +206,16 @@ class frontendController extends Controller
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
-
+                $data['attending'] = $request->attending[$i];
                 $data['startTime'] = $request->startTime[$i];
-                if ($request->attending[$i] === "true") {
-                    $data['grade'] = 'null';
+                if ($data['attending'] === "true") {
+                    $data['grade'] = 'attending';
                     $data['endTime'] = 'attending';
                 } else {
                     $data['grade'] = $request->grade[$i];
                     $data['endTime'] = $request->endTime[$i];
                 }
-                $data['attending'] = $request->attending[$i];
+
                 $data['cv_id'] = $id;
                 AcademicQualification::create($data);
             }
@@ -236,16 +229,17 @@ class frontendController extends Controller
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
+                $data['attending'] = $request->attending[$i];
 
                 $data['startTime'] = $request->startTime[$i];
-                if ($request->attending[$i] === 'true') {
-                    $data['grade'] = 'null';
+                if ($data['attending'] === 'true') {
+                    $data['grade'] = 'attending';
                     $data['endTime'] = 'attending';
                 } else {
                     $data['grade'] = $request->grade[$i];
                     $data['endTime'] = $request->endTime[$i];
                 }
-                $data['attending'] = $request->attending[$i];
+
                 $data['cv_id'] = $id;
                 AcademicQualification::create($data);
             }
@@ -297,7 +291,7 @@ class frontendController extends Controller
                 }
 
                 $data['jobSummary'] = $request->jobSummary[$i];
-                $data['current']=$request->current[$i];
+                $data['current'] = $request->current[$i];
                 $data['cv_id'] = $id;
                 Experience::create($data);
             }
@@ -319,7 +313,7 @@ class frontendController extends Controller
                 }
 
                 $data['jobSummary'] = $request->jobSummary[$i];
-                $data['current']=$request->current[$i];
+                $data['current'] = $request->current[$i];
                 $data['cv_id'] = $id;
                 Experience::create($data);
             }

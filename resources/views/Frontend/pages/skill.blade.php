@@ -47,7 +47,7 @@
                     @forelse($skill as $value)
                         <tr>
                             <td><input type="text" name="skill[]" value="{{$value->skill}}"></td>
-                            <td><input type="text" name="skillLevel[]" value="{{$value->skillLevel}}"></td>
+                            <td><input style="width: 100px;" placeholder="eg:60%" type="number" min="1" max="100" name="skillLevel[]" value="{{$value->skillLevel}}"></td>
                             <td><input type="text" name="about[]" value="{{$value->about}}"></td>
 
                             <td>
@@ -61,7 +61,7 @@
                     @empty
                         <tr>
                             <td><input type="text" name="skill[]"></td>
-                            <td><input type="text" name="skillLevel[]"></td>
+                            <td><input style="width: 100px" type="number" min="1" max="100" name="skillLevel[]"></td>
                             <td><input type="text" name="about[]"></td>
 
                             <td>
@@ -106,10 +106,12 @@
                 e.preventDefault();
                 var appendTr = "<tr>\n" +
                     "                            <td><input type=\"text\" name=\"skill[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"skillLevel[]\"></td>\n" +
+                    "                            <td><input style=\"width: 100px\" type=\"number\" min=\"1\" max=\"100\" name=\"skillLevel[]\"></td>\n" +
                     "                            <td><input type=\"text\" name=\"about[]\"></td>\n" +
+                    "\n" +
                     "                            <td>\n" +
-                    "                                <button id=\"remove-appended\" class=\"btn btn-danger remove-appended\"><i class=\"fa fa-trash\"></i></button>\n" +
+                    "                                <button id=\"remove-appended\" class=\"btn btn-danger remove-appended\"><i\n" +
+                    "                                            class=\"fa fa-trash\"></i></button>\n" +
                     "                            </td>\n" +
                     "\n" +
                     "                        </tr>";

@@ -29,7 +29,7 @@
 
                         <div class="col-md-7 col-sm-7 col-xs-12">
                             <div class="product-image">
-                                <img src="{{URL::to('/Uploads/resumeTemplate/2.png')}}" alt="...">
+                                <img style="width:600px;" src="{{URL::to('/Uploads/resumeTemplate/6.png')}}" alt="...">
                             </div>
 
                         </div>
@@ -44,13 +44,11 @@
                             <br>
 
                             <div class="row">
-                                <a href="{{route('preview2')}}" class="btn btn-default btn-lg col-md-4">Preview Your CV</a>
-                                <form method="post" class="col-md-4"
-                                      action="">
-                                    {{csrf_field()}}
-                                    {{--<input type="hidden" name="id" value="{{$id}}">--}}
-                                    <button type="submit" class="btn btn-default btn-lg">Download</button>
-                                </form>
+                                <a href="{{route('preview2')}}" class="btn btn-default btn-lg col-md-4">Preview Your
+                                    CV</a>
+                                <a style="margin-left: 10px" href="{{route('downloadCv2')}}"
+                                   class="btn btn-default btn-lg col-md-4">Download</a>
+
                             </div>
                             <br>
                             <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>

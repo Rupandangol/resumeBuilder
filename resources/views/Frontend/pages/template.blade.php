@@ -50,7 +50,7 @@
             </div>
             <div class="template_image col-md-4">
                 <a  href="{{route('template2View')}}"><img
-                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/2.png')}}" alt=""></a>
+                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/6.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">
