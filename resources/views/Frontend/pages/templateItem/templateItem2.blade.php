@@ -8,12 +8,17 @@
 
 
     <style type="text/css">
-        * {
+        @page {
             margin: 0;
+        }
+
+        * {
+            margin-top: 5px;
             padding: 0;
         }
-        body{
-            font-family:"Times New Roman";
+
+        body {
+            font-family: "Times New Roman";
             font-weight: normal;
         }
 
@@ -61,19 +66,19 @@
 <div id="container">
     <div id="myhead">
 
-        <img id="myHeaderImage" src="{{URL::to('/Uploads/userImage')}}" alt="">
+        <img id="myHeaderImage" src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt="">
         <br><br>
-        <h1 id="myHeader">full<span style="color: red;">Name</span></h1>
+        <h1 id="myHeader">{{$personalDetail->fullName}}</h1>
     </div>
     <div id="myBody">
         <hr>
         <hr style="margin-top: 2px;background-color: red">
         <ul style="margin-left: 15px;margin-top: 10px">
-            <li>Address:ajsdkfljasdklfj</li>
+            <li>Address:{{$personalDetail->address}}</li>
         </ul>
         <ul id="subpoint">
-            <li>Tel:9841414989</li>
-            <li>Email:asdfkalsdjf@gamil.com</li>
+            <li>Tel:{{$personalDetail->mobileNo}}</li>
+            <li>Email:{{$personalDetail->email}}</li>
             <li>Website:linkedIn</li>
         </ul>
         {{--profile--}}
@@ -84,16 +89,8 @@
             </tr>
             <tr>
                 <td>
-                    <p style="margin-top: 10px">Objective: <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Amet architecto,
-                        assumenda
-                        beatae doloremque eligendi enim eum eveniet expedita, fugiat, hic id ipsam nihil omnis
-                        praesentium
-                        quas quia repellendus tenetur voluptatum! </p><br>
-                    <p>Summary: <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur deserunt,
-                        esse
-                        magnam maxime minus natus neque non odit quod recusandae reiciendis repudiandae unde vel vero
-                        voluptas voluptates voluptatibus. Ad, commodi.</p>
+                    <p style="margin-top: 10px">Objective: <br>{{$personalProfile->careerObjective}} </p><br>
+                    <p>Summary: <br>{{$personalProfile->careerSummary}}</p>
                 </td>
             </tr>
         </table>
@@ -104,14 +101,13 @@
                 <th style="background-color: #BDBDBD"><i>Key Skill</i></th>
 
             </tr>
-            <tr>
-                <td>
-                    <p style="margin-top: 10px">Skills: <br>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Commodi eos est eum
-                        explicabo libero nemo nisi porro quaerat quos veritatis. Culpa cupiditate eligendi expedita
-                        impedit perferendis recusandae repudiandae, veniam voluptatibus.</p>
-                </td>
-            </tr>
+            @foreach($skill as $value)
+                <tr>
+                    <td>
+                        <p style="margin-top: 10px">{{$value->skill}}: <br>{{$value->about}}</p>
+                    </td>
+                </tr>
+            @endforeach
         </table>
         {{--education--}}
         <br>
@@ -119,18 +115,28 @@
             <tr>
                 <th colspan="2" style="background-color: #BDBDBD"><i>Education</i></th>
             </tr>
-            <tr>
-                <td>
-                    <p style="margin-top: 10px">Level Bachelor in electronics and communication
-                        <br>institute
-                        <br>location:asdf <br></p>
+            @foreach($education as $value)
+                <tr>
+                    <td>
+                        <p style="margin-top: 10px">{{$value->subject}}
+                            <br>{{$value->institute}}
+                            <br>{{$value->location}}<br></p>
 
-                </td>
-                <td style="text-align: right">
-                    <i style="font-size: 13px">2002-2006</i>
+                    </td>
+                    <td style="text-align: right">
+                        <i style="font-size: 13px">{{\Carbon\Carbon::parse($value->startTime)->format('Y')}}-
 
-                </td>
-            </tr>
+                            @if($value->endTime==='attending')
+                                Attending
+                            @else
+                                {{\Carbon\Carbon::parse($value->endTime)->format('Y')}}
+                            @endif
+
+                        </i>
+
+                    </td>
+                </tr>
+            @endforeach
         </table>
         {{--Experience--}}
         <br>
@@ -139,21 +145,27 @@
                 <th colspan="2" style="background-color: #BDBDBD"><i>Experience</i>
                 </th>
             </tr>
-            <tr>
-                <td>
-                    <p style="margin-top: 10px">Company Name <br>
-                        location <br>
-                        jobTitle <br>
-                        jobSummary
-                    </p></td>
-                <td style="text-align: right">
-                    <i style="font-size: 13px">
-                        {{--available for <br>--}}Full Time <br>
-                        Oct 2002 to dec 2006
-                    </i>
-                </td>
-            </tr>
-
+            @foreach($experience as $value)
+                <tr>
+                    <td>
+                        <p style="margin-top: 10px">{{$value->companyName}}<br>
+                            {{$value->location}}<br>
+                            {{$value->jobTitle}}<br>
+                            {{$value->jobSummary}}
+                        </p></td>
+                    <td style="text-align: right">
+                        <i style="font-size: 13px">
+                            {{--available for <br>--}}{{--Full Time <br>--}}
+                            {{\Carbon\Carbon::parse($value->startTime)->format('M Y')}} to
+                            @if($value->endTime==='Current')
+                                Current
+                            @else
+                                {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
+                            @endif
+                        </i>
+                    </td>
+                </tr>
+            @endforeach
         </table>
 
 
@@ -163,14 +175,16 @@
             <tr>
                 <th style="background-color: #BDBDBD"><i>Reference</i></th>
             </tr>
-            <tr>
-                <td>
-                    <p style="margin-top: 10px">Referee:
-                        <br>
-                        Referee Contact:
-                    </p>
-                </td>
-            </tr>
+            @foreach($reference as $value)
+                <tr>
+                    <td>
+                        <p style="margin-top: 10px">Referee:{{$value->referee}}
+                            <br>
+                            Referee Contact:{{$value->refereeContact}}
+                        </p>
+                    </td>
+                </tr>
+            @endforeach
         </table>
     </div>
 

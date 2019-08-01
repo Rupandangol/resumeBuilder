@@ -2,7 +2,7 @@
 
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: sticky;top:50px; width: 100%;">
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: sticky;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
              aria-valuemin="0" aria-valuemax="100" style="width:87%">
         </div>
@@ -45,7 +45,7 @@
         <div class="row">
             <div class="template_image col-md-4">
                 <a class="myTemplate" data-href="{{route('template1View')}}"><img
-                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/5.1.png')}}" alt=""></a>
+                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/1.8.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">

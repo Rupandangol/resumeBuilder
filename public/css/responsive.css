@@ -1,0 +1,8 @@
+.table-responsive-sm{
+    width: inherit;
+}
+@media  (max-width: 1250px){
+    .table-responsive-sm{
+        overflow-x: scroll;
+    }
+}

@@ -18,6 +18,10 @@
             font-family: sans-serif, "Times New Roman";
         }
 
+        /*#container{*/
+            /*margin-top: 5px;*/
+        /*}*/
+
         #content {
             padding: 10px;
             margin-top: 40px;
@@ -68,7 +72,7 @@
         }
 
         #myProgressbar > div {
-            background-color: orange;
+            background-color: #1B5E20;
             height: 12px;
             border-radius: 6px;
         }
@@ -117,11 +121,11 @@
             <h3>Experience</h3>
             @foreach($experience as $value)
                 <i style="float: left;">{{$value->companyName}}</i>
-                <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M.Y')}} to
-                    @if($value->endTime==='current')
+                <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}} to
+                    @if($value->endTime==='Current')
                         Current
                     @else
-                        not Current
+                        {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
                     @endif
                 </i>
                 <ul id="myExp">
@@ -137,16 +141,16 @@
             @foreach($education as $value)
 
                 <i style="float:left;">{{$value->institute}}</i>
-                <i style="float:right; font-size: 12px">{{\Carbon\Carbon::parse($value->startTime)->format('M.Y')}}-
+                <i style="float:right; font-size: 12px">{{\Carbon\Carbon::parse($value->startTime)->format('Y')}}-
 
                     @if($value->endTime==='attending')
                         Attending
                     @else
-                        Not Attending
+                        {{\Carbon\Carbon::parse($value->endTime)->format('Y')}}
                     @endif
                 </i>
                 <ul id="myEdu">
-                    <li>{{$value->subject}},{{$value->grade}}</li>
+                    <li>{{$value->subject}}, {{$value->grade}}</li>
                     <li>{{$value->location}}</li>
                 </ul>
             @endforeach

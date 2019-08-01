@@ -31,6 +31,7 @@ class pdfController extends Controller
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
 
+
         $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem' . $itemId[1], $data);
 
         return $pdf->stream();

@@ -1,12 +1,15 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
              aria-valuemin="0" aria-valuemax="100" style="width:43.5%">
         </div>
     </div>
 @endsection
+@section('my-header')
+    <link rel="stylesheet" href="{{url('/css/responsive.css')}}">
+    @endsection
 
 
 @section('contentHeader')
@@ -37,60 +40,66 @@
                         <i class="fa fa-info-circle fa-lg"></i>
                     </button>
                 </div>
-                <table class="table table-borderless table-hover">
-                    <thead>
-                    <tr>
-                        <th>Institute</th>
-                        <th>Location</th>
-                        <th>Level</th>
-                        <th>Grade</th>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody id="appendEducationHere">
-                    @forelse($education as $value)
+
+                <div class="table-responsive-sm">
+
+                    <table class="table table-borderless table-hover">
+                        <thead>
                         <tr>
-                            <td><input type="text" name="institute[]" value="{{$value->institute}}"></td>
-                            <td><input type="text" name="location[]" value="{{$value->location}}"></td>
-                            <td><input type="text" name="subject[]" value="{{$value->subject}}"></td>
-                            <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"
-                                       value="{{$value->grade}}"></td>
-                            <td><input type="date" name="startTime[]" value="{{$value->startTime}}"></td>
-                            <td><input type="date" name="endTime[]" value="{{$value->endTime}}"></td>
-                            <td>
-                                <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
-                            </td>
-                            <td>
-                                <input class="checkThis" type="checkbox" @if($value->attending==='true') checked @endif>
-                                <b>Attending</b>
-                                <input class="checkThen" type="hidden" name="attending[]" value="{{$value->attending}}">
-
-                            </td>
+                            <th>Institute</th>
+                            <th>Location</th>
+                            <th>Level</th>
+                            <th>Grade</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th colspan="2">Action</th>
                         </tr>
+                        </thead>
+                        <tbody id="appendEducationHere">
+                        @forelse($education as $value)
+                            <tr>
+                                <td><input type="text" name="institute[]" value="{{$value->institute}}"></td>
+                                <td><input type="text" name="location[]" value="{{$value->location}}"></td>
+                                <td><input type="text" name="subject[]" value="{{$value->subject}}"></td>
+                                <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"
+                                           value="{{$value->grade}}"></td>
+                                <td><input type="date" name="startTime[]" value="{{$value->startTime}}"></td>
+                                <td><input type="date" name="endTime[]" value="{{$value->endTime}}"></td>
+                                <td>
+                                    <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
+                                </td>
+                                <td>
+                                    <input class="checkThis" type="checkbox"
+                                           @if($value->attending==='true') checked @endif>
+                                    <b>Attending</b>
+                                    <input class="checkThen" type="hidden" name="attending[]"
+                                           value="{{$value->attending}}">
 
-                    @empty
-                        <tr>
-                            <td><input type="text" name="institute[]"></td>
-                            <td><input type="text" name="location[]"></td>
-                            <td><input type="text" name="subject[]"></td>
-                            <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
-                            <td><input type="date" name="startTime[]"></td>
-                            <td><input type="date" name="endTime[]"></td>
-                            <td>
-                                <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
-                            </td>
-                            <td>
-                                <input class="checkThis" type="checkbox"> <b>Attending</b>
-                                <input class="checkThen" type="hidden" name="attending[]" value="false">
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
 
-                    @endforelse
-                    </tbody>
+                        @empty
+                            <tr>
+                                <td><input type="text" name="institute[]"></td>
+                                <td><input type="text" name="location[]"></td>
+                                <td><input type="text" name="subject[]"></td>
+                                <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
+                                <td><input type="date" name="startTime[]"></td>
+                                <td><input type="date" name="endTime[]"></td>
+                                <td>
+                                    <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
+                                </td>
+                                <td>
+                                    <input class="checkThis" type="checkbox"> <b>Attending</b>
+                                    <input class="checkThen" type="hidden" name="attending[]" value="false">
+                                </td>
+                            </tr>
 
-                </table>
+                        @endforelse
+                        </tbody>
+
+                    </table>
+                </div>
                 <button id="addEducation" class="btn btn-success btn-block">Add Education</button>
                 <br>
                 <a href="{{route('page3')}}" class="btn btn-default">back</a>
@@ -122,7 +131,6 @@
                     "                                <input class=\"checkThen\" type=\"hidden\" name=\"attending[]\" value=\"false\">\n" +
                     "                            </td>\n" +
                     "                        </tr>\n";
-
                 $('#appendEducationHere').append(appendTrEdu);
                 attending();
                 removeEdu();

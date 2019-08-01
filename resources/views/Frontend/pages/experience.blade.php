@@ -1,7 +1,7 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
         <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
              aria-valuemin="0" aria-valuemax="100" style="width:58%">
         </div>
@@ -13,6 +13,9 @@
     <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
 @endsection
 
+@section('my-header')
+    <link rel="stylesheet" href="{{url('/css/responsive.css')}}">
+@endsection
 
 @section('content')
     <div class="box box-info">
@@ -37,64 +40,68 @@
                         <i class="fa fa-info-circle fa-lg "></i>
                     </button>
                 </div>
-                <table class="table table-borderless table-hover">
-                    <thead>
-                    <tr>
-                        <td>JobTitle</td>
-                        <td>Company Name</td>
-                        <td>Location</td>
-                        <td>Start Time</td>
-                        <td>End Time</td>
-                        <td>Job Summary</td>
-                        <td colspan="2">Action</td>
-                    </tr>
-                    </thead>
-                    <tbody id="appendExperienceHere">
-                    @forelse($experience as $value)
+
+                <div class="table-responsive-sm">
+                    <table class="table table-borderless table-hover">
+                        <thead>
                         <tr>
-                            <td><input type="text" value="{{$value->jobTitle}}" name="jobTitle[]"></td>
-                            <td><input type="text" value="{{$value->companyName}}" name="companyName[]"></td>
-                            <td><input type="text" value="{{$value->location}}" name="location[]"></td>
-                            <td><input type="date" value="{{$value->startTime}}" name="startTime[]"></td>
-                            <td><input type="date" value="{{$value->endTime}}" name="endTime[]"></td>
-                            <td><input type="text" value="{{$value->jobSummary}}" name="jobSummary[]"></td>
-                            <td>
-                                <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
-                            </td>
-                            <td>
-                                <input class="checkExp" type="checkbox"
-                                @if($value->current==='true')
-                                    checked
-                                        @endif
-                                > <b>Current</b>
-                                <input class="checkExpThis" name="current[]" value="{{$value->current}}" type="hidden">
-                            </td>
+                            <td>JobTitle</td>
+                            <td>Company Name</td>
+                            <td>Location</td>
+                            <td>Start Time</td>
+                            <td>End Time</td>
+                            <td>Job Summary</td>
+                            <td colspan="2">Action</td>
                         </tr>
+                        </thead>
+                        <tbody id="appendExperienceHere">
+                        @forelse($experience as $value)
+                            <tr>
+                                <td><input type="text" value="{{$value->jobTitle}}" name="jobTitle[]"></td>
+                                <td><input type="text" value="{{$value->companyName}}" name="companyName[]"></td>
+                                <td><input type="text" value="{{$value->location}}" name="location[]"></td>
+                                <td><input type="date" value="{{$value->startTime}}" name="startTime[]"></td>
+                                <td><input type="date" value="{{$value->endTime}}" name="endTime[]"></td>
+                                <td><input type="text" value="{{$value->jobSummary}}" name="jobSummary[]"></td>
+                                <td>
+                                    <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
+                                </td>
+                                <td>
+                                    <input class="checkExp" type="checkbox"
+                                           @if($value->current==='true')
+                                           checked
+                                            @endif
+                                    > <b>Current</b>
+                                    <input class="checkExpThis" name="current[]" value="{{$value->current}}"
+                                           type="hidden">
+                                </td>
+                            </tr>
 
-                    @empty
-                        <tr>
-                            <td><input type="text" name="jobTitle[]"></td>
-                            <td><input type="text" name="companyName[]"></td>
-                            <td><input type="text" name="location[]"></td>
-                            <td><input type="date" name="startTime[]"></td>
-                            <td><input type="date" name="endTime[]"></td>
-                            <td><input type="text" name="jobSummary[]"></td>
-                            <td>
-                                <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
-                            </td>
-                            <td>
-                                <input class="checkExp" type="checkbox"> <b>Current</b>
-                                <input class="checkExpThis" name="current[]" value="false" type="hidden">
-                            </td>
-                        </tr>
+                        @empty
+                            <tr>
+                                <td><input type="text" name="jobTitle[]"></td>
+                                <td><input type="text" name="companyName[]"></td>
+                                <td><input type="text" name="location[]"></td>
+                                <td><input type="date" name="startTime[]"></td>
+                                <td><input type="date" name="endTime[]"></td>
+                                <td><input type="text" name="jobSummary[]"></td>
+                                <td>
+                                    <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
+                                </td>
+                                <td>
+                                    <input class="checkExp" type="checkbox"> <b>Current</b>
+                                    <input class="checkExpThis" name="current[]" value="false" type="hidden">
+                                </td>
+                            </tr>
 
-                    @endforelse
-
-
-                    </tbody>
+                        @endforelse
 
 
-                </table>
+                        </tbody>
+
+
+                    </table>
+                </div>
                 <button id="addExp" type="button" class="btn btn-success btn-block">Add Experience</button>
                 <br>
                 <a href="{{route('page4')}}" class="btn btn-default">back</a>

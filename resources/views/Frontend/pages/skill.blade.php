@@ -1,12 +1,32 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
              aria-valuemin="0" aria-valuemax="100" style="width:29%">
         </div>
     </div>
 @endsection
+
+
+@section('my-header')
+    <style type="text/css">
+        .table-responsive-sm {
+                min-width: 240px;
+                /*max-width: 560px;*/
+                width: inherit;
+                /*overflow-x: scroll;*/
+                /*background: red;*/
+            }
+        @media only screen and (max-width: 560px) {
+            .table-responsive-sm {
+                overflow-x: scroll;
+            }
+        }
+    </style>
+@endsection
+
+
 
 @section('contentHeader')
     <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
@@ -30,7 +50,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Skill</h3>
                 </div>
-
+<div class="table-responsive-sm">
                 <table class="table table-borderless table-hover">
                     <thead>
                     <tr>
@@ -47,7 +67,8 @@
                     @forelse($skill as $value)
                         <tr>
                             <td><input type="text" name="skill[]" value="{{$value->skill}}"></td>
-                            <td><input style="width: 100px;" placeholder="eg:60%" type="number" min="1" max="100" name="skillLevel[]" value="{{$value->skillLevel}}"></td>
+                            <td><input style="width: 100px;" placeholder="eg:60%" type="number" min="1" max="100"
+                                       name="skillLevel[]" value="{{$value->skillLevel}}"></td>
                             <td><input type="text" name="about[]" value="{{$value->about}}"></td>
 
                             <td>
@@ -76,6 +97,7 @@
                     </tbody>
 
                 </table>
+</div>
                 <br>
                 <button type="button" id="addCV" class="btn btn-success btn-block">Add Skill</button>
                 <br>

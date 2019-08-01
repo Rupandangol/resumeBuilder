@@ -3,3 +3,12 @@
     width: 200px;
     height: 200px;
 }
+.template-image{
+    /*max-width: 600px;*/
+    width: 600px;
+}
+@media(max-width: 660px){
+    .template-image{
+        width: 280px;
+    }
+}

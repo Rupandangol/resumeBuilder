@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <style type="text/css">
-        .myImage{
-            border-radius:30px;
-            height:160px;
-            margin-right:40px;
+        .myImage {
+            border-radius: 30px;
+            height: 160px;
+            margin-right: 40px;
         }
     </style>
     <title>CvBuilder</title>
@@ -57,7 +57,7 @@
                 <tbody>
                 <tr>
                     <td>{{ucfirst($value->companyName)}}</td>
-                    <td >
+                    <td>
                         <ul>
                             <li>
                                 {{ucfirst($value->jobTitle)}}
@@ -69,7 +69,13 @@
                     <td>
                         <ul>
                             <li>{{$value->location}}</li>
-                            <li>{{$value->startTime}}-{{$value->endTime}}</li>
+                            <li>{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}-
+                                @if($value->endTime==='Current')
+                                    Current
+                                @else
+                                    {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
+                                @endif
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -97,7 +103,14 @@
                     <td>
                         <ul>
                             <li>{{$value->location}}</li>
-                            <li>{{$value->startTime}}-{{$value->endTime}}</li>
+                            <li>{{\Carbon\Carbon::parse($value->startTime)->format('Y')}}-
+                            @if($value->endTime==='attending')
+                                Attending
+                                @else
+                                {{\Carbon\Carbon::parse($value->endTime)->format('Y')}}
+                                @endif
+
+                            </li>
                         </ul>
                     </td>
                 </tr>
