@@ -1,5 +1,3 @@
-<!-- ./wrapper -->
-
 <!-- jQuery 3 -->
 <script src="{{URL::to('lib/jquery/dist/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->

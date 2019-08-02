@@ -18,7 +18,8 @@
     <div class="jumbotron">
         <h1 style="text-align: center" class="display-4">CV <b>Builder</b></h1>
         <hr class="my-4">
-        <p>Impressive Resumes Made Easy! Get hired with the professional Resume Builder that will make you stand out of
+        <p>
+            Impressive Resumes Made Easy! Get hired with the professional Resume Builder that will make you stand out of
             the crowd! Start Now!.
         </p>
         <p class="lead">
@@ -27,19 +28,19 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div id="carouselExampleFade" class="carousel slide " data-interval="3000" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img style="max-height:450px;overflow-y:hidden" src="{{URL::to("/Uploads/carosel/1.png")}}"
+                        <img style="max-height:450px;overflow-y:hidden" src="{{URL::to("/Uploads/carosel/2.1.png")}}"
                              class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img style="max-height:450px;overflow-y:hidden" src="{{URL::to('/Uploads/carosel/2.png')}}"
+                        <img style="max-height:450px;overflow-y:hidden" src="{{URL::to('/Uploads/carosel/4.png')}}"
                              class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img style="max-height:450px;overflow-y:hidden" src="{{URL::to('/Uploads/carosel/3.1.png')}}"
+                        <img style="max-height:450px;overflow-y:hidden" src="{{URL::to('/Uploads/carosel/1.1.png')}}"
                              class="d-block w-100" alt="...">
                     </div>
                 </div>

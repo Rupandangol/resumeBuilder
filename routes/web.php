@@ -17,7 +17,7 @@
 
 
 //dashboard
-Route::get('/', 'frontendController@index');
+Route::get('/', 'frontendController@index')->name('dashboard');
 
 //cv Form
 
@@ -51,6 +51,10 @@ Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->mi
 Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkTemplate');
 Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkTemplate');
 
+
+
+
+Route::get('/afterDownload','pdfController@afterDownload')->name('afterDownload');
 //
 //flushing session
 Route::get('/flush', 'frontendController@flushSession')->name('flushSession');

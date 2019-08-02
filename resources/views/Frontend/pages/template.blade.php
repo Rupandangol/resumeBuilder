@@ -3,8 +3,8 @@
 
 @section('progressBar')
     <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: sticky;top:50px; width: 100%;z-index: 20">
-        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:87%">
+        <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:87%;background-color:#3F51B5"">
         </div>
     </div>
 @endsection
@@ -35,7 +35,6 @@
                     <li><a href="{{route('page4')}}">Education</a></li>
                     <li><a href="{{route('page5')}}">Experience</a></li>
                     <li><a href="{{route('page6')}}">Reference</a></li>
-
                 </ul>
             </div>
         </div>
@@ -49,12 +48,12 @@
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">
-                <a  href="{{route('template2View')}}"><img
+                <a class="myTemplate"  data-href="{{route('template2View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/6.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
             <div class="template_image col-md-4">
-                <a  href="{{route('template3View')}}"><img
+                <a class="myTemplate"  data-href="{{route('template3View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/4.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
@@ -71,6 +70,6 @@
                 console.log(test);
                 window.location.replace(test);
             })
-        })
+        });
     </script>
 @endsection

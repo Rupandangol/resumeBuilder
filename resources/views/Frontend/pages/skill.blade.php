@@ -2,14 +2,15 @@
 
 @section('progressBar')
     <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
-        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:29%">
+        <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:29%;background-color:#3F51B5"">
         </div>
     </div>
 @endsection
 
 
 @section('my-header')
+    <link rel="stylesheet" href="{{url('/css/tooltip.css')}}">
     <style type="text/css">
         .table-responsive-sm {
                 min-width: 240px;
@@ -55,7 +56,11 @@
                     <thead>
                     <tr>
                         <th>Skill</th>
-                        <th>Skill Level</th>
+                        <th>Skill Level &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="myTooltip"><i class="fa fa-info-circle"></i>
+                                <span class="mytooltiptext">Enter 1% to 100%</span>
+                            </div>
+                        </th>
                         <th>About</th>
                         <th>Action</th>
 

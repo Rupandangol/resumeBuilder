@@ -1,15 +1,18 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
-        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:43.5%">
+    <div id="myProgressBar" class="progress"
+         style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
+        <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:43.5%;background-color:#3F51B5">
         </div>
     </div>
 @endsection
 @section('my-header')
     <link rel="stylesheet" href="{{url('/css/responsive.css')}}">
-    @endsection
+
+    <link rel="stylesheet" href="{{url('/css/tooltip.css')}}">
+@endsection
 
 
 @section('contentHeader')
@@ -31,7 +34,6 @@
             {{csrf_field()}}
             <div class="box-body">
 
-
                 <div class="box-header with-border">
                     <h3 class="box-title">Education</h3>
                     <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
@@ -48,7 +50,11 @@
                         <tr>
                             <th>Institute</th>
                             <th>Location</th>
-                            <th>Level</th>
+                            <th>Level &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="myTooltip"><i class="fa fa-info-circle"></i>
+                                    <span class="mytooltiptext">Write full education level, Eg:SLC/+2/Bachelor in civil Engineering...</span>
+                                </div>
+                            </th>
                             <th>Grade</th>
                             <th>Start Time</th>
                             <th>End Time</th>
@@ -74,7 +80,6 @@
                                     <b>Attending</b>
                                     <input class="checkThen" type="hidden" name="attending[]"
                                            value="{{$value->attending}}">
-
                                 </td>
                             </tr>
 

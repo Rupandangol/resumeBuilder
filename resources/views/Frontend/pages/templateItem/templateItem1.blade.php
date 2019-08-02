@@ -19,7 +19,7 @@
         }
 
         /*#container{*/
-            /*margin-top: 5px;*/
+        /*margin-top: 5px;*/
         /*}*/
 
         #content {
@@ -89,22 +89,21 @@
 <div id="container">
     <div id="content">
         <div id="nav">
-            <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px"
-                 src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
-
+            @if($personalDetail->image)
+                <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px"
+                     src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
+            @endif
             <h3>Contact</h3>
             <p id="myContact">{{$personalDetail->email}}<br>Website<br>{{$personalDetail->location}}
                 <br>{{$personalDetail->mobileNo}}</p>
             <br>
-
 
             <h3 style="margin-bottom: 5px">Skill</h3>
             <p id="mySkill">
                 @foreach($skill as $value)
                     {{$value->skill}}<br>
             <div id="myProgressbar">
-                <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}
-                    %
+                <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}%
                 </div>
             </div>
             @endforeach
@@ -161,7 +160,6 @@
                     <br>
                     {{$value->refereeContact}}
                 </p>
-
             @endforeach
         </div>
         <div id="footer">

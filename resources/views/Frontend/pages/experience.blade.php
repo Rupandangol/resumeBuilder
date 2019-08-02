@@ -1,9 +1,10 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
-        <div id="myInnerBar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:58%">
+    <div id="myProgressBar" class="progress"
+         style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
+        <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
+             aria-valuemin="0" aria-valuemax="100" style="width:58%;background-color:#3F51B5">
         </div>
     </div>
 @endsection
@@ -15,6 +16,7 @@
 
 @section('my-header')
     <link rel="stylesheet" href="{{url('/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{url('/css/tooltip.css')}}">
 @endsection
 
 @section('content')
@@ -50,7 +52,13 @@
                             <td>Location</td>
                             <td>Start Time</td>
                             <td>End Time</td>
-                            <td>Job Summary</td>
+                            <td>Job Summary
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="myTooltip"><i class="fa fa-info-circle"></i>
+                                    <span class="mytooltiptext">Write brief Job Summary</span>
+                                </div>
+
+                            </td>
                             <td colspan="2">Action</td>
                         </tr>
                         </thead>

@@ -57,8 +57,10 @@ class pdfController extends Controller
         $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem' . $itemId[1], $data);
 
 
-        return $pdf->stream();
+//        return $pdf->stream();
         return $pdf->download($data['personalDetail']->fullName . '.pdf');
-
     }
+
+
 }
+
