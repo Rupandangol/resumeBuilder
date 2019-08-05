@@ -3,7 +3,7 @@
 @section('progressBar')
     <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:14.5%;background-color:#3F51B5"">
+             aria-valuemin="0" aria-valuemax="100" style="width:14.5%;background-color:#3F51B5">1st Step Done
         </div>
     </div>
 @endsection

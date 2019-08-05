@@ -124,12 +124,12 @@
 
                     </td>
                     <td style="text-align: right">
-                        <i style="font-size: 13px">{{\Carbon\Carbon::parse($value->startTime)->format('Y')}}-
+                        <i style="font-size: 13px">{{$value->startTime}}-
 
                             @if($value->endTime==='attending')
                                 Attending
                             @else
-                                {{\Carbon\Carbon::parse($value->endTime)->format('Y')}}
+                                {{$value->endTime}}
                             @endif
 
                         </i>
@@ -175,7 +175,7 @@
             <tr>
                 <th style="background-color: #BDBDBD"><i>Reference</i></th>
             </tr>
-            @foreach($reference as $value)
+            @forelse($reference as $value)
                 <tr>
                     <td>
                         <p style="margin-top: 10px">Referee:{{$value->referee}}
@@ -184,7 +184,9 @@
                         </p>
                     </td>
                 </tr>
-            @endforeach
+                @empty
+                <p>Reference Available on request</p>
+            @endforelse
         </table>
     </div>
 

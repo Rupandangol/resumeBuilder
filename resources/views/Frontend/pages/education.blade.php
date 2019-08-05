@@ -4,7 +4,7 @@
     <div id="myProgressBar" class="progress"
          style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:43.5%;background-color:#3F51B5">
+             aria-valuemin="0" aria-valuemax="100" style="width:43.5%;background-color:#3F51B5">3rd Step Done
         </div>
     </div>
 @endsection
@@ -35,7 +35,10 @@
             <div class="box-body">
 
                 <div class="box-header with-border">
-                    <h3 class="box-title">Education</h3>
+                    <h3 class="box-title">Education</h3> &nbsp;&nbsp;
+                    <div class="myTooltip"><i class="fa fa-info-circle"></i>
+                        <span class="mytooltiptext">Start with your Lower Education level and work forward</span>
+                    </div>
                     <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
                             data-placement="bottom"
                             title="If you are attending School/Collage you can leave Grade and endTime inputs of that row block">
@@ -64,13 +67,20 @@
                         <tbody id="appendEducationHere">
                         @forelse($education as $value)
                             <tr>
-                                <td><input type="text" name="institute[]" value="{{$value->institute}}"></td>
-                                <td><input type="text" name="location[]" value="{{$value->location}}"></td>
-                                <td><input type="text" name="subject[]" value="{{$value->subject}}"></td>
-                                <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"
+                                <td><input class="eduBlock" type="text" name="institute[]" value="{{$value->institute}}"></td>
+                                <td><input class="eduBlock" type="text" name="location[]" value="{{$value->location}}"></td>
+                                <td><input class="eduBlock" type="text" name="subject[]" value="{{$value->subject}}"></td>
+                                <td><input class="eduBlock" type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"
                                            value="{{$value->grade}}"></td>
-                                <td><input type="date" name="startTime[]" value="{{$value->startTime}}"></td>
-                                <td><input type="date" name="endTime[]" value="{{$value->endTime}}"></td>
+                                <td>
+                                    <input class="date-own form-control eduBlock" value="{{$value->startTime}}" name="startTime[]" style="width: 100px;"
+                                           type="number">
+                                    {{--<input type="date" name="startTime[]" value="{{$value->startTime}}">--}}
+                                </td>
+                                <td>
+                                    <input class="date-own form-control eduBlock" value="{{$value->endTime}}" style="width: 100px;" name="endTime[]"
+                                           type="number">
+                                {{--<input type="date" name="endTime[]" value="{{$value->endTime}}"></td>--}}
                                 <td>
                                     <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -85,12 +95,14 @@
 
                         @empty
                             <tr>
-                                <td><input type="text" name="institute[]"></td>
-                                <td><input type="text" name="location[]"></td>
-                                <td><input type="text" name="subject[]"></td>
-                                <td><input type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
-                                <td><input type="date" name="startTime[]"></td>
-                                <td><input type="date" name="endTime[]"></td>
+                                <td><input class="eduBlock" type="text" name="institute[]"></td>
+                                <td><input class="eduBlock" type="text" name="location[]"></td>
+                                <td><input class="eduBlock" type="text" name="subject[]"></td>
+                                <td><input class="eduBlock" type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
+                                <td><input class="date-own form-control eduBlock" name="startTime[]" style="width: 100px;"
+                                           type="number"></td>
+                                <td><input class="date-own form-control eduBlock" style="width: 100px;" name="endTime[]"
+                                           type="number"></td>
                                 <td>
                                     <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -99,16 +111,15 @@
                                     <input class="checkThen" type="hidden" name="attending[]" value="false">
                                 </td>
                             </tr>
-
                         @endforelse
                         </tbody>
 
                     </table>
                 </div>
-                <button id="addEducation" class="btn btn-success btn-block">Add Education</button>
+                <button id="addEducation" class="btn btn-success btn-block">Add New Education</button>
                 <br>
                 <a href="{{route('page3')}}" class="btn btn-default">back</a>
-                <button class="btn btn-default pull-right" type="submit">next</button>
+                <button id="eduButton" class="btn btn-default pull-right" type="submit">next</button>
             </div>
         </form>
         <!-- /input-group -->
@@ -121,24 +132,27 @@
         $(function () {
             $('#addEducation').on('click', function (e) {
                 e.preventDefault();
-                var appendTrEdu = "   <tr>\n" +
-                    "                            <td><input type=\"text\" name=\"institute[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"subject[]\"></td>\n" +
-                    "                            <td><input type=\"text\" placeholder=\"eg:80% or 2.7gpa\" name=\"grade[]\"></td>\n" +
-                    "                            <td><input type=\"date\" name=\"startTime[]\"></td>\n" +
-                    "                            <td><input type=\"date\" name=\"endTime[]\"></td>\n" +
-                    "                            <td>\n" +
-                    "                                <button class=\"btn btn-danger removeEdu\"><i class=\"fa fa-trash\"></i></button>\n" +
-                    "                            </td>\n" +
-                    "                            <td>\n" +
-                    "                                <input class=\"checkThis\" type=\"checkbox\"> <b>Attending</b>\n" +
-                    "                                <input class=\"checkThen\" type=\"hidden\" name=\"attending[]\" value=\"false\">\n" +
-                    "                            </td>\n" +
-                    "                        </tr>\n";
+                var appendTrEdu = "<tr>\n" +
+                    "                                <td><input class=\"eduBlock\" type=\"text\" name=\"institute[]\"></td>\n" +
+                    "                                <td><input class=\"eduBlock\" type=\"text\" name=\"location[]\"></td>\n" +
+                    "                                <td><input class=\"eduBlock\" type=\"text\" name=\"subject[]\"></td>\n" +
+                    "                                <td><input class=\"eduBlock\" type=\"text\" placeholder=\"eg:80% or 2.7gpa\" name=\"grade[]\"></td>\n" +
+                    "                                <td><input class=\"date-own form-control eduBlock\" name=\"startTime[]\" style=\"width: 100px;\"\n" +
+                    "                                           type=\"number\"></td>\n" +
+                    "                                <td><input class=\"date-own form-control eduBlock\" style=\"width: 100px;\" name=\"endTime[]\"\n" +
+                    "                                           type=\"number\"></td>\n" +
+                    "                                <td>\n" +
+                    "                                    <button class=\"btn btn-danger removeEdu\"><i class=\"fa fa-trash\"></i></button>\n" +
+                    "                                </td>\n" +
+                    "                                <td>\n" +
+                    "                                    <input class=\"checkThis\" type=\"checkbox\"> <b>Attending</b>\n" +
+                    "                                    <input class=\"checkThen\" type=\"hidden\" name=\"attending[]\" value=\"false\">\n" +
+                    "                                </td>\n" +
+                    "                            </tr>";
                 $('#appendEducationHere').append(appendTrEdu);
                 attending();
                 removeEdu();
+                enterKey();
             });
             removeEdu();
             attending();
@@ -176,6 +190,17 @@
                     console.log(test1.val())
                 })
             }
+
+
+            function enterKey() {
+                $('.eduBlock').on('keypress',function (e) {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        $('#eduButton').click();
+                    }
+                })
+            }
+            enterKey();
 
 
         })
@@ -250,5 +275,11 @@
     {{--</script>--}}
 
 
-
+    <script type="text/javascript">
+        $('.date-own').datepicker({
+            minViewMode: 2,
+            format: 'yyyy'
+        });
+    </script>
 @endsection
+

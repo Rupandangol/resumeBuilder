@@ -39,17 +39,17 @@ Route::post('/reference', 'frontendController@referenceAction');
 //    Route::get('/personalProfile/skill/{id}/education/experience/referenceUpdate','frontendController@referenceUpdate')->name('updateReference','{id}');
 //
 ////    Template
-Route::get('/template', 'frontendController@template')->name('page7')->middleware('checkTemplate');
+Route::get('/template', 'frontendController@template')->name('page7');
 
 
-Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkTemplate');
-Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkTemplate');
+Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkReference');
+Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkReference');
 //
-Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkTemplate');
-Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkTemplate');
+Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkReference');
+Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkReference');
 //
-Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkTemplate');
-Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkTemplate');
+Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkReference');
+Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkReference');
 
 
 

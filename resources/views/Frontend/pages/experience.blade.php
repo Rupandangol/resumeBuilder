@@ -4,7 +4,7 @@
     <div id="myProgressBar" class="progress"
          style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:58%;background-color:#3F51B5">
+             aria-valuemin="0" aria-valuemax="100" style="width:58%;background-color:#3F51B5">4th Step Done
         </div>
     </div>
 @endsection
@@ -59,18 +59,23 @@
                                 </div>
 
                             </td>
-                            <td colspan="2">Action</td>
                         </tr>
                         </thead>
                         <tbody id="appendExperienceHere">
                         @forelse($experience as $value)
                             <tr>
-                                <td><input type="text" value="{{$value->jobTitle}}" name="jobTitle[]"></td>
-                                <td><input type="text" value="{{$value->companyName}}" name="companyName[]"></td>
-                                <td><input type="text" value="{{$value->location}}" name="location[]"></td>
-                                <td><input type="date" value="{{$value->startTime}}" name="startTime[]"></td>
-                                <td><input type="date" value="{{$value->endTime}}" name="endTime[]"></td>
-                                <td><input type="text" value="{{$value->jobSummary}}" name="jobSummary[]"></td>
+                                <td><input class="expBlock" type="text" value="{{$value->jobTitle}}" name="jobTitle[]">
+                                </td>
+                                <td><input class="expBlock" type="text" value="{{$value->companyName}}"
+                                           name="companyName[]"></td>
+                                <td><input class="expBlock" type="text" value="{{$value->location}}" name="location[]">
+                                </td>
+                                <td><input class="expBlock" type="date" style="width: 135px;"
+                                           value="{{$value->startTime}}" name="startTime[]"></td>
+                                <td><input class="expBlock" type="date" style="width: 135px;"
+                                           value="{{$value->endTime}}" name="endTime[]"></td>
+                                <td><input class="expBlock" type="text" style="height: 80px;"
+                                           value="{{$value->jobSummary}}" name="jobSummary[]"></td>
                                 <td>
                                     <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -87,12 +92,12 @@
 
                         @empty
                             <tr>
-                                <td><input type="text" name="jobTitle[]"></td>
-                                <td><input type="text" name="companyName[]"></td>
-                                <td><input type="text" name="location[]"></td>
-                                <td><input type="date" name="startTime[]"></td>
-                                <td><input type="date" name="endTime[]"></td>
-                                <td><input type="text" name="jobSummary[]"></td>
+                                <td><input class="expBlock" type="text" name="jobTitle[]"></td>
+                                <td><input class="expBlock" type="text" name="companyName[]"></td>
+                                <td><input class="expBlock" type="text" name="location[]"></td>
+                                <td><input class="expBlock" type="date" style="width: 135px;" name="startTime[]"></td>
+                                <td><input class="expBlock" type="date" style="width: 135px;" name="endTime[]"></td>
+                                <td><input class="expBlock" type="text" style="height: 80px;" name="jobSummary[]"></td>
                                 <td>
                                     <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -110,10 +115,10 @@
 
                     </table>
                 </div>
-                <button id="addExp" type="button" class="btn btn-success btn-block">Add Experience</button>
+                <button id="addExp" type="button" class="btn btn-success btn-block">Add New Experience</button>
                 <br>
                 <a href="{{route('page4')}}" class="btn btn-default">back</a>
-                <button class="btn btn-default pull-right" type="submit">next</button>
+                <button id="expButton" class="btn btn-default pull-right" type="submit">next</button>
 
             </div>
 
@@ -130,24 +135,25 @@
             $('#addExp').on('click', function (e) {
                 e.preventDefault();
                 var appendTrExperience = "<tr>\n" +
-                    "                            <td><input type=\"text\" name=\"jobTitle[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"companyName[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"location[]\"></td>\n" +
-                    "                            <td><input type=\"date\" name=\"startTime[]\"></td>\n" +
-                    "                            <td><input type=\"date\" name=\"endTime[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"jobSummary[]\"></td>\n" +
-                    "                            <td>\n" +
-                    "                                <button class=\"btn btn-danger removeExperience\"><i class=\"fa fa-trash\"></i></button>\n" +
-                    "                            </td>\n" +
-                    "                            <td>\n" +
-                    "                                <input class=\"checkExp\" type=\"checkbox\"> <b>Current</b>\n" +
-                    "                                <input class=\"checkExpThis\" name=\"current[]\" value=\"false\" type=\"hidden\">\n" +
-                    "                            </td>\n" +
-                    "                        </tr>";
+                    "                                <td><input class=\"expBlock\" type=\"text\" name=\"jobTitle[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock\" type=\"text\" name=\"companyName[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock\" type=\"text\" name=\"location[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock\" type=\"date\" style=\"width: 135px;\" name=\"startTime[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock\" type=\"date\" style=\"width: 135px;\" name=\"endTime[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock\" type=\"text\" style=\"height: 80px;\" name=\"jobSummary[]\"></td>\n" +
+                    "                                <td>\n" +
+                    "                                    <button class=\"btn btn-danger removeExperience\"><i class=\"fa fa-trash\"></i></button>\n" +
+                    "                                </td>\n" +
+                    "                                <td>\n" +
+                    "                                    <input class=\"checkExp\" type=\"checkbox\"> <b>Current</b>\n" +
+                    "                                    <input class=\"checkExpThis\" name=\"current[]\" value=\"false\" type=\"hidden\">\n" +
+                    "                                </td>\n" +
+                    "                            </tr>";
 
                 $('#appendExperienceHere').append(appendTrExperience);
                 currentExp();
                 removeExperience();
+                enterKey();
 
             });
             currentExp();
@@ -188,6 +194,17 @@
                 })
             }
 
+
+            function enterKey() {
+                $('.expBlock').on('keypress', function (e) {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        $('#expButton').click();
+                    }
+                })
+            }
+
+            enterKey();
 
         });
     </script>

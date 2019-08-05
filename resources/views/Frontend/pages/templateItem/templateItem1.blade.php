@@ -77,10 +77,16 @@
             border-radius: 6px;
         }
 
+        .divPhoneIcon .myPhoneIcon:before {
+            font-family: 'FontAwesome';
+            content: '\f095';
+            font-weight: 900;
+        }
+
     </style>
 
 
-    <title>Document</title>
+    <title></title>
 </head>
 
 
@@ -94,8 +100,11 @@
                      src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
             @endif
             <h3>Contact</h3>
-            <p id="myContact">{{$personalDetail->email}}<br>Website<br>{{$personalDetail->location}}
-                <br>{{$personalDetail->mobileNo}}</p>
+            <p id="myContact">{{$personalDetail->email}}<br>{{$personalDetail->address}}
+                <br>
+                {{$personalDetail->mobileNo}}
+            </p>
+
             <br>
 
             <h3 style="margin-bottom: 5px">Skill</h3>
@@ -103,7 +112,8 @@
                 @foreach($skill as $value)
                     {{$value->skill}}<br>
             <div id="myProgressbar">
-                <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}%
+                <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}
+                    %
                 </div>
             </div>
             @endforeach
@@ -114,12 +124,12 @@
             <p>{{ucfirst($personalProfile->jobCategory)}}</p>
             <hr>
             <h3>Objective</h3>
-            <p>{{$personalProfile->careerObjective}}</p>
+            <p style="font-size: 14px;">{{$personalProfile->careerObjective}}</p>
 
             <hr>
             <h3>Experience</h3>
             @foreach($experience as $value)
-                <i style="float: left;">{{$value->companyName}}</i>
+                <i style=" float: left;">{{$value->companyName}}</i>
                 <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}} to
                     @if($value->endTime==='Current')
                         Current
@@ -127,7 +137,7 @@
                         {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
                     @endif
                 </i>
-                <ul id="myExp">
+                <ul style="font-size: 14px" id="myExp">
                     <li>{{$value->jobTitle}}</li>
                     <li>{{$value->location}}</li>
                     <li>{{$value->jobSummary}}
@@ -140,27 +150,28 @@
             @foreach($education as $value)
 
                 <i style="float:left;">{{$value->institute}}</i>
-                <i style="float:right; font-size: 12px">{{\Carbon\Carbon::parse($value->startTime)->format('Y')}}-
-
+                <i style="float:right; font-size: 12px">{{$value->startTime}}-
                     @if($value->endTime==='attending')
                         Attending
                     @else
-                        {{\Carbon\Carbon::parse($value->endTime)->format('Y')}}
+                        {{$value->endTime}}
                     @endif
                 </i>
-                <ul id="myEdu">
+                <ul style="font-size: 14px" id="myEdu">
                     <li>{{$value->subject}}, {{$value->grade}}</li>
                     <li>{{$value->location}}</li>
                 </ul>
             @endforeach
             <hr>
             <h3>Reference</h3>
-            @foreach($reference as $value)
+            @forelse($reference as $value)
                 <p>{{$value->referee}}
                     <br>
                     {{$value->refereeContact}}
                 </p>
-            @endforeach
+            @empty
+                <p>Reference Available at request</p>
+            @endforelse
         </div>
         <div id="footer">
 

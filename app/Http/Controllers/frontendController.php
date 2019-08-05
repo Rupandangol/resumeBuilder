@@ -331,56 +331,65 @@ class frontendController extends Controller
 
     public function referenceAction(Request $request)
     {
+//
+//        $this->validate($request, [
+//            'referee' => 'required',
+//            'referee.*' => 'required',
+//            'refereeContact' => 'required',
+//            'refereeContact.*' => 'required'
+//        ]);
 
-        $this->validate($request, [
-            'referee' => 'required',
-            'referee.*' => 'required',
-            'refereeContact' => 'required',
-            'refereeContact.*' => 'required'
-        ]);
         $reference = $request->referee;
         $count = 0;
-
-        if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
-            Reference::where('cv_id', session('cv_user_id', false))->delete();
-            foreach ($reference as $value) {
-                $count++;
-            }
-            for ($i = 0; $i < $count; $i++) {
-                $data['referee'] = $request->referee[$i];
-                $data['refereeContact'] = $request->refereeContact[$i];
-                $data['cv_id'] = session('cv_user_id', false);
-                Reference::create($data);
+        $referenceCheck = $request->referee[0];
+        if (!is_null($referenceCheck)) {
+            if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
+                Reference::where('cv_id', session('cv_user_id', false))->delete();
+                foreach ($reference as $value) {
+                    $count++;
+                }
+                for ($i = 0; $i < $count; $i++) {
+                    $data['referee'] = $request->referee[$i];
+                    $data['refereeContact'] = $request->refereeContact[$i];
+                    $data['cv_id'] = session('cv_user_id', false);
+                    Reference::create($data);
+                }
+            } else {
+                foreach ($reference as $value) {
+                    $count++;
+                }
+                for ($i = 0; $i < $count; $i++) {
+                    $data['referee'] = $request->referee[$i];
+                    $data['refereeContact'] = $request->refereeContact[$i];
+                    $data['cv_id'] = session('cv_user_id', false);
+                    Reference::create($data);
+                }
             }
         } else {
-            foreach ($reference as $value) {
-                $count++;
-            }
-            for ($i = 0; $i < $count; $i++) {
-                $data['referee'] = $request->referee[$i];
-                $data['refereeContact'] = $request->refereeContact[$i];
-                $data['cv_id'] = session('cv_user_id', false);
-                Reference::create($data);
+            if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
+                Reference::where('cv_id', session('cv_user_id', false))->delete();
             }
         }
-
 
         return redirect(route('page7'));
     }
 
-    public function template()
+    public
+    function template()
     {
 
         return view('/Frontend/pages/template');
     }
 
-    public function template1()
+    public
+    function template1()
     {
 
         return view('Frontend.pages.templateList.template1');
     }
 
-    public function template1Action()
+    public
+    function template1Action()
     {
         $id = session('cv_user_id', false);
 
@@ -393,13 +402,15 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem1', $data);
     }
 
-    public function template2()
+    public
+    function template2()
     {
 
         return view('Frontend.pages.templateList.template2');
     }
 
-    public function template2Action()
+    public
+    function template2Action()
     {
         $id = session('cv_user_id', false);
 
@@ -413,12 +424,14 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem2', $data);
     }
 
-    public function template3()
+    public
+    function template3()
     {
         return view('Frontend.pages.templateList.template3');
     }
 
-    public function template3Action()
+    public
+    function template3Action()
     {
         $id = session('cv_user_id', false);
 
@@ -431,7 +444,8 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem4', $data);
     }
 
-    public function flushSession()
+    public
+    function flushSession()
     {
         $this->resetSession();
         return redirect(route('page1'));

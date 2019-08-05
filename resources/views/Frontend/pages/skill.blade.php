@@ -1,9 +1,10 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
+    <div id="myProgressBar" class="progress"
+         style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:29%;background-color:#3F51B5"">
+             aria-valuemin="0" aria-valuemax="100" style="width:29%;background-color:#3F51B5">2nd Step Done
         </div>
     </div>
 @endsection
@@ -13,12 +14,13 @@
     <link rel="stylesheet" href="{{url('/css/tooltip.css')}}">
     <style type="text/css">
         .table-responsive-sm {
-                min-width: 240px;
-                /*max-width: 560px;*/
-                width: inherit;
-                /*overflow-x: scroll;*/
-                /*background: red;*/
-            }
+            min-width: 240px;
+            /*max-width: 560px;*/
+            width: inherit;
+            /*overflow-x: scroll;*/
+            /*background: red;*/
+        }
+
         @media only screen and (max-width: 560px) {
             .table-responsive-sm {
                 overflow-x: scroll;
@@ -51,60 +53,61 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Skill</h3>
                 </div>
-<div class="table-responsive-sm">
-                <table class="table table-borderless table-hover">
-                    <thead>
-                    <tr>
-                        <th>Skill</th>
-                        <th>Skill Level &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div class="myTooltip"><i class="fa fa-info-circle"></i>
-                                <span class="mytooltiptext">Enter 1% to 100%</span>
-                            </div>
-                        </th>
-                        <th>About</th>
-                        <th>Action</th>
-
-                    </tr>
-                    </thead>
-
-                    <tbody id="appendDataHere">
-
-                    @forelse($skill as $value)
+                <div class="table-responsive-sm">
+                    <table id="skillTable" class="table table-borderless table-hover">
+                        <thead>
                         <tr>
-                            <td><input type="text" name="skill[]" value="{{$value->skill}}"></td>
-                            <td><input style="width: 100px;" placeholder="eg:60%" type="number" min="1" max="100"
-                                       name="skillLevel[]" value="{{$value->skillLevel}}"></td>
-                            <td><input type="text" name="about[]" value="{{$value->about}}"></td>
-
-                            <td>
-                                <button id="remove-appended" class="btn btn-danger remove-appended"><i
-                                            class="fa fa-trash"></i></button>
-                            </td>
+                            <th>Skill</th>
+                            <th>Skill Level &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="myTooltip"><i class="fa fa-info-circle"></i>
+                                    <span class="mytooltiptext">Enter 1% to 100%</span>
+                                </div>
+                            </th>
+                            <th colspan="2">About</th>
 
                         </tr>
+                        </thead>
+
+                        <tbody id="appendDataHere">
+
+                        @forelse($skill as $value)
+                            <tr>
+                                <td><input class="skillBlock" type="text" name="skill[]" value="{{$value->skill}}"></td>
+                                <td><input class="skillBlock" style="width: 100px;" placeholder="eg:60%" type="number" min="1" max="100"
+                                           name="skillLevel[]" value="{{$value->skillLevel}}"></td>
+                                <td><input class="skillBlock" type="text" style="width: 300px;height: 50px;" name="about[]"
+                                           value="{{$value->about}}"></td>
+
+                                <td>
+                                    <button id="remove-appended" class="btn btn-danger remove-appended"><i
+                                                class="fa fa-trash"></i></button>
+                                </td>
+
+                            </tr>
 
 
-                    @empty
-                        <tr>
-                            <td><input type="text" name="skill[]"></td>
-                            <td><input style="width: 100px" type="number" min="1" max="100" name="skillLevel[]"></td>
-                            <td><input type="text" name="about[]"></td>
+                        @empty
+                            <tr>
+                                <td><input class="skillBlock" type="text" name="skill[]"></td>
+                                <td><input class="skillBlock" style="width: 100px" type="number" min="1" max="100" name="skillLevel[]">
+                                </td>
+                                <td><input class="skillBlock" type="text" style="width: 300px;height: 50px;" name="about[]"></td>
 
-                            <td>
-                                <button id="remove-appended" class="btn btn-danger remove-appended"><i
-                                            class="fa fa-trash"></i></button>
-                            </td>
+                                <td>
+                                    <button id="remove-appended" class="btn btn-danger remove-appended"><i
+                                                class="fa fa-trash"></i></button>
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                    @endforelse
+                        @endforelse
 
-                    </tbody>
+                        </tbody>
 
-                </table>
-</div>
+                    </table>
+                </div>
                 <br>
-                <button type="button" id="addCV" class="btn btn-success btn-block">Add Skill</button>
+                <button type="button" id="addCV" class="btn btn-success btn-block">Add New Skill Block</button>
                 <br>
                 {{--<div id="deleteThis">--}}
                 {{--<div id="skill" class="skill">--}}
@@ -119,7 +122,9 @@
                 {{--</div>--}}
 
                 <a href="{{route('page2')}}" style="border-radius: 24px" class="btn btn-default">Back</a>
-                <button style="border-radius: 24px" type="submit" class="btn btn-default pull-right">Next</button>
+                <button style="border-radius: 24px" id="skillButton" type="submit" class="btn btn-default pull-right">
+                    Next
+                </button>
             </div>
 
         </form>
@@ -131,20 +136,22 @@
         $(function () {
             $('#addCV').on('click', function (e) {
                 e.preventDefault();
-                var appendTr = "<tr>\n" +
-                    "                            <td><input type=\"text\" name=\"skill[]\"></td>\n" +
-                    "                            <td><input style=\"width: 100px\" type=\"number\" min=\"1\" max=\"100\" name=\"skillLevel[]\"></td>\n" +
-                    "                            <td><input type=\"text\" name=\"about[]\"></td>\n" +
+                var appendTr = " <tr>\n" +
+                    "                                <td><input class=\"skillBlock\" type=\"text\" name=\"skill[]\"></td>\n" +
+                    "                                <td><input class=\"skillBlock\" style=\"width: 100px\" type=\"number\" min=\"1\" max=\"100\" name=\"skillLevel[]\">\n" +
+                    "                                </td>\n" +
+                    "                                <td><input class=\"skillBlock\" type=\"text\" style=\"width: 300px;height: 50px;\" name=\"about[]\"></td>\n" +
                     "\n" +
-                    "                            <td>\n" +
-                    "                                <button id=\"remove-appended\" class=\"btn btn-danger remove-appended\"><i\n" +
-                    "                                            class=\"fa fa-trash\"></i></button>\n" +
-                    "                            </td>\n" +
+                    "                                <td>\n" +
+                    "                                    <button id=\"remove-appended\" class=\"btn btn-danger remove-appended\"><i\n" +
+                    "                                                class=\"fa fa-trash\"></i></button>\n" +
+                    "                                </td>\n" +
                     "\n" +
-                    "                        </tr>";
+                    "                            </tr>";
 
                 $('#appendDataHere').append(appendTr);
                 removeAppend();
+                enterKey();
             });
             removeAppend();
 
@@ -160,7 +167,7 @@
 
             function addRemove() {
                 var checkOne = $('#appendDataHere').find('tr').length;
-                console.log(checkOne);
+                // console.log(checkOne);
                 if (checkOne < 2) {
                     $('.remove-appended').hide();
                 } else {
@@ -168,6 +175,16 @@
 
                 }
             }
+
+            function enterKey() {
+                $('.skillBlock').on('keypress',function (e) {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        $('#skillButton').click();
+                    }
+                })
+            }
+            enterKey();
 
         });
     </script>

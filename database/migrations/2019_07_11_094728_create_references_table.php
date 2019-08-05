@@ -15,8 +15,8 @@ class CreateReferencesTable extends Migration
     {
         Schema::create('references', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('referee');
-            $table->string('refereeContact');
+            $table->string('referee')->nullable();
+            $table->string('refereeContact')->nullable();
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade')->onDelete('cascade');

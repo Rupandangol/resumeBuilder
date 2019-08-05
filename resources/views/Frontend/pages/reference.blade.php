@@ -1,9 +1,10 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
+    <div id="myProgressBar" class="progress"
+         style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:72.5%;background-color:#3F51B5"">
+             aria-valuemin="0" aria-valuemax="100" style="width:72.5%;background-color:#3F51B5">5th Step Done
         </div>
     </div>
 @endsection
@@ -27,6 +28,11 @@
             <div class="box-body">
                 <div class="box-header with-border">
                     <h3 class="box-title">Reference</h3>
+                    <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="When you apply for a job, you will be asked for a ‘reference’. This would be provided by a ‘referee’ - usually someone who you know well, for example your tutor, teacher, or an employer – but not a member of your family. You should always ask permission from the person you are asking before you give their name as your referee.">
+                        <i class="fa fa-info-circle fa-lg "></i>
+                    </button>
                 </div>
                 <table class="table table-borderless table-hover">
 
@@ -42,8 +48,8 @@
                     <tbody id="appendReferenceHere">
                     @forelse($references as $value)
                         <tr>
-                            <td><input type="text" name="referee[]" value="{{$value->referee}}"></td>
-                            <td><input type="number" name="refereeContact[]" value="{{$value->refereeContact}}"></td>
+                            <td><input class="refBlock" type="text" name="referee[]" value="{{$value->referee}}"></td>
+                            <td><input class="refBlock" type="number" name="refereeContact[]" value="{{$value->refereeContact}}"></td>
                             <td>
                                 <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
                                             class="fa fa-trash"></i></button>
@@ -51,8 +57,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td><input type="text" name="referee[]"></td>
-                            <td><input type="number" name="refereeContact[]"></td>
+                            <td><input class="refBlock" type="text" name="referee[]"></td>
+                            <td><input class="refBlock" type="number" name="refereeContact[]"></td>
                             <td>
                                 <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
                                             class="fa fa-trash"></i></button>
@@ -65,11 +71,11 @@
                     </tbody>
 
                 </table>
-                <button id="addReference" class="btn btn-success btn-block">Add Reference</button>
+                <button id="addReference" class="btn btn-success btn-block">Add New Reference</button>
                 <br>
                 <a href="{{route('page5')}}" style="border-radius: 24px" class="btn btn-default"><i
                             class="fa fa-hand-o-left"></i></a>
-                <button style="border-radius: 24px" class="btn btn-default pull-right"><i
+                <button style="border-radius: 24px" class="btn btn-default pull-right" id="refButton"><i
                             class="fa fa-hand-o-right"></i></button>
 
             </div>
@@ -82,18 +88,16 @@
         $(function () {
             $('#addReference').on('click', function (e) {
                 e.preventDefault();
-                var appendTrRef = "   <tr>\n" +
-                    "                            <td><input type=\"text\" name=\"referee[]\"></td>\n" +
-                    "                            <td><input type=\"number\" name=\"refereeContact[]\"></td>\n" +
+                var appendTrRef = "  <tr>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"text\" name=\"referee[]\"></td>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"number\" name=\"refereeContact[]\"></td>\n" +
                     "                            <td>\n" +
                     "                                <button id=\"removeReference\" type=\"button\" class=\"btn btn-danger removeReference\"><i\n" +
                     "                                            class=\"fa fa-trash\"></i></button>\n" +
                     "                            </td>\n" +
-                    "                        </tr>\n";
+                    "                        </tr>";
                 $('#appendReferenceHere').append(appendTrRef);
-
                 removeAppend();
-
             });
             removeAppend();
 
@@ -115,8 +119,16 @@
                 } else {
                     $('.removeReference').show()
                 }
-
             }
+            function enterKey() {
+                $('.refBlock').on('keypress', function (e) {
+                    if (e.keyCode === 13) {
+                        e.preventDefault();
+                        $('#refButton').click();
+                    }
+                })
+            }
+            enterKey();
         })
     </script>
     <script>
