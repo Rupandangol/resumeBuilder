@@ -3,8 +3,9 @@
 @section('progressBar')
     <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:0%;background-color:#3F51B5"">
-        </div>
+             aria-valuemin="0" aria-valuemax="100" style="width:0%;background-color:#3F51B5"
+        ">
+    </div>
     </div>
 @endsection
 
@@ -47,6 +48,10 @@
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                         <input type="number" name="mobileNo" value="{{$detail->mobileNo}}" class="form-control"
                                placeholder="Mobile No">
+                    </div><br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                        <input type="text" name="website" class="form-control" value="{{$detail->website}}" placeholder="LinkedIn">
                     </div>
                     <br>
                     <div class="input-group">
@@ -74,6 +79,11 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                         <input type="number" name="mobileNo" class="form-control" placeholder="Mobile No">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                        <input type="text" name="website" class="form-control" placeholder="LinkedIn">
                     </div>
                     <br>
                     <div class="input-group">

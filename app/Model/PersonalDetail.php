@@ -11,6 +11,7 @@ class PersonalDetail extends Model
         'fullName',
         'email',
         'mobileNo',
+        'website',
         'image',
         'address'
     ];

@@ -77,11 +77,6 @@
             border-radius: 6px;
         }
 
-        .divPhoneIcon .myPhoneIcon:before {
-            font-family: 'FontAwesome';
-            content: '\f095';
-            font-weight: 900;
-        }
 
     </style>
 
@@ -100,9 +95,12 @@
                      src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
             @endif
             <h3>Contact</h3>
-            <p id="myContact">{{$personalDetail->email}}<br>{{$personalDetail->address}}
+            <p id="myContact">Email:
                 <br>
-                {{$personalDetail->mobileNo}}
+                {{$personalDetail->email}}<br><br>
+                Address: <br> {{$personalDetail->address}}<br><br>
+                Website: <br> {{$personalDetail->website}} <br><br>
+                Phone No: <br> {{$personalDetail->mobileNo}}
             </p>
 
             <br>
@@ -120,7 +118,7 @@
             </p>
         </div>
         <div id="main">
-            <h1 id="myName">{{ucfirst($personalDetail->fullName)}}</h1>
+            <h1 style="color: #1B5E20;" id="myName">{{ucfirst($personalDetail->fullName)}}</h1>
             <p>{{ucfirst($personalProfile->jobCategory)}}</p>
             <hr>
             <h3>Objective</h3>

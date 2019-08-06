@@ -30,7 +30,7 @@
             </div>
         @endif
         {{--personal details--}}
-        <form id="myEducation" action="{{route('page4')}}" method="post">
+        <form autocomplete="off" id="myEducation" action="{{route('page4')}}" method="post">
             {{csrf_field()}}
             <div class="box-body">
 
@@ -59,8 +59,8 @@
                                 </div>
                             </th>
                             <th>Grade</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
+                            <th>Joined Year</th>
+                            <th>Passed Year</th>
                             <th colspan="2">Action</th>
                         </tr>
                         </thead>
@@ -80,7 +80,7 @@
                                 <td>
                                     <input class="date-own form-control eduBlock" value="{{$value->endTime}}" style="width: 100px;" name="endTime[]"
                                            type="number">
-                                {{--<input type="date" name="endTime[]" value="{{$value->endTime}}"></td>--}}
+                                {{--<input type="d`ate" name="endTime[]" value="{{$value->endTime}}"></td>--}}
                                 <td>
                                     <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -99,9 +99,9 @@
                                 <td><input class="eduBlock" type="text" name="location[]"></td>
                                 <td><input class="eduBlock" type="text" name="subject[]"></td>
                                 <td><input class="eduBlock" type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
-                                <td><input class="date-own form-control eduBlock" name="startTime[]" style="width: 100px;"
+                                <td><input class="date-own form-control" name="startTime[]" style="width: 100px;"
                                            type="number"></td>
-                                <td><input class="date-own form-control eduBlock" style="width: 100px;" name="endTime[]"
+                                <td><input class="date-own form-control" style="width: 100px;" name="endTime[]"
                                            type="number"></td>
                                 <td>
                                     <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
@@ -137,9 +137,9 @@
                     "                                <td><input class=\"eduBlock\" type=\"text\" name=\"location[]\"></td>\n" +
                     "                                <td><input class=\"eduBlock\" type=\"text\" name=\"subject[]\"></td>\n" +
                     "                                <td><input class=\"eduBlock\" type=\"text\" placeholder=\"eg:80% or 2.7gpa\" name=\"grade[]\"></td>\n" +
-                    "                                <td><input class=\"date-own form-control eduBlock\" name=\"startTime[]\" style=\"width: 100px;\"\n" +
+                    "                                <td><input class=\"date-own form-control\" name=\"startTime[]\" style=\"width: 100px;\"\n" +
                     "                                           type=\"number\"></td>\n" +
-                    "                                <td><input class=\"date-own form-control eduBlock\" style=\"width: 100px;\" name=\"endTime[]\"\n" +
+                    "                                <td><input class=\"date-own form-control\" style=\"width: 100px;\" name=\"endTime[]\"\n" +
                     "                                           type=\"number\"></td>\n" +
                     "                                <td>\n" +
                     "                                    <button class=\"btn btn-danger removeEdu\"><i class=\"fa fa-trash\"></i></button>\n" +

@@ -39,6 +39,7 @@ class frontendController extends Controller
             'fullName' => 'required',
             'email' => 'required',
             'mobileNo' => 'required',
+            'website' => 'required',
 //        'image' => 'required',
             'address' => 'required'
         ], [
@@ -47,14 +48,13 @@ class frontendController extends Controller
         $data['fullName'] = $request->fullName;
         $data['email'] = $request->email;
         $data['mobileNo'] = $request->mobileNo;
+        $data['website'] = $request->website;
         $data['address'] = $request->address;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = strtolower(($file->extension()));
             $newName = $request->fullName . time() . '_.' . $extension;
-            Image::make($file)->resize(300, null, function ($ar) {
-                $ar->aspectRatio();
-            })->crop(200, 200)->save(public_path('/Uploads/userImage/' . $newName));
+            Image::make($file)->save(public_path('/Uploads/userImage/' . $newName));
             $data['image'] = $newName;
         }
         if (!$checkSession) {
