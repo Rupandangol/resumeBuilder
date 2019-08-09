@@ -13,7 +13,6 @@ class PersonalProfile extends Model
         'jobCategory',
         'expectedSalary',
         'careerObjective',
-        'careerSummary',
         'cv_id'
     ];
 }

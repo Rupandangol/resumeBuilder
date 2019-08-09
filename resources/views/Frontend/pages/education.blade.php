@@ -37,7 +37,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Education</h3> &nbsp;&nbsp;
                     <div class="myTooltip"><i class="fa fa-info-circle"></i>
-                        <span class="mytooltiptext">Start with your Lower Education level and work forward</span>
+                        <span class="mytooltiptext">Start from your highest education level </span>
                     </div>
                     <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
                             data-placement="bottom"
@@ -61,24 +61,28 @@
                             <th>Grade</th>
                             <th>Joined Year</th>
                             <th>Passed Year</th>
-                            <th colspan="2">Action</th>
                         </tr>
                         </thead>
                         <tbody id="appendEducationHere">
                         @forelse($education as $value)
                             <tr>
-                                <td><input class="eduBlock" type="text" name="institute[]" value="{{$value->institute}}"></td>
-                                <td><input class="eduBlock" type="text" name="location[]" value="{{$value->location}}"></td>
-                                <td><input class="eduBlock" type="text" name="subject[]" value="{{$value->subject}}"></td>
-                                <td><input class="eduBlock" type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"
+                                <td><input class="eduBlock" type="text" name="institute[]"
+                                           value="{{$value->institute}}"></td>
+                                <td><input class="eduBlock" type="text" name="location[]" value="{{$value->location}}">
+                                </td>
+                                <td><input class="eduBlock" type="text" name="subject[]" value="{{$value->subject}}">
+                                </td>
+                                <td><input class="eduBlock" type="text" placeholder="eg:80% or 3.00 gpa" name="grade[]"
                                            value="{{$value->grade}}"></td>
                                 <td>
-                                    <input class="date-own form-control eduBlock" value="{{$value->startTime}}" name="startTime[]" style="width: 100px;"
+                                    <input class="date-own form-control " value="{{$value->startTime}}"
+                                           name="startTime[]" style="width: 100px;"
                                            type="number">
                                     {{--<input type="date" name="startTime[]" value="{{$value->startTime}}">--}}
                                 </td>
                                 <td>
-                                    <input class="date-own form-control eduBlock" value="{{$value->endTime}}" style="width: 100px;" name="endTime[]"
+                                    <input class="date-own form-control " value="{{$value->endTime}}"
+                                           style="width: 100px;" name="endTime[]"
                                            type="number">
                                 {{--<input type="d`ate" name="endTime[]" value="{{$value->endTime}}"></td>--}}
                                 <td>
@@ -92,34 +96,75 @@
                                            value="{{$value->attending}}">
                                 </td>
                             </tr>
-
                         @empty
-                            <tr>
-                                <td><input class="eduBlock" type="text" name="institute[]"></td>
-                                <td><input class="eduBlock" type="text" name="location[]"></td>
-                                <td><input class="eduBlock" type="text" name="subject[]"></td>
-                                <td><input class="eduBlock" type="text" placeholder="eg:80% or 2.7gpa" name="grade[]"></td>
-                                <td><input class="date-own form-control" name="startTime[]" style="width: 100px;"
-                                           type="number"></td>
-                                <td><input class="date-own form-control" style="width: 100px;" name="endTime[]"
-                                           type="number"></td>
-                                <td>
-                                    <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
-                                </td>
-                                <td>
-                                    <input class="checkThis" type="checkbox"> <b>Attending</b>
-                                    <input class="checkThen" type="hidden" name="attending[]" value="false">
-                                </td>
-                            </tr>
+                            <?php
+                            $oldEdu = old('institute') ?? [];
+                            ?>
+                            @forelse($oldEdu as $key=>$value)
+                                <tr>
+                                    <td><input class="eduBlock" type="text" name="institute[]"
+                                               value="{{old('institute')[$key]??''}}"></td>
+                                    <td><input class="eduBlock" type="text" name="location[]"
+                                               value="{{old('location')[$key]??''}}">
+                                    </td>
+                                    <td><input class="eduBlock" type="text" name="subject[]"
+                                               value="{{old('subject')[$key]??''}}">
+                                    </td>
+                                    <td><input class="eduBlock myGrade" type="text" placeholder="eg:80% or 3.00 gpa"
+                                               name="grade[]"
+                                               value="{{old('grade')[$key]??''}}"></td>
+                                    <td>
+                                        <input class="date-own form-control " value="{{old('startTime')[$key]??''}}"
+                                               name="startTime[]" style="width: 100px;"
+                                               type="number">
+                                        {{--<input type="date" name="startTime[]" value="{{$value->startTime}}">--}}
+                                    </td>
+                                    <td>
+                                        <input class="date-own form-control " value="{{old('endTime')[$key]??''}}"
+                                               style="width: 100px;" name="endTime[]"
+                                               type="number">
+                                    {{--<input type="d`ate" name="endTime[]" value="{{$value->endTime}}"></td>--}}
+                                    <td>
+                                        <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                    <td>
+                                        <input class="checkThis" type="checkbox"
+                                               @if(old('attending')[$key]==='true') checked @endif>
+                                        <b>Attending</b>
+                                        <input class="checkThen" type="hidden" name="attending[]"
+                                               value="{{old('attending')[$key]}}">
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td><input class="eduBlock" type="text" name="institute[]"></td>
+                                    <td><input class="eduBlock" type="text" name="location[]"></td>
+                                    <td><input class="eduBlock" type="text" name="subject[]"></td>
+                                    <td><input class="eduBlock myGrade" required type="text" placeholder="eg:80% or 3.00 gpa"
+                                               name="grade[]">
+                                    </td>
+                                    <td><input class="date-own form-control" name="startTime[]" style="width: 100px;"
+                                               type="number"></td>
+                                    <td><input class="date-own form-control" required style="width: 100px;" name="endTime[]"
+                                               type="number"></td>
+                                    <td>
+                                        <button class="btn btn-danger removeEdu"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                    <td>
+                                        <input class="checkThis" type="checkbox"> <b>Attending</b>
+                                        <input class="checkThen" type="hidden" name="attending[]" value="false">
+                                    </td>
+                                </tr>
+                            @endforelse
+
                         @endforelse
                         </tbody>
-
                     </table>
                 </div>
                 <button id="addEducation" class="btn btn-success btn-block">Add New Education</button>
                 <br>
-                <a href="{{route('page3')}}" class="btn btn-default">back</a>
-                <button id="eduButton" class="btn btn-default pull-right" type="submit">next</button>
+                <a href="{{route('page3')}}" class="btn btn-primary">back</a>
+                <button id="eduButton" class="btn btn-primary pull-right" type="submit">next</button>
             </div>
         </form>
         <!-- /input-group -->
@@ -132,11 +177,11 @@
         $(function () {
             $('#addEducation').on('click', function (e) {
                 e.preventDefault();
-                var appendTrEdu = "<tr>\n" +
+                var appendTrEdu = "  <tr>\n" +
                     "                                <td><input class=\"eduBlock\" type=\"text\" name=\"institute[]\"></td>\n" +
                     "                                <td><input class=\"eduBlock\" type=\"text\" name=\"location[]\"></td>\n" +
                     "                                <td><input class=\"eduBlock\" type=\"text\" name=\"subject[]\"></td>\n" +
-                    "                                <td><input class=\"eduBlock\" type=\"text\" placeholder=\"eg:80% or 2.7gpa\" name=\"grade[]\"></td>\n" +
+                    "                                <td><input class=\"eduBlock myGrade\" type=\"text\" placeholder=\"eg:80% or 3.00 gpa\" name=\"grade[]\"></td>\n" +
                     "                                <td><input class=\"date-own form-control\" name=\"startTime[]\" style=\"width: 100px;\"\n" +
                     "                                           type=\"number\"></td>\n" +
                     "                                <td><input class=\"date-own form-control\" style=\"width: 100px;\" name=\"endTime[]\"\n" +
@@ -153,6 +198,7 @@
                 attending();
                 removeEdu();
                 enterKey();
+                dateFormat();
             });
             removeEdu();
             attending();
@@ -184,25 +230,39 @@
                     console.log(test1);
                     if (test === true) {
                         test1.val('true');
+                        $('.date-own').removeAttr('required');
+                        $('.myGrade').removeAttr('required');
                     } else {
                         test1.val('false');
+                        $('.date-own').prop('required',true);
+                        $('.myGrade').prop('required',true);
+
                     }
-                    console.log(test1.val())
+                    console.log(test1.val());
                 })
             }
 
 
             function enterKey() {
-                $('.eduBlock').on('keypress',function (e) {
+                $('.eduBlock').on('keypress', function (e) {
                     if (e.keyCode === 13) {
                         e.preventDefault();
                         $('#eduButton').click();
                     }
                 })
             }
+
             enterKey();
 
 
+            function dateFormat() {
+                $('.date-own').datepicker({
+                    minViewMode: 2,
+                    format: 'yyyy'
+                });
+            }
+
+            dateFormat();
         })
 
     </script>
@@ -274,12 +334,5 @@
     {{--})--}}
     {{--</script>--}}
 
-
-    <script type="text/javascript">
-        $('.date-own').datepicker({
-            minViewMode: 2,
-            format: 'yyyy'
-        });
-    </script>
 @endsection
 

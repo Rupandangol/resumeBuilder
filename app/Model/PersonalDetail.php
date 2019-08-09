@@ -13,6 +13,8 @@ class PersonalDetail extends Model
         'mobileNo',
         'website',
         'image',
-        'address'
+        'address',
+        'dateOfBirth',
+        'gender'
     ];
 }

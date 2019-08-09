@@ -30,10 +30,9 @@
                         <div class="row">
                             <div class="col-lg-7">
                                 <div class="product-image">
-                                    <img class="template-image" src="{{URL::to('/Uploads/resumeTemplate/4.png')}}"
+                                    <img class="template-image" src="{{URL::to('/Uploads/resumeTemplate/2.7.png')}}"
                                          alt="...">
                                 </div>
-
                             </div>
                             <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
 
@@ -55,7 +54,22 @@
                                 </div>
 
                                 <br>
-                                <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>
+                                <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>&nbsp;&nbsp;&nbsp;
+                                <div class="btn-group">
+                                    <button type="button" class="btn bg-default btn-lg dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        Form Edit <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{route('page1')}}">Personal Detail</a></li>
+                                        <li><a href="{{route('page2')}}">Personal Profile</a></li>
+                                        <li><a href="{{route('page3')}}">Skill</a></li>
+                                        <li><a href="{{route('page4')}}">Education</a></li>
+                                        <li><a href="{{route('page5')}}">Experience</a></li>
+                                        <li><a href="{{route('page6')}}">Reference</a></li>
+                                    </ul>
+                                </div>
 
                             </div>
 

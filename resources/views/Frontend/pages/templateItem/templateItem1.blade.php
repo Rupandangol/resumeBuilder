@@ -93,6 +93,14 @@
             @if($personalDetail->image)
                 <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px"
                      src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
+            @else
+                @if($personalDetail->gender==='female')
+                    <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px" id="userImg" src="{{URL::to('/Uploads/genderImage/userfemale.jpeg')}}" alt="">
+                @else
+                    <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px" id="userImg" src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" alt="">
+                @endif
+
+
             @endif
             <h3>Contact</h3>
             <p id="myContact">Email:

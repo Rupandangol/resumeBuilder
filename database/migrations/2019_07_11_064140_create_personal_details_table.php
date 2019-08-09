@@ -21,6 +21,8 @@ class CreatePersonalDetailsTable extends Migration
             $table->string('website')->nullable();
             $table->string('image')->nullable();
             $table->string('address');
+            $table->string('dateOfBirth')->nullable();
+            $table->string('gender');
             $table->timestamps();
         });
     }

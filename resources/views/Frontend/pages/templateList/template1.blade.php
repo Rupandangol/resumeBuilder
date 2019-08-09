@@ -1,7 +1,8 @@
 @extends('Frontend.master')
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #203871;position: fixed;top:50px; width: 100%;z-index: 20;">
+    <div id="myProgressBar" class="progress"
+         style="background-color: #203871;position: fixed;top:50px; width: 100%;z-index: 20;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
              aria-valuemin="0" aria-valuemax="100" style="width:100%;background-color:#3F51B5">Complete
         </div>
@@ -59,8 +60,22 @@
 
                                 </div>
                                 <br>
-                                <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>
-
+                                <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>&nbsp;&nbsp;&nbsp;
+                                <div class="btn-group">
+                                    <button type="button" class="btn bg-default btn-lg dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            aria-expanded="false">
+                                        Form Edit <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{route('page1')}}">Personal Detail</a></li>
+                                        <li><a href="{{route('page2')}}">Personal Profile</a></li>
+                                        <li><a href="{{route('page3')}}">Skill</a></li>
+                                        <li><a href="{{route('page4')}}">Education</a></li>
+                                        <li><a href="{{route('page5')}}">Experience</a></li>
+                                        <li><a href="{{route('page6')}}">Reference</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

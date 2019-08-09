@@ -43,18 +43,18 @@
         {{--end of dropdown--}}
         <div class="row">
             <div class="template_image col-md-4">
-                <a class="myTemplate" data-href="{{route('template1View')}}"><img
+                <a style="cursor: pointer" class="myTemplate" data-href="{{route('template1View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/1.8.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
+            {{--<div class="template_image col-md-4">--}}
+                {{--<a class="myTemplate"  data-href="{{route('template2View')}}"><img--}}
+                            {{--id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/6.png')}}" alt=""></a>--}}
+                {{--<p style="margin-left: 50px">Basic Template</p>--}}
+            {{--</div>--}}
             <div class="template_image col-md-4">
-                <a class="myTemplate"  data-href="{{route('template2View')}}"><img
-                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/6.png')}}" alt=""></a>
-                <p style="margin-left: 50px">Basic Template</p>
-            </div>
-            <div class="template_image col-md-4">
-                <a class="myTemplate"  data-href="{{route('template3View')}}"><img
-                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/4.png')}}" alt=""></a>
+                <a style="cursor: pointer" class="myTemplate"  data-href="{{route('template3View')}}"><img
+                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/2.7.png')}}" alt=""></a>
                 <p style="margin-left: 50px">Basic Template</p>
             </div>
         </div>

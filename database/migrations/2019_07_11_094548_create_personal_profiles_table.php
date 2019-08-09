@@ -20,7 +20,6 @@ class CreatePersonalProfilesTable extends Migration
             $table->string('jobCategory');
             $table->string('expectedSalary');
             $table->text('careerObjective');
-            $table->text('careerSummary');
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
 

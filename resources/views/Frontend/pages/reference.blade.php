@@ -9,13 +9,17 @@
     </div>
 @endsection
 
+@section('my-header')
+    <link rel="stylesheet" href="{{URL::to('/css/tooltip.css')}}">
+@endsection
+
 @section('contentHeader')
     <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
 @endsection
 @section('content')
     <div class="box box-info">
         {{--errorMessage--}}
-        @if($errors->has('referee.*')||$errors->has('refereeContact.*'))
+        @if($errors->has('name.*')||$errors->has('designation.*')||$errors->has('companyName.*')||$errors->has('contactNumber.*')||$errors->has('email.*'))
             <div class="alert alert-danger">
                 <p>
                     Do not leave empty box
@@ -27,7 +31,11 @@
             {{csrf_field()}}
             <div class="box-body">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Reference</h3>
+                    <h3 class="box-title">Reference &nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="myTooltip"><i class="fa fa-info-circle"></i>
+                            <span class="mytooltiptext">If you want to skip Reference, You can skip via skip Button</span>
+                        </div>
+                    </h3>
                     <button type="button" class="btn btn-secondary pull-right" data-toggle="tooltip"
                             data-placement="bottom"
                             title="When you apply for a job, you will be asked for a ‘reference’. This would be provided by a ‘referee’ - usually someone who you know well, for example your tutor, teacher, or an employer – but not a member of your family. You should always ask permission from the person you are asking before you give their name as your referee.">
@@ -38,32 +46,65 @@
 
                     <thead>
                     <tr>
-                        <td>Referee</td>
-                        <td>Referee Contact</td>
-                        <td>Action</td>
+                        <td>Full Name</td>
+                        <td>Designation</td>
+                        <td>Company Name</td>
+                        <td>Contact Number</td>
+                        <td>Email</td>
 
                     </tr>
                     </thead>
 
                     <tbody id="appendReferenceHere">
+
+                    <?php
+                    $oldRef = old('name') ?? [];
+                    ?>
                     @forelse($references as $value)
                         <tr>
-                            <td><input class="refBlock" type="text" name="referee[]" value="{{$value->referee}}"></td>
-                            <td><input class="refBlock" type="number" name="refereeContact[]" value="{{$value->refereeContact}}"></td>
+                            <td><input class="refBlock" type="text" value="{{$value->name}}" name="name[]"></td>
+                            <td><input class="refBlock" type="text" value="{{$value->designation}}"
+                                       name="designation[]"></td>
+                            <td><input class="refBlock" type="text" value="{{$value->companyName}}"
+                                       name="companyName[]"></td>
+                            <td><input class="refBlock" type="number" value="{{$value->contactNumber}}"
+                                       name="contactNumber[]"></td>
+                            <td><input class="refBlock" type="email" value="{{$value->email}}" name="email[]"></td>
                             <td>
                                 <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
                                             class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     @empty
-                        <tr>
-                            <td><input class="refBlock" type="text" name="referee[]"></td>
-                            <td><input class="refBlock" type="number" name="refereeContact[]"></td>
-                            <td>
-                                <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
-                                            class="fa fa-trash"></i></button>
-                            </td>
-                        </tr>
+                        @forelse($oldRef as $key=>$value)
+                            <tr>
+                                <td><input class="refBlock" type="text" value="{{old('name')[$key]??''}}" name="name[]"></td>
+                                <td><input class="refBlock" type="text" value="{{old('designation')[$key]??''}}"
+                                           name="designation[]"></td>
+                                <td><input class="refBlock" type="text" value="{{old('companyName')[$key]??''}}"
+                                           name="companyName[]"></td>
+                                <td><input class="refBlock" type="number" value="{{old('contactNumber')[$key]??''}}"
+                                           name="contactNumber[]"></td>
+                                <td><input class="refBlock" type="email" value="{{old('email')[$key]??''}}" name="email[]"></td>
+                                <td>
+                                    <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
+                                                class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td><input class="refBlock" type="text" name="name[]"></td>
+                                <td><input class="refBlock" type="text" name="designation[]"></td>
+                                <td><input class="refBlock" type="text" name="companyName[]"></td>
+                                <td><input class="refBlock" type="number" name="contactNumber[]"></td>
+                                <td><input class="refBlock" type="email" name="email[]"></td>
+                                <td>
+                                    <button id="removeReference" type="button" class="btn btn-danger removeReference"><i
+                                                class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        @endforelse
+
 
                     @endforelse
 
@@ -73,10 +114,9 @@
                 </table>
                 <button id="addReference" class="btn btn-success btn-block">Add New Reference</button>
                 <br>
-                <a href="{{route('page5')}}" style="border-radius: 24px" class="btn btn-default"><i
-                            class="fa fa-hand-o-left"></i></a>
-                <button style="border-radius: 24px" class="btn btn-default pull-right" id="refButton"><i
-                            class="fa fa-hand-o-right"></i></button>
+                <a href="{{route('page5')}}" style="border-radius: 24px" class="btn btn-primary">Back</a>
+                <button style="border-radius: 24px" class="btn btn-primary pull-right" id="refButton">Next</button>
+                <a href="{{route('page7')}}" style="border-radius: 24px" class="btn btn-primary pull-right">Skip</a>
 
             </div>
         </form>
@@ -89,8 +129,11 @@
             $('#addReference').on('click', function (e) {
                 e.preventDefault();
                 var appendTrRef = "  <tr>\n" +
-                    "                            <td><input class=\"refBlock\" type=\"text\" name=\"referee[]\"></td>\n" +
-                    "                            <td><input class=\"refBlock\" type=\"number\" name=\"refereeContact[]\"></td>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"text\" name=\"name[]\"></td>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"text\" name=\"designation[]\"></td>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"text\" name=\"companyName[]\"></td>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"number\" name=\"contactNumber[]\"></td>\n" +
+                    "                            <td><input class=\"refBlock\" type=\"email\" name=\"email[]\"></td>\n" +
                     "                            <td>\n" +
                     "                                <button id=\"removeReference\" type=\"button\" class=\"btn btn-danger removeReference\"><i\n" +
                     "                                            class=\"fa fa-trash\"></i></button>\n" +
@@ -120,6 +163,7 @@
                     $('.removeReference').show()
                 }
             }
+
             function enterKey() {
                 $('.refBlock').on('keypress', function (e) {
                     if (e.keyCode === 13) {
@@ -128,6 +172,7 @@
                     }
                 })
             }
+
             enterKey();
         })
     </script>

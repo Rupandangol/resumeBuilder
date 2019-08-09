@@ -63,9 +63,17 @@
 <div class="container">
     <div class="left">
         {{--<div id="userImg">--}}
-        <img id="userImg" src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt="">
+        @if($personalDetail->image)
+            <img id="userImg" src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt="">
+        @else
+            @if($personalDetail->gender==='female')
+                <img id="userImg" src="{{URL::to('/Uploads/genderImage/userfemale.jpeg')}}" alt="">
+            @else
+                <img id="userImg" src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" alt="">
+            @endif
+        @endif
         <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Profile</h4>
-        <p style="margin-right: 90px;text-align: justify">{{$personalProfile->careerObjective}}<br>{{$personalProfile->careerSummary}}</p><br>
+        <p style="margin-right: 90px;text-align: justify">{{$personalProfile->careerObjective}}</p><br>
 
         {{--contact--}}
         <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Contact</h4>
@@ -75,13 +83,12 @@
         {{--end of contact--}}
         {{--website--}}
         <strong style="font-size: 15px;font-family: sans-serif">WEBSITE:</strong>
-        <p style="margin: 0;padding: 0;font-size: 15px">LinkedIn: {{$personalDetail->website}}</p><br>
+        <p style="margin: 0;padding: 0;font-size: 15px">LinkedIn: <br>{{$personalDetail->website}}</p><br>
         {{--end of website--}}
         {{--email--}}
         <strong style="font-size: 15px;font-family: sans-serif">EMAIL:</strong>
         <p style="margin: 0;padding: 0;font-size: 15px">{{$personalDetail->email}}</p><br>
         {{--end of email--}}
-
 
 
         {{--</div>--}}
@@ -117,7 +124,7 @@
                 , {{ucfirst($value->location)}}</strong>
             <p style="margin: 0;padding: 0;font-size: 15px">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}-
                 @if($value->endTime==='Current')
-                    Currently Involved
+                    Present
                 @else
                     {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
                 @endif
@@ -141,8 +148,12 @@
         <h4 style="text-transform: uppercase;font-family: sans-serif">Reference</h4>
         <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
         @forelse($reference as $value)
-            <strong style="font-size: 15px">{{ucfirst($value->referee)}}</strong>
-            <p style="margin: 0;padding: 0;font-size: 15px">Contacts: {{$value->refereeContact}}
+            <strong style="font-size: 15px">{{ucfirst($value->name)}}</strong>
+            <p style="margin: 0;padding: 0;font-size: 15px">{{$value->designation}}<br>
+                {{$value->companyName}}<br>
+                {{$value->email}}, {{$value->contactNumber}}
+
+
             </p><br>
         @empty
             <p style="margin: 0;padding: 0;font-size: 15px">Available at request

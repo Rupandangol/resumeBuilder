@@ -39,7 +39,7 @@ Route::post('/reference', 'frontendController@referenceAction');
 //    Route::get('/personalProfile/skill/{id}/education/experience/referenceUpdate','frontendController@referenceUpdate')->name('updateReference','{id}');
 //
 ////    Template
-Route::get('/template', 'frontendController@template')->name('page7');
+Route::get('/template', 'frontendController@template')->name('page7')->middleware('checkReference');
 
 
 Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkReference');

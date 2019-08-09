@@ -41,6 +41,7 @@ class frontendController extends Controller
             'mobileNo' => 'required',
             'website' => 'required',
 //        'image' => 'required',
+            'dateOfBirth' => 'required',
             'address' => 'required'
         ], [
             'required' => 'Do not leave empty box',
@@ -50,6 +51,8 @@ class frontendController extends Controller
         $data['mobileNo'] = $request->mobileNo;
         $data['website'] = $request->website;
         $data['address'] = $request->address;
+        $data['dateOfBirth'] = $request->dateOfBirth;
+        $data['gender'] = $request->gender;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = strtolower(($file->extension()));
@@ -89,8 +92,7 @@ class frontendController extends Controller
             'availableFor' => 'required',
             'jobCategory' => 'required',
             'expectedSalary' => 'required',
-            'careerObjective' => 'required',
-            'careerSummary' => 'required',
+            'careerObjective' => 'required'
         ]);
 
         $data['lookingFor'] = $request->lookingFor;
@@ -98,7 +100,6 @@ class frontendController extends Controller
         $data['jobCategory'] = $request->jobCategory;
         $data['expectedSalary'] = $request->expectedSalary;
         $data['careerObjective'] = $request->careerObjective;
-        $data['careerSummary'] = $request->careerSummary;
         $data['cv_id'] = $checkSession;
 
         if (PersonalProfile::where('cv_id', $data['cv_id'])->first()) {
@@ -120,8 +121,6 @@ class frontendController extends Controller
 
     public function skillAction(Request $request)
     {
-
-
         $this->validate($request, [
             'skill' => 'required',
             'skill.*' => 'required',
@@ -178,6 +177,8 @@ class frontendController extends Controller
 
     public function educationAction(Request $request)
     {
+
+
         $id = session('cv_user_id', false);
         $check = $request->checkMe;
 
@@ -307,11 +308,9 @@ class frontendController extends Controller
                 $data['startTime'] = $request->startTime[$i];
                 if ($request->current[$i] === 'true') {
                     $data['endTime'] = 'Current';
-
                 } else {
                     $data['endTime'] = $request->endTime[$i];
                 }
-
                 $data['jobSummary'] = $request->jobSummary[$i];
                 $data['current'] = $request->current[$i];
                 $data['cv_id'] = $id;
@@ -331,46 +330,50 @@ class frontendController extends Controller
 
     public function referenceAction(Request $request)
     {
-//
-//        $this->validate($request, [
-//            'referee' => 'required',
-//            'referee.*' => 'required',
-//            'refereeContact' => 'required',
-//            'refereeContact.*' => 'required'
-//        ]);
 
-        $reference = $request->referee;
+        $this->validate($request, [
+            'name' => 'required',
+            'name.*' => 'required',
+            'designation' => 'required',
+            'designation.*' => 'required',
+            'companyName' => 'required',
+            'companyName.*' => 'required',
+            'contactNumber' => 'required',
+            'contactNumber.*' => 'required',
+            'email' => 'required',
+            'email.*' => 'required'
+        ]);
+
+        $reference = $request->name;
         $count = 0;
-        $referenceCheck = $request->referee[0];
-        if (!is_null($referenceCheck)) {
-            if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
-                Reference::where('cv_id', session('cv_user_id', false))->delete();
-                foreach ($reference as $value) {
-                    $count++;
-                }
-                for ($i = 0; $i < $count; $i++) {
-                    $data['referee'] = $request->referee[$i];
-                    $data['refereeContact'] = $request->refereeContact[$i];
-                    $data['cv_id'] = session('cv_user_id', false);
-                    Reference::create($data);
-                }
-            } else {
-                foreach ($reference as $value) {
-                    $count++;
-                }
-                for ($i = 0; $i < $count; $i++) {
-                    $data['referee'] = $request->referee[$i];
-                    $data['refereeContact'] = $request->refereeContact[$i];
-                    $data['cv_id'] = session('cv_user_id', false);
-                    Reference::create($data);
-                }
+        if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
+            Reference::where('cv_id', session('cv_user_id', false))->delete();
+            foreach ($reference as $value) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['name'] = $request->name[$i];
+                $data['designation'] = $request->designation[$i];
+                $data['companyName'] = $request->companyName[$i];
+                $data['contactNumber'] = $request->contactNumber[$i];
+                $data['email'] = $request->email[$i];
+                $data['cv_id'] = session('cv_user_id', false);
+                Reference::create($data);
             }
         } else {
-            if (Reference::where('cv_id', session('cv_user_id', false))->first()) {
-                Reference::where('cv_id', session('cv_user_id', false))->delete();
+            foreach ($reference as $value) {
+                $count++;
+            }
+            for ($i = 0; $i < $count; $i++) {
+                $data['name'] = $request->name[$i];
+                $data['designation'] = $request->designation[$i];
+                $data['companyName'] = $request->companyName[$i];
+                $data['contactNumber'] = $request->contactNumber[$i];
+                $data['email'] = $request->email[$i];
+                $data['cv_id'] = session('cv_user_id', false);
+                Reference::create($data);
             }
         }
-
         return redirect(route('page7'));
     }
 
@@ -402,15 +405,13 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem1', $data);
     }
 
-    public
-    function template2()
+    public function template2()
     {
 
         return view('Frontend.pages.templateList.template2');
     }
 
-    public
-    function template2Action()
+    public function template2Action()
     {
         $id = session('cv_user_id', false);
 
@@ -424,14 +425,12 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem2', $data);
     }
 
-    public
-    function template3()
+    public function template3()
     {
         return view('Frontend.pages.templateList.template3');
     }
 
-    public
-    function template3Action()
+    public function template3Action()
     {
         $id = session('cv_user_id', false);
 
@@ -444,8 +443,7 @@ class frontendController extends Controller
         return view('Frontend.pages.templateItem.templateItem4', $data);
     }
 
-    public
-    function flushSession()
+    public function flushSession()
     {
         $this->resetSession();
         return redirect(route('page1'));

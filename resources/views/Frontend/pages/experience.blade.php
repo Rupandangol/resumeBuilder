@@ -47,7 +47,7 @@
                     <table class="table table-borderless table-hover">
                         <thead>
                         <tr>
-                            <td>JobTitle</td>
+                            <td>Job Title</td>
                             <td>Company Name</td>
                             <td>Location</td>
                             <td>Start Time</td>
@@ -62,20 +62,30 @@
                         </tr>
                         </thead>
                         <tbody id="appendExperienceHere">
+
+                        <?php
+                        $oldExp = old('jobTitle') ?? [];
+                        ?>
                         @forelse($experience as $value)
                             <tr>
-                                <td><input class="expBlock" type="text" value="{{$value->jobTitle}}" name="jobTitle[]">
+                                <td><input class="expBlock form-control" type="text" value="{{$value->jobTitle}}"
+                                           name="jobTitle[]">
                                 </td>
-                                <td><input class="expBlock" type="text" value="{{$value->companyName}}"
+                                <td><input class="expBlock form-control" type="text" value="{{$value->companyName}}"
                                            name="companyName[]"></td>
-                                <td><input class="expBlock" type="text" value="{{$value->location}}" name="location[]">
+                                <td><input class="expBlock form-control" type="text" value="{{$value->location}}"
+                                           name="location[]">
                                 </td>
                                 <td><input class="expBlock" type="date" style="width: 135px;"
                                            value="{{$value->startTime}}" name="startTime[]"></td>
                                 <td><input class="expBlock" type="date" style="width: 135px;"
                                            value="{{$value->endTime}}" name="endTime[]"></td>
-                                <td><input class="expBlock" type="text" style="height: 80px;"
-                                           value="{{$value->jobSummary}}" name="jobSummary[]"></td>
+                                <td>
+                                    <textarea name="jobSummary[]" style="resize: none" class="form-control" id=""
+                                              rows="4">{{$value->jobSummary}}</textarea>
+
+                                </td>
+
                                 <td>
                                     <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
                                 </td>
@@ -83,29 +93,74 @@
                                     <input class="checkExp" type="checkbox"
                                            @if($value->current==='true')
                                            checked
-                                            @endif
-                                    > <b>Current</b>
+                                            @endif> <b>Current</b>
                                     <input class="checkExpThis" name="current[]" value="{{$value->current}}"
                                            type="hidden">
                                 </td>
                             </tr>
 
                         @empty
-                            <tr>
-                                <td><input class="expBlock" type="text" name="jobTitle[]"></td>
-                                <td><input class="expBlock" type="text" name="companyName[]"></td>
-                                <td><input class="expBlock" type="text" name="location[]"></td>
-                                <td><input class="expBlock" type="date" style="width: 135px;" name="startTime[]"></td>
-                                <td><input class="expBlock" type="date" style="width: 135px;" name="endTime[]"></td>
-                                <td><input class="expBlock" type="text" style="height: 80px;" name="jobSummary[]"></td>
-                                <td>
-                                    <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i></button>
-                                </td>
-                                <td>
-                                    <input class="checkExp" type="checkbox"> <b>Current</b>
-                                    <input class="checkExpThis" name="current[]" value="false" type="hidden">
-                                </td>
-                            </tr>
+                            @forelse($oldExp as $key=>$value)
+                                <tr>
+                                    <td><input class="expBlock form-control" type="text"
+                                               value="{{old('jobTitle')[$key]??''}}"
+                                               name="jobTitle[]">
+                                    </td>
+                                    <td><input class="expBlock form-control" type="text"
+                                               value="{{old('companyName')[$key]??''}}"
+                                               name="companyName[]"></td>
+                                    <td><input class="expBlock form-control" type="text"
+                                               value="{{old('location')[$key]??''}}"
+                                               name="location[]">
+                                    </td>
+                                    <td><input class="expBlock" type="date" style="width: 135px;"
+                                               value="{{old('startTime')[$key]??''}}" name="startTime[]"></td>
+                                    <td><input class="expBlock myEndTime" type="date" style="width: 135px;"
+                                               value="{{old('endTime')[$key]??''}}" name="endTime[]"></td>
+                                    <td>
+                                    <textarea name="jobSummary[]" style="resize: none" class="form-control" id=""
+                                              rows="4">{{old('jobSummary')[$key]??''}}</textarea>
+
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <input class="checkExp" type="checkbox"
+                                               @if(old('current')[$key]==='true')
+                                               checked
+                                                @endif> <b>Current</b>
+                                        <input class="checkExpThis" name="current[]" value="{{old('current')[$key]}}"
+                                               type="hidden">
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td><input class="expBlock form-control" type="text" name="jobTitle[]"></td>
+                                    <td><input class="expBlock form-control" type="text" name="companyName[]"></td>
+                                    <td><input class="expBlock form-control" type="text" name="location[]"></td>
+                                    <td><input class="expBlock" type="date" style="width: 135px;" name="startTime[]">
+                                    </td>
+                                    <td><input class="expBlock myEndTime" type="date" style="width: 135px;"
+                                              required name="endTime[]"></td>
+                                    <td>
+                                        {{--<input class="expBlock" type="text" style="height: 80px;" name="jobSummary[]">--}}
+                                        <textarea class="form-control" name="jobSummary[]" style="resize: none" id=""
+                                                  rows="4"></textarea>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger removeExperience"><i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <input class="checkExp" type="checkbox"> <b>Current</b>
+                                        <input class="checkExpThis" name="current[]" value="false" type="hidden">
+                                    </td>
+                                </tr>
+
+                            @endforelse
 
                         @endforelse
 
@@ -117,8 +172,8 @@
                 </div>
                 <button id="addExp" type="button" class="btn btn-success btn-block">Add New Experience</button>
                 <br>
-                <a href="{{route('page4')}}" class="btn btn-default">back</a>
-                <button id="expButton" class="btn btn-default pull-right" type="submit">next</button>
+                <a href="{{route('page4')}}" class="btn btn-primary ">back</a>
+                <button id="expButton" class="btn btn-primary pull-right" type="submit">next</button>
 
             </div>
 
@@ -135,12 +190,15 @@
             $('#addExp').on('click', function (e) {
                 e.preventDefault();
                 var appendTrExperience = "<tr>\n" +
-                    "                                <td><input class=\"expBlock\" type=\"text\" name=\"jobTitle[]\"></td>\n" +
-                    "                                <td><input class=\"expBlock\" type=\"text\" name=\"companyName[]\"></td>\n" +
-                    "                                <td><input class=\"expBlock\" type=\"text\" name=\"location[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock form-control\" type=\"text\" name=\"jobTitle[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock form-control\" type=\"text\" name=\"companyName[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock form-control\" type=\"text\" name=\"location[]\"></td>\n" +
                     "                                <td><input class=\"expBlock\" type=\"date\" style=\"width: 135px;\" name=\"startTime[]\"></td>\n" +
-                    "                                <td><input class=\"expBlock\" type=\"date\" style=\"width: 135px;\" name=\"endTime[]\"></td>\n" +
-                    "                                <td><input class=\"expBlock\" type=\"text\" style=\"height: 80px;\" name=\"jobSummary[]\"></td>\n" +
+                    "                                <td><input class=\"expBlock myEndTime\" type=\"date\" style=\"width: 135px;\" name=\"endTime[]\"></td>\n" +
+                    "                                <td>\n" +
+                    "                                    {{--<input class=\"expBlock\" type=\"text\" style=\"height: 80px;\" name=\"jobSummary[]\">--}}\n" +
+                    "                                    <textarea class=\"form-control\" name=\"jobSummary[]\" style=\"resize: none\" id=\"\" rows=\"4\"></textarea>\n" +
+                    "                                </td>\n" +
                     "                                <td>\n" +
                     "                                    <button class=\"btn btn-danger removeExperience\"><i class=\"fa fa-trash\"></i></button>\n" +
                     "                                </td>\n" +
@@ -186,15 +244,15 @@
                     console.log(test2);
                     if (test === true) {
                         test2.val('true');
+                        $('.myEndTime').removeAttr('required');
                     } else {
                         test2.val('false');
+                        $('.myEndTime').prop('required',true);
+
                     }
                     console.log(test2.val());
-
                 })
             }
-
-
             function enterKey() {
                 $('.expBlock').on('keypress', function (e) {
                     if (e.keyCode === 13) {
@@ -203,9 +261,7 @@
                     }
                 })
             }
-
             enterKey();
-
         });
     </script>
     <script>

@@ -8,8 +8,11 @@ class Reference extends Model
 {
     protected $table = 'references';
     protected $fillable = [
-        'referee',
-        'refereeContact',
+        'name',
+        'designation',
+        'companyName',
+        'contactNumber',
+        'email',
         'cv_id'
     ];
 }
