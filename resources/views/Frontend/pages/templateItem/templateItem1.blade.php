@@ -14,7 +14,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url("/Uploads/resumeTemplate/5.png");
+            background-image: url("/Uploads/resumeTemplate/5.4.png");
             font-family: sans-serif, "Times New Roman";
         }
 
@@ -95,9 +95,11 @@
                      src="{{URL::to('/Uploads/userImage/'.$personalDetail->image)}}" alt=""><br><br>
             @else
                 @if($personalDetail->gender==='female')
-                    <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px" id="userImg" src="{{URL::to('/Uploads/genderImage/userfemale.jpeg')}}" alt="">
+                    <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px" id="userImg"
+                         src="{{URL::to('/Uploads/genderImage/userfemale.jpeg')}}" alt="">
                 @else
-                    <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px" id="userImg" src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" alt="">
+                    <img style="margin-left:5px;width: 120px;height: 100px;border-radius: 30px" id="userImg"
+                         src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" alt="">
                 @endif
 
 
@@ -107,7 +109,9 @@
                 <br>
                 {{$personalDetail->email}}<br><br>
                 Address: <br> {{$personalDetail->address}}<br><br>
+                @if($personalDetail->website)
                 Website: <br> {{$personalDetail->website}} <br><br>
+                @endif
                 Phone No: <br> {{$personalDetail->mobileNo}}
             </p>
 
@@ -133,24 +137,27 @@
             <p style="font-size: 14px;">{{$personalProfile->careerObjective}}</p>
 
             <hr>
-            <h3>Experience</h3>
-            @foreach($experience as $value)
-                <i style=" float: left;">{{$value->companyName}}</i>
-                <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}} to
-                    @if($value->endTime==='Current')
-                        Current
-                    @else
-                        {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
-                    @endif
-                </i>
-                <ul style="font-size: 14px" id="myExp">
-                    <li>{{$value->jobTitle}}</li>
-                    <li>{{$value->location}}</li>
-                    <li>{{$value->jobSummary}}
-                    </li>
-                </ul>
-            @endforeach
-            <hr>
+            @if(!count($experience)==0)
+                <h3>Experience</h3>
+                @foreach($experience as $value)
+                    <i style=" float: left;">{{$value->companyName}}</i>
+                    <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
+                        to
+                        @if($value->endTime==='Current')
+                            Current
+                        @else
+                            {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
+                        @endif
+                    </i>
+                    <ul style="font-size: 14px" id="myExp">
+                        <li>{{$value->jobTitle}}</li>
+                        <li>{{$value->location}}</li>
+                        <li>{{$value->jobSummary}}
+                        </li>
+                    </ul>
+                @endforeach
+                <hr>
+            @endif
 
             <h3>Education</h3>
             @foreach($education as $value)
@@ -171,9 +178,11 @@
             <hr>
             <h3>Reference</h3>
             @forelse($reference as $value)
-                <p>{{$value->referee}}
+                <p>{{ucfirst($value->name)}}
                     <br>
-                    {{$value->refereeContact}}
+                    {{$value->designation}}<br>
+                    {{$value->companyName}}<br>
+                    {{$value->email}}, {{$value->contactNumber}}
                 </p>
             @empty
                 <p>Reference Available at request</p>

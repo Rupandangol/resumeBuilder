@@ -4,7 +4,7 @@
     <div id="myProgressBar" class="progress"
          style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:58%;background-color:#3F51B5">4th Step Done
+             aria-valuemin="0" aria-valuemax="100" style="width:58%;background-color:#3F51B5">60%
         </div>
     </div>
 @endsection
@@ -144,7 +144,7 @@
                                     <td><input class="expBlock" type="date" style="width: 135px;" name="startTime[]">
                                     </td>
                                     <td><input class="expBlock myEndTime" type="date" style="width: 135px;"
-                                              required name="endTime[]"></td>
+                                               required name="endTime[]"></td>
                                     <td>
                                         {{--<input class="expBlock" type="text" style="height: 80px;" name="jobSummary[]">--}}
                                         <textarea class="form-control" name="jobSummary[]" style="resize: none" id=""
@@ -172,8 +172,9 @@
                 </div>
                 <button id="addExp" type="button" class="btn btn-success btn-block">Add New Experience</button>
                 <br>
-                <a href="{{route('page4')}}" class="btn btn-primary ">back</a>
-                <button id="expButton" class="btn btn-primary pull-right" type="submit">next</button>
+                <a href="{{route('page4')}}" class="btn btn-primary ">Back</a>
+                <button id="expButton" class="btn btn-primary pull-right" type="submit">Next</button>
+                <a href="{{route('skipExp')}}" onclick="return confirm('Are you sure you want to skip?')" class="btn btn-primary pull-right">Skip</a>
 
             </div>
 
@@ -247,12 +248,13 @@
                         $('.myEndTime').removeAttr('required');
                     } else {
                         test2.val('false');
-                        $('.myEndTime').prop('required',true);
+                        $('.myEndTime').prop('required', true);
 
                     }
                     console.log(test2.val());
                 })
             }
+
             function enterKey() {
                 $('.expBlock').on('keypress', function (e) {
                     if (e.keyCode === 13) {
@@ -261,7 +263,9 @@
                     }
                 })
             }
+
             enterKey();
+
         });
     </script>
     <script>

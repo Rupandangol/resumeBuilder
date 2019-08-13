@@ -15,15 +15,18 @@
 @endsection
 @section('contentHeader')
     <br><br>
-    <div class="jumbotron">
-        <h1 style="text-align: center" class="display-4">CV <b>Builder</b></h1>
+    <div style="background-color: white" class="jumbotron">
+        <img style="margin-top: 20px;margin-left: 340px"  src="{{URL::to('/Uploads/logo/talentConnectsFull.jpeg')}}" alt=""><br><br>
+
         <hr class="my-4">
+        <br><br>
+        <h1 style="text-align: center" class="display-4">CV <b>Builder</b></h1>
         <p>
             Impressive Resumes Made Easy! Get hired with the professional Resume Builder that will make you stand out of
             the crowd! Start Now!.
         </p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="{{url('/cvForm')}}" role="button">Build <b>CV</b></a>
+            <a class="btn btn-primary btn-lg" href="{{url('/cvForm')}}" role="button">Create Your <b>CV</b></a>
         </p>
     </div>
 

@@ -81,9 +81,12 @@
         <p style="margin: 0;padding: 0;font-size: 15px">{{$personalDetail->mobileNo}}</p><br>
 
         {{--end of contact--}}
+
         {{--website--}}
+        @if($personalDetail->website)
         <strong style="font-size: 15px;font-family: sans-serif">WEBSITE:</strong>
         <p style="margin: 0;padding: 0;font-size: 15px">LinkedIn: <br>{{$personalDetail->website}}</p><br>
+        @endif
         {{--end of website--}}
         {{--email--}}
         <strong style="font-size: 15px;font-family: sans-serif">EMAIL:</strong>
@@ -114,24 +117,26 @@
             </p><br>
         @endforeach
         {{--end of education--}}
-
         {{--experience--}}
-        <h4 style="text-transform: uppercase;font-family: sans-serif">Work Experience</h4>
-        <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
+        @if(!count($experience)==0)
+            <h4 style="text-transform: uppercase;font-family: sans-serif">Work Experience</h4>
+            <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
 
-        @foreach($experience as $value)
-            <strong style="font-size: 15px">{{ucfirst($value->jobTitle)}} at {{ucfirst($value->companyName)}}
-                , {{ucfirst($value->location)}}</strong>
-            <p style="margin: 0;padding: 0;font-size: 15px">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}-
-                @if($value->endTime==='Current')
-                    Present
-                @else
-                    {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
-                @endif
-                <br>{{$value->jobSummary}}
-            </p><br>
-        @endforeach
-        {{--end of experience--}}
+            @foreach($experience as $value)
+                <strong style="font-size: 15px">{{ucfirst($value->jobTitle)}} at {{ucfirst($value->companyName)}}
+                    , {{ucfirst($value->location)}}</strong>
+                <p style="margin: 0;padding: 0;font-size: 15px">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
+                    -
+                    @if($value->endTime==='Current')
+                        Present
+                    @else
+                        {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
+                    @endif
+                    <br>{{$value->jobSummary}}
+                </p><br>
+            @endforeach
+            {{--end of experience--}}
+        @endif
 
         {{--skill--}}
         <h4 style="text-transform: uppercase;font-family: sans-serif">Skills</h4>

@@ -39,7 +39,7 @@ class frontendController extends Controller
             'fullName' => 'required',
             'email' => 'required',
             'mobileNo' => 'required',
-            'website' => 'required',
+//            'website' => 'required',
 //        'image' => 'required',
             'dateOfBirth' => 'required',
             'address' => 'required'

@@ -4,7 +4,7 @@
     <div id="myProgressBar" class="progress"
          style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:29%;background-color:#3F51B5">2nd Step Done
+             aria-valuemin="0" aria-valuemax="100" style="width:29%;background-color:#3F51B5">30%
         </div>
     </div>
 @endsection
@@ -64,7 +64,7 @@
                             </th>
                             <th>Skill Level &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="myTooltip"><i class="fa fa-info-circle"></i>
-                                    <span class="mytooltiptext">Enter 1% to 100%</span>
+                                    <span class="mytooltiptext">Enter from 1 to 100</span>
                                 </div>
                             </th>
                             <th colspan="2">About</th>

@@ -198,6 +198,6 @@
     {{--</footer>--}}
 </div>
 <div style="text-align: right;margin-top: 10px;margin-right: 10px">
-    <strong>Copyright &copy; 2019 <a href="">Talent Connect</a>.</strong> All rights
+    <strong>Copyright &copy; 2019 <a href="">Talent Connect</a>.</strong> All rights reserved
 </div>
 @include('Frontend.layouts.footer')

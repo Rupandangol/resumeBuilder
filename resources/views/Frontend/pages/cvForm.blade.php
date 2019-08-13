@@ -57,7 +57,7 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-globe"></i></span>
                         <input type="text" name="website" class="form-control" value="{{$detail->website}}"
-                               placeholder="LinkedIn Profile">
+                               placeholder="LinkedIn Profile (Optional)">
                     </div>
                     <br>
                     <div class="input-group">
@@ -151,7 +151,7 @@
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
                             <input type="text" name="website" class="form-control" value="{{old('website')??''}}"
-                                   placeholder="LinkedIn Profile">
+                                   placeholder="LinkedIn Profile (Optional)">
                         </div>
                         <br>
                         <div class="input-group">
@@ -238,7 +238,7 @@
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-                            <input type="text" name="website" class="form-control" placeholder="LinkedIn Profile">
+                            <input type="text" name="website" class="form-control" placeholder="LinkedIn Profile (Optional)">
                         </div>
                         <br>
                         <div class="input-group">

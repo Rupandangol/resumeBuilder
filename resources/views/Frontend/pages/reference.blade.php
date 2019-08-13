@@ -4,12 +4,13 @@
     <div id="myProgressBar" class="progress"
          style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20;">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:72.5%;background-color:#3F51B5">5th Step Done
+             aria-valuemin="0" aria-valuemax="100" style="width:72.5%;background-color:#3F51B5">75%
         </div>
     </div>
 @endsection
 
 @section('my-header')
+    <link rel="stylesheet" href="{{URL::to('/css/responsive.css')}}">
     <link rel="stylesheet" href="{{URL::to('/css/tooltip.css')}}">
 @endsection
 
@@ -42,6 +43,7 @@
                         <i class="fa fa-info-circle fa-lg "></i>
                     </button>
                 </div>
+                <div class="table-responsive-sm">
                 <table class="table table-borderless table-hover">
 
                     <thead>
@@ -112,11 +114,12 @@
                     </tbody>
 
                 </table>
+                </div>
                 <button id="addReference" class="btn btn-success btn-block">Add New Reference</button>
                 <br>
                 <a href="{{route('page5')}}" style="border-radius: 24px" class="btn btn-primary">Back</a>
                 <button style="border-radius: 24px" class="btn btn-primary pull-right" id="refButton">Next</button>
-                <a href="{{route('page7')}}" style="border-radius: 24px" class="btn btn-primary pull-right">Skip</a>
+                <a href="{{route('skipRef')}}" onclick="return confirm('Are you sure you want to skip?')" style="border-radius: 24px" class="btn btn-primary pull-right">Skip</a>
 
             </div>
         </form>

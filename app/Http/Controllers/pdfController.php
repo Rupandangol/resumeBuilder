@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Model\AcademicQualification;
+use App\Model\DownloadNumber;
 use App\Model\Experience;
 use App\Model\PersonalDetail;
 use App\Model\PersonalProfile;
@@ -41,6 +42,10 @@ class pdfController extends Controller
 
     public function downloadCv()
     {
+
+
+        $sessionData['cv_id'] = session('cv_user_id');
+        DownloadNumber::create($sessionData);
 
         $url = url()->current();
 

@@ -30,31 +30,35 @@ Route::post('/skill', 'frontendController@skillAction')->name('page3');
 //
 Route::get('/education', 'frontendController@education')->name('page4')->middleware('checkEducation');
 Route::post('/education', 'frontendController@educationAction');
+
+//experience
 Route::get('/experience', 'frontendController@experience')->name('page5')->middleware('checkExperience');
 Route::post('/experience', 'frontendController@experienceAction');
-Route::get('/reference', 'frontendController@reference')->name('page6')->middleware('checkReference');
+Route::get('/experienceSkip', 'skipController@skipExp')->name('skipExp');
+
+
+Route::get('/reference', 'frontendController@reference')->name('page6')->middleware('checkExperience');
 Route::post('/reference', 'frontendController@referenceAction');
+Route::get('/referenceSkip', 'skipController@skipRef')->name('skipRef');
 //
 ////    update
 //    Route::get('/personalProfile/skill/{id}/education/experience/referenceUpdate','frontendController@referenceUpdate')->name('updateReference','{id}');
 //
 ////    Template
-Route::get('/template', 'frontendController@template')->name('page7')->middleware('checkReference');
+Route::get('/template', 'frontendController@template')->name('page7')->middleware('checkExperience');
 
 
-Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkReference');
-Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkReference');
+Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkExperience');
+Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkExperience');
 //
-Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkReference');
-Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkReference');
+Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkExperience');
+Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkExperience');
 //
-Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkReference');
-Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkReference');
+Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkExperience');
+Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkExperience');
 
 
-
-
-Route::get('/afterDownload','pdfController@afterDownload')->name('afterDownload');
+Route::get('/afterDownload', 'pdfController@afterDownload')->name('afterDownload');
 //
 //flushing session
 Route::get('/flush', 'frontendController@flushSession')->name('flushSession');
