@@ -56,6 +56,11 @@
         #footer {
             clear: both;
         }
+
+        .jobSum {
+            font-size: 15px;
+            margin-top: -10px;
+        }
     </style>
     <title>template2</title>
 </head>
@@ -73,8 +78,14 @@
             @endif
         @endif
         <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Profile</h4>
-        <p style="margin-right: 90px;text-align: justify">{{$personalProfile->careerObjective}}</p><br>
-
+        <div style="margin-right: 90px;margin-top: -10px; text-align: justify">
+            <p>
+                <?php
+                echo htmlspecialchars_decode($personalProfile->careerObjective);
+                ?>
+            </p>
+        </div>
+        <br>
         {{--contact--}}
         <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Contact</h4>
         <strong style="font-size: 15px;font-family: sans-serif">PHONE:</strong>
@@ -84,15 +95,23 @@
 
         {{--website--}}
         @if($personalDetail->website)
-        <strong style="font-size: 15px;font-family: sans-serif">WEBSITE:</strong>
-        <p style="margin: 0;padding: 0;font-size: 15px">LinkedIn: <br>{{$personalDetail->website}}</p><br>
+            <strong style="font-size: 15px;font-family: sans-serif">WEBSITE:</strong>
+            <p style=" word-wrap:break-word; width: 240px;  margin: 0;padding: 0;font-size: 15px">LinkedIn:
+                <br>{{$personalDetail->website}}</p><br>
         @endif
         {{--end of website--}}
         {{--email--}}
         <strong style="font-size: 15px;font-family: sans-serif">EMAIL:</strong>
-        <p style="margin: 0;padding: 0;font-size: 15px">{{$personalDetail->email}}</p><br>
+        <p style=" word-wrap:break-word; width: 240px; margin: 0;padding: 0;font-size: 15px">{{$personalDetail->email}}</p>
+        <br>
         {{--end of email--}}
 
+        {{--gender--}}
+        <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Gender <br> <span
+        style="color: black; font-size: 13px"> {{$personalDetail->gender}}</span></h4>
+
+
+        {{--endof gender--}}
 
         {{--</div>--}}
     </div>
@@ -106,15 +125,28 @@
         <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
 
         @foreach($education as $value)
-            <strong style="font-size: 15px">{{$value->subject}}, {{$value->institute}}, {{$value->location}}</strong>
-            <p style="margin: 0;padding: 0;font-size: 15px">{{$value->startTime}}
-                <br>
+            <strong style="font-size: 15px"> {{$value->subject}}, {{$value->institute}}, {{$value->location}}
+            </strong>
+            <p style="margin: 0;padding: 0;font-size: 15px">{{$value->startTime}} -
                 @if($value->grade==='attending')
                     Currently Attending
                 @else
-                    Grade: {{$value->grade}}
+                    {{$value->endTime}}
                 @endif
-            </p><br>
+
+                @if(!($value->grade==='attending'))
+                    | Grade: {{$value->grade}}
+                @endif
+            </p>
+            @if($value->description)
+                <div style="margin-top: -10px">
+                    <?php
+                    echo htmlspecialchars_decode($value->description);
+                    ?>
+                </div>
+            @else
+                <br>
+            @endif
         @endforeach
         {{--end of education--}}
         {{--experience--}}
@@ -132,11 +164,16 @@
                     @else
                         {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
                     @endif
-                    <br>{{$value->jobSummary}}
-                </p><br>
+                    <br>
+                <div class="jobSum">
+                    <?php
+                    echo htmlspecialchars_decode($value->jobSummary);
+                    ?>
+                </div>
+                </p>
             @endforeach
-            {{--end of experience--}}
         @endif
+        {{--end of experience--}}
 
         {{--skill--}}
         <h4 style="text-transform: uppercase;font-family: sans-serif">Skills</h4>
@@ -144,29 +181,80 @@
 
         @foreach($skill as $value)
             <strong style="font-size: 15px">{{ucfirst($value->skill)}}</strong>
-            <p style="margin: 0;padding: 0;font-size: 15px">{{$value->about}}
-            </p><br>
+            <div class="skillasdf" style="margin-top: -15px;padding: 0;font-size: 15px;">
+                <?php
+                echo htmlspecialchars_decode($value->about);
+
+                ?>
+            </div>
         @endforeach
         {{--end of skill--}}
 
-        {{--Reference--}}
-        <h4 style="text-transform: uppercase;font-family: sans-serif">Reference</h4>
-        <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
-        @forelse($reference as $value)
-            <strong style="font-size: 15px">{{ucfirst($value->name)}}</strong>
-            <p style="margin: 0;padding: 0;font-size: 15px">{{$value->designation}}<br>
-                {{$value->companyName}}<br>
-                {{$value->email}}, {{$value->contactNumber}}
+
+        {{--Training--}}
+
+        @if(!count($training)==0)
+            <h4 style="text-transform: uppercase;font-family: sans-serif">Training</h4>
+            <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
+
+            @foreach($training as $value)
+                <strong style="font-size: 15px">{{ucfirst($value->trainingName)}}, {{ucfirst($value->trainingCenter)}}
+                    , {{ucfirst($value->location)}}</strong>
+                <p style="margin: 0;padding: 0;font-size: 15px">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
+                    - {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
+                    <br>
+                @if($value->description)
+                    <div style="margin-top: -10px">
+                        <?php
+                        echo htmlspecialchars_decode($value->description);
+                        ?>
+                    </div>
+                @else
+                    <br>
+                    @endif
+                    </p>
+                    @endforeach
+                @endif
+                {{--end of Training--}}
+
+                {{--achievement--}}
+
+                @if(!count($achievement)==0)
+                    <h4 style="text-transform: uppercase;font-family: sans-serif">Achievements</h4>
+                    <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
+
+                    @foreach($achievement as $value)
+                        <strong style="font-size: 15px">{{ucfirst($value->header)}}</strong>
+                        <div style="margin-top: -10px">
+                            <?php
+                            echo htmlspecialchars_decode($value->about);
+                            ?>
+                        </div>
+                    @endforeach
+                    {{--end of experience--}}
+                @endif
+
+                {{--end of achievement--}}
 
 
-            </p><br>
-        @empty
-            <p style="margin: 0;padding: 0;font-size: 15px">Available at request
-            </p>
-        @endforelse
+                {{--Reference--}}
+                <h4 style="text-transform: uppercase;font-family: sans-serif">Reference</h4>
+                <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
+                @forelse($reference as $value)
+                    <strong style="font-size: 15px">{{ucfirst($value->name)}}</strong>
+                    <p style="margin: 0;padding: 0;font-size: 15px">{{$value->designation}}<br>
+                        {{$value->companyName}}<br>
+                        {{$value->email}}, {{$value->contactNumber}}
 
-        {{--end of reference--}}
-        {{--</div>--}}
+
+                    </p><br>
+                @empty
+                    <p style="margin: 0;padding: 0;font-size: 15px">Available at request
+                    </p>
+                @endforelse
+
+                {{--end of reference--}}
+                {{--</div>--}}
 
 
     </div>

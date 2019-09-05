@@ -41,4 +41,11 @@
     {{--custom css--}}
 
     @yield('my-header')
+
+    <style>
+       .cke_top{
+           display: none!important;
+       }
+    </style>
+
 </head>

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Model\AcademicQualification;
+use App\Model\achievement;
 use App\Model\DownloadNumber;
 use App\Model\Experience;
 use App\Model\PersonalDetail;
 use App\Model\PersonalProfile;
 use App\Model\Reference;
 use App\Model\Skill;
+use App\Model\training;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -31,6 +33,8 @@ class pdfController extends Controller
         $data['skill'] = Skill::where(['cv_id' => $id])->get();
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
+        $data['training'] = training::where(['cv_id' => $id])->get();
+        $data['achievement'] = achievement::where(['cv_id' => $id])->get();
 
 
         $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem' . $itemId[1], $data);
@@ -58,6 +62,8 @@ class pdfController extends Controller
         $data['skill'] = Skill::where(['cv_id' => $id])->get();
         $data['experience'] = Experience::where(['cv_id' => $id])->get();
         $data['reference'] = Reference::where(['cv_id' => $id])->get();
+        $data['training'] = training::where(['cv_id' => $id])->get();
+        $data['achievement'] = achievement::where(['cv_id' => $id])->get();
 
         $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem' . $itemId[1], $data);
 

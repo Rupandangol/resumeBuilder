@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{URL::to('css/templateCss.css')}}">
 @endsection
 @section('contentHeader')
-    <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
+    <br><br><br><h2 style="text-align: center;color: whitesmoke;">Cv<b style="color: honeydew">Generator</b></h2>
 @endsection
 @section('content')
     <div class="container">
@@ -21,7 +21,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Template 1</h2>
+                        <h2 style="color:white;">Template 1</h2>
                         <br>
                         <div class="clearfix"></div>
                     </div>
@@ -36,16 +36,14 @@
 
                             <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
 
-                                <h3 class="prod_title">Basic Template Design</h3>
+                                <h3 style="color: white;" class="prod_title">Sample <b>1</b></h3>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, asperiores,
-                                    autem
-                                    consectetur cum debitis deleniti eaque excepturi facilis illo maiores maxime minima
-                                    molestiae nisi nobis officiis omnis qui tempore voluptatibus?</p>
+                                <p style="color:white;"> Functional resume template for all company that will
+                                    emphasize your strengths and work experience.</p>
                                 <br>
 
                                 <div class="row">
-                                    <a style="margin-left: 14px" href="{{route('preview1')}}"
+                                    <a style="" href="{{route('preview1')}}"
                                        class="btn btn-default btn-lg col-md-4">Preview Your Cv</a>
                                     {{--<form class="col-md-4" method="post"--}}
                                     {{--action="">--}}
@@ -54,28 +52,43 @@
                                     {{--<button type="submit" class="btn btn-default btn-lg">Preview Your Cv</button>--}}
                                     {{--</form>--}}
                                     {{--<input type="hidden" name="id" value="{{$id}}">--}}
-                                    <a style="margin-left: 10px" href="{{route('downloadCv1')}}"
+                                    <a style="margin-left: 5px" href="{{route('downloadCv1')}}"
                                        class="btn btn-default btn-lg col-md-4">Download</a>
-
-
                                 </div>
                                 <br>
-                                <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another Template</a>&nbsp;&nbsp;&nbsp;
-                                <div class="btn-group">
-                                    <button type="button" class="btn bg-default btn-lg dropdown-toggle"
-                                            data-toggle="dropdown"
-                                            aria-expanded="false">
-                                        Form Edit <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{route('page1')}}">Personal Detail</a></li>
-                                        <li><a href="{{route('page2')}}">Personal Profile</a></li>
-                                        <li><a href="{{route('page3')}}">Skill</a></li>
-                                        <li><a href="{{route('page4')}}">Education</a></li>
-                                        <li><a href="{{route('page5')}}">Experience</a></li>
-                                        <li><a href="{{route('page6')}}">Reference</a></li>
-                                    </ul>
+                                <div class="row">
+                                    <a href="{{route('page7')}}" class="btn btn-default btn-lg ">Try another
+                                        Template</a>
                                 </div>
+
+                                <br>
+                                <div class="row">
+
+                                    <a href="{{route('createNew')}}" class="btn btn-default btn-lg col-md-4 ">Create New
+                                        Cv</a>&nbsp;
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn bg-default btn-lg btn-block dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            Form Edit <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{route('page1')}}">Personal Detail</a></li>
+                                            <li><a href="{{route('page2')}}">Personal Profile</a></li>
+                                            <li><a href="{{route('page4')}}">Education</a></li>
+                                            <li><a href="{{route('page5')}}">Experience</a></li>
+                                            <li><a href="{{route('page5')}}">Training</a></li>
+                                            <li><a href="{{route('page3')}}">Skills</a></li>
+                                            <li><a href="{{route('page3')}}">Achievement</a></li>
+                                            <li><a href="{{route('page6')}}">Reference</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>

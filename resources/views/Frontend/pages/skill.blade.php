@@ -4,7 +4,7 @@
     <div id="myProgressBar" class="progress"
          style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:29%;background-color:#3F51B5">30%
+             aria-valuemin="0" aria-valuemax="100" style="width:60%;background-color:#3F51B5"><strong>60%</strong>
         </div>
     </div>
 @endsection
@@ -32,11 +32,12 @@
 
 
 @section('contentHeader')
-    <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
+    <br><br><br><h2 style="text-align: center;color: whitesmoke;">Cv<b style="color: honeydew"> Generator</b></h2>
 @endsection
 @section('content')
-    <div class="box box-info">
 
+
+    <div class="box box-info">
         @if($errors->has('skill.*')||$errors->has('skillLevel.*')||$errors->has('about.*'))
             <div class="alert alert-danger">
                 <p>
@@ -44,188 +45,278 @@
                 </p>
             </div>
         @endif
-
-        {{--personal details--}}
-        <form id="mySkill" action="{{route('page3')}}" method="post">
+        <div class="box-header with-border">
+            <h3 class="box-title">Skill</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form id="mySkill" method="post" action="{{route('page3')}}">
             {{csrf_field()}}
-
             <div class="box-body">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Skill</h3>
-                </div>
-                <div class="table-responsive-sm">
-                    <table id="skillTable" class="table table-borderless table-hover">
-                        <thead>
-                        <tr>
-                            <th>Skill &nbsp;&nbsp;&nbsp;
-                                <div class="myTooltip"><i class="fa fa-info-circle"></i>
-                                    <span class="mytooltiptext">Eg: Comminication Skill/ Advance Excel /Javascript/php/.NEt</span>
+                <div class="myBody">
+                    @forelse($skill as $value)
+
+
+                        <div class="addedBlock">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="skill">Skill</label>
+                                    <input name="skill[]" type="text" value="{{$value->skill}}"
+                                           class="form-control enterSki" id=""
+                                           placeholder="Enter Skill, Eg:Communication Skill/ JavaScript">
                                 </div>
-                            </th>
-                            <th>Skill Level &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <div class="myTooltip"><i class="fa fa-info-circle"></i>
-                                    <span class="mytooltiptext">Enter from 1 to 100</span>
+                                <div class="form-group col-md-6">
+                                    <label for="skillLevel">Skill Level</label>
+                                    <input name="skillLevel[]" type="number" value="{{$value->skillLevel}}" max="100"
+                                           min="1" class="form-control enterSki" id=""
+                                           placeholder="Enter From 1 To 100, Eg:80">
                                 </div>
-                            </th>
-                            <th colspan="2">About</th>
+                            </div>
+                            <div class="form-group">
+                                <label for="about">About</label>
+                                <textarea style="resize: none" placeholder="Detail about Skill..."
+                                          class="ckeditor form-control"
+                                          name="about[]" id="" rows="3">{{$value->about}}</textarea>
+                            </div>
+                            <div style="text-align: right">
+                            <button class="btn btn-danger myRemoveButton "><i class="fa fa-trash"></i></button>
+                            </div>
+                            <hr style="border-color: #00BCD4">
+                        </div>
+                        <!-- /.box-body -->
 
-                        </tr>
-                        </thead>
+                    @empty
+                        <?php
+                        $oldSkills = old('skill') ?? [];?>
+                        @forelse($oldSkills as $key=>$value)
+                            <div class="addedBlock">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="skill">Skill</label>
+                                        <input name="skill[]" type="text" value="{{old('skill')[$key]??''}}"
+                                               class="form-control enterSki" id=""
+                                               placeholder="Enter Skill, Eg:Communication Skill/ JavaScript">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="skillLevel">Skill Level</label>
+                                        <input name="skillLevel[]" type="number" value="{{old('skillLevel')[$key]??''}}"
+                                               max="100" min="1" class="form-control enterSki" id=""
+                                               placeholder="Enter From 1 To 100, Eg:80">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="about">About</label>
+                                    <textarea style="resize: none" placeholder="Detail about Skill..."
+                                              class="form-control ckeditor"
+                                              name="about[]" id="" rows="3"></textarea>
+                                </div>
+                                <div style="text-align: right">
+                                <button class="btn btn-danger myRemoveButton"><i
+                                            class="fa fa-trash"> {{old('about')[$key]??''}}</i></button>
+                                </div>
+                                <hr style="border-color: #00BCD4">
+                            </div>
+                            <!-- /.box-body -->
 
-                        <tbody id="appendDataHere">
-
-                        @forelse($skill as $value)
-                            <tr>
-                                <td><input class="skillBlock" type="text" name="skill[]" value="{{$value->skill}}"></td>
-                                <td><input class="skillBlock" style="width: 100px;" placeholder="eg:60%" type="number"
-                                           min="1" max="100"
-                                           name="skillLevel[]" value="{{$value->skillLevel}}"></td>
-                                <td>
-                                    {{--<input class="skillBlock" type="text" style="width: 300px;height: 50px;"--}}
-                                    {{--name="about[]"--}}
-                                    {{--value="{{$value->about}}">--}}
-                                    <textarea name="about[]" id="" class="form-control" style="resize: none"
-                                              rows="4">{{$value->about}}</textarea>
-                                </td>
-
-                                <td>
-                                    <button id="remove-appended" class="btn btn-danger remove-appended"><i
-                                                class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
                         @empty
-                            <?php
-                            $oldSkills = old('skill') ?? [];?>
-                            @forelse($oldSkills as $key=>$item)
-                                <tr>
-                                    <td><input class="skillBlock" type="text" name="skill[]"
-                                               value="{{old('skill')[$key]??''}}"></td>
-                                    <td><input class="skillBlock" style="width: 100px" type="number" min="1" max="100"
-                                               name="skillLevel[]" value="{{old('skillLevel')[$key]??''}}">
-                                    </td>
-                                    <td>
-                                        {{--<input class="skillBlock" type="text" style="width: 300px;height: 50px;"--}}
-                                        {{--name="about[]" value="{{old('about')[$key]??''}}">--}}
-                                        <textarea style="resize: none" name="about[]" class="form-control" id=""
-                                                  rows="4">{{old('about')[$key]??''}}</textarea>
-                                    </td>
-                                    <td>
-                                        <button id="remove-appended" class="btn btn-danger remove-appended"><i
-                                                    class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td><input class="skillBlock" type="text" name="skill[]"></td>
-                                    <td><input class="skillBlock" style="width: 100px" type="number" min="1" max="100"
-                                               name="skillLevel[]">
-                                    </td>
-                                    <td>
-                                        {{--<input class="skillBlock" type="text" style="width: 300px;height: 50px;"--}}
-                                        {{--name="about[]">--}}
-                                        <textarea style="resize: none" class="form-control" name="about[]" id=""
-                                                  rows="4"></textarea></td>
-                                    <td>
-                                        <button id="remove-appended" class="btn btn-danger remove-appended"><i
-                                                    class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                            <div class="addedBlock">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="skill">Skill</label>
+                                        <input name="skill[]" type="text" class="form-control enterSki" id=""
+                                               placeholder="Enter Skill, Eg:Communication Skill/ JavaScript">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="skillLevel">Skill Level</label>
+                                        <input name="skillLevel[]" type="number" max="100" min="1"
+                                               class="form-control enterSki" id=""
+                                               placeholder="Enter From 1 To 100, Eg:80">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="about">About</label>
+                                    <textarea  style="resize: none" placeholder="Detail about Skill..."
+                                              class="form-control ckeditor"
+                                              name="about[]" id="" rows="3"></textarea>
+                                </div>
+                                <div style="text-align: right">
+                                <button class="btn btn-danger myRemoveButton"><i class="fa fa-trash"></i></button>
+                                </div>
+                                <hr style="border-color: #00BCD4">
+                            </div>
+                            <!-- /.box-body -->
 
-                            @endforelse
                         @endforelse
-
-                        </tbody>
-
-                    </table>
+                    @endforelse
                 </div>
-                <br>
-                <button type="button" id="addCV" class="btn btn-success btn-block">Add New Skill</button>
-                <br>
-                {{--<div id="deleteThis">--}}
-                {{--<div id="skill" class="skill">--}}
-
-                {{--</div>--}}
-                {{--<input type="hidden" name="id" value="">--}}
-
-                {{--<div class="box-footer">--}}
-                {{--<a href="{{route('page2')}}" class="btn btn-primary">Back</a>--}}
-                {{--<button type="submit" class="btn btn-primary">Next</button>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-
-                <a href="{{route('page2')}}" style="border-radius: 24px" class="btn btn-primary">Back</a>
-                <button style="border-radius: 24px;" id="skillButton" type="submit" class="btn btn-primary pull-right">
-                    Next
+                <button id="addNewSkill" class="form-control btn btn-success btn-sm ">Add New Skill
                 </button>
+
+                <div class="box-footer">
+                    <a href="{{route('page8')}}" class="btn btn-primary">Back</a>
+                    <button type="submit" class="btn btn-primary pull-right">Next</button>
+                </div>
             </div>
-
         </form>
-    </div>
-@endsection
-@section('my-footer')
 
-    <script>
-        $(function () {
-            $('#addCV').on('click', function (e) {
-                e.preventDefault();
-                var appendTr = "<tr>\n" +
-                    "                                    <td><input class=\"skillBlock\" type=\"text\" name=\"skill[]\"></td>\n" +
-                    "                                    <td><input class=\"skillBlock\" style=\"width: 100px\" type=\"number\" min=\"1\" max=\"100\"\n" +
-                    "                                               name=\"skillLevel[]\">\n" +
-                    "                                    </td>\n" +
-                    "                                    <td>\n" +
-                    "                                        {{--<input class=\"skillBlock\" type=\"text\" style=\"width: 300px;height: 50px;\"--}}\n" +
-                    "                                        {{--name=\"about[]\">--}}\n" +
-                    "                                        <textarea style=\"resize: none\" class=\"form-control\" name=\"about[]\" id=\"\"\n" +
-                    "                                                  rows=\"4\"></textarea></td>\n" +
-                    "                                    <td>\n" +
-                    "                                        <button id=\"remove-appended\" class=\"btn btn-danger remove-appended\"><i\n" +
-                    "                                                    class=\"fa fa-trash\"></i></button>\n" +
-                    "                                    </td>\n" +
-                    "                                </tr>";
 
-                $('#appendDataHere').append(appendTr);
-                removeAppend();
-                enterKey();
-            });
-            removeAppend();
-            function removeAppend() {
-                $('.remove-appended').on('click', function (e) {
-                    e.preventDefault();
-                    var test = $(this).parent().parent().remove();
-                    addRemove();
-                });
-                addRemove();
-            }
-            function addRemove() {
-                var checkOne = $('#appendDataHere').find('tr').length;
-                if (checkOne < 2) {
-                    $('.remove-appended').hide();
-                } else {
-                    $('.remove-appended').show();
+        @endsection
+        @section('my-footer')
 
-                }
-            }
-            function enterKey() {
-                $('.skillBlock').on('keypress', function (e) {
-                    if (e.keyCode === 13) {
+            <script>
+                $(function () {
+
+                    $('#addNewSkill').on('click', function (e) {
                         e.preventDefault();
-                        $('#skillButton').click();
+
+                        var BlockCount = $('.myBody').find('.addedBlock').length |50;
+
+                        var appendBlock = "<div class=\"addedBlock\">\n" +
+                            "                                <div class=\"row\">\n" +
+                            "                                    <div class=\"form-group col-md-6\">\n" +
+                            "                                        <label for=\"skill\">Skill</label>\n" +
+                            "                                        <input name=\"skill[]\" type=\"text\" class=\"form-control enterSki\" id=\"\"\n" +
+                            "                                               placeholder=\"Enter Skill, Eg:Communication Skill/ JavaScript\">\n" +
+                            "                                    </div>\n" +
+                            "                                    <div class=\"form-group col-md-6\">\n" +
+                            "                                        <label for=\"skillLevel\">Skill Level</label>\n" +
+                            "                                        <input name=\"skillLevel[]\" type=\"number\" max=\"100\" min=\"1\"\n" +
+                            "                                               class=\"form-control enterSki\" id=\"\"\n" +
+                            "                                               placeholder=\"Enter From 1 To 100, Eg:80\">\n" +
+                            "                                    </div>\n" +
+                            "                                </div>\n" +
+                            "                                <div class=\"form-group\">\n" +
+                            "                                    <label for=\"about\">About</label>\n" +
+                            "                                    <textarea  style=\"resize: none\" placeholder=\"Detail about Skill...\"\n" +
+                            "                                              id='ckeditor-"+BlockCount+"' class=\"form-control ckeditor\"\n" +
+                            "                                              name=\"about[]\" id=\"\" rows=\"3\"></textarea>\n" +
+                            "                                </div>\n" +
+                            "                                <div style=\"text-align: right\">\n" +
+                            "                                <button class=\"btn btn-danger myRemoveButton\"><i class=\"fa fa-trash\"></i></button>\n" +
+                            "                                </div>\n" +
+                            "                                <hr style=\"border-color: #00BCD4\">\n" +
+                            "                            </div>";
+                        $('.myBody').append(appendBlock);
+                        CKEDITOR.replace('ckeditor-'+BlockCount);
+                        removeAddedBlock();
+                        countAddedBlock();
+                        enterSki();
+                    });
+
+                    function removeAddedBlock() {
+                        $('.myRemoveButton').on('click', function (e) {
+                            e.preventDefault();
+                            var test = $(this).parent().parent().remove();
+
+                            countAddedBlock();
+                        });
+
                     }
+
+                    removeAddedBlock();
+
+                    function countAddedBlock() {
+                        var checkOneBody = $('.myBody').find('.addedBlock').length;
+                        console.log(checkOneBody);
+                        if (checkOneBody < 2) {
+                            $('.myRemoveButton').hide();
+                        } else {
+                            $('.myRemoveButton').show();
+
+                        }
+                    }
+
+                    countAddedBlock();
+
+                    function enterSki() {
+                        $('.enterSki').on('keypress', function (e) {
+                            if (e.keyCode === 13) {
+                                e.preventDefault();
+                            }
+                        })
+                    }
+
+                    enterSki();
+
+
                 })
-            }
-            enterKey();
-        });
-    </script>
+            </script>
 
 
-    <script>
-        $(function () {
-            $("#mySkill").submit(function () {
-                $('#myInnerBar').css({'width': '43.5%'})
-            })
-        })
-    </script>
+
+
+
+
+
+
+
+
+            {{--<script>--}}
+                {{--$(function () {--}}
+                    {{--$('#addCV').on('click', function (e) {--}}
+                        {{--e.preventDefault();--}}
+                        {{--var appendTr = "<tr>\n" +--}}
+                            {{--"                                    <td><input class=\"skillBlock\" type=\"text\" name=\"skill[]\"></td>\n" +--}}
+                            {{--"                                    <td><input class=\"skillBlock\" style=\"width: 100px\" type=\"number\" min=\"1\" max=\"100\"\n" +--}}
+                            {{--"                                               name=\"skillLevel[]\">\n" +--}}
+                            {{--"                                    </td>\n" +--}}
+                            {{--"                                    <td>\n" +--}}
+                            {{--"                                        --}}{{--<input class=\"skillBlock\" type=\"text\" style=\"width: 300px;height: 50px;\"--}}{{--\n" +--}}
+                            {{--"                                        --}}{{--name=\"about[]\">--}}{{--\n" +--}}
+                            {{--"                                        <textarea style=\"resize: none\" class=\"form-control\" name=\"about[]\" id=\"\"\n" +--}}
+                            {{--"                                                  rows=\"4\"></textarea></td>\n" +--}}
+                            {{--"                                    <td>\n" +--}}
+                            {{--"                                        <button id=\"remove-appended\" class=\"btn btn-danger remove-appended\"><i\n" +--}}
+                            {{--"                                                    class=\"fa fa-trash\"></i></button>\n" +--}}
+                            {{--"                                    </td>\n" +--}}
+                            {{--"                                </tr>";--}}
+
+                        {{--$('#appendDataHere').append(appendTr);--}}
+                        {{--removeAppend();--}}
+                        {{--enterKey();--}}
+                    {{--});--}}
+                    {{--removeAppend();--}}
+
+                    {{--function removeAppend() {--}}
+                        {{--$('.remove-appended').on('click', function (e) {--}}
+                            {{--e.preventDefault();--}}
+                            {{--var test = $(this).parent().parent().remove();--}}
+                            {{--addRemove();--}}
+                        {{--});--}}
+                        {{--addRemove();--}}
+                    {{--}--}}
+
+                    {{--function addRemove() {--}}
+                        {{--var checkOne = $('#appendDataHere').find('tr').length;--}}
+                        {{--if (checkOne < 2) {--}}
+                            {{--$('.remove-appended').hide();--}}
+                        {{--} else {--}}
+                            {{--$('.remove-appended').show();--}}
+
+                        {{--}--}}
+                    {{--}--}}
+
+                    {{--function enterKey() {--}}
+                        {{--$('.skillBlock').on('keypress', function (e) {--}}
+                            {{--if (e.keyCode === 13) {--}}
+                                {{--e.preventDefault();--}}
+                                {{--$('#skillButton').click();--}}
+                            {{--}--}}
+                        {{--})--}}
+                    {{--}--}}
+
+                    {{--enterKey();--}}
+                {{--});--}}
+            {{--</script>--}}
+
+
+            <script>
+                $(function () {
+                    $("#mySkill").submit(function () {
+                        $('#myInnerBar').css({'width': '70%'})
+                    })
+                })
+            </script>
 
 
 

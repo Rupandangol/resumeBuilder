@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Model\AcademicQualification;
+use App\Model\achievement;
 use App\Model\Experience;
 use App\Model\PersonalDetail;
 use App\Model\PersonalProfile;
 use App\Model\Reference;
 use App\Model\Skill;
+use App\Model\training;
 use App\Traits\CvHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +25,13 @@ class frontendController extends Controller
         return view('Frontend.pages.dashboard');
     }
 
+    public function createNew()
+    {
+        $this->flushSession();
+        return redirect(route('page1'));
+    }
+
+
     public function cvForm()
     {
         $this->checkSession();
@@ -33,7 +42,6 @@ class frontendController extends Controller
     public function cvFormAction(Request $request)
     {
         $checkSession = session('cv_user_id', false);
-
 
         $this->validate($request, [
             'fullName' => 'required',
@@ -85,6 +93,7 @@ class frontendController extends Controller
 
     public function personalProfileAction(Request $request)
     {
+//        return $request->all();
         $checkSession = session('cv_user_id', false);
 
         $this->validate($request, [
@@ -92,7 +101,9 @@ class frontendController extends Controller
             'availableFor' => 'required',
             'jobCategory' => 'required',
             'expectedSalary' => 'required',
-            'careerObjective' => 'required'
+            'careerObjective' => 'required',
+            'preferredLocation'=>'required',
+            'jobCategoryTitle'=>'required'
         ]);
 
         $data['lookingFor'] = $request->lookingFor;
@@ -100,7 +111,12 @@ class frontendController extends Controller
         $data['jobCategory'] = $request->jobCategory;
         $data['expectedSalary'] = $request->expectedSalary;
         $data['careerObjective'] = $request->careerObjective;
+        $data['preferredLocation'] = $request->preferredLocation;
+        $data['jobCategoryTitle'] = $request->jobCategoryTitle;
+        $data['interestedInJob'] = $request->interestedInJob;
+
         $data['cv_id'] = $checkSession;
+//        return $data;
 
         if (PersonalProfile::where('cv_id', $data['cv_id'])->first()) {
             PersonalProfile::where('cv_id', $data['cv_id'])->first()->update($data);
@@ -108,7 +124,7 @@ class frontendController extends Controller
             PersonalProfile::create($data);
 
         }
-        return redirect(route('page3'));
+        return redirect(route('page4'));
 
 
     }
@@ -121,6 +137,8 @@ class frontendController extends Controller
 
     public function skillAction(Request $request)
     {
+
+
         $this->validate($request, [
             'skill' => 'required',
             'skill.*' => 'required',
@@ -160,8 +178,52 @@ class frontendController extends Controller
             }
         }
 
-        return redirect(route('page4'));
+        return redirect(route('page9'));
 
+
+    }
+
+
+//    achievement
+
+    public function achievement()
+    {
+        $this->checkSession();
+        return view('Frontend.pages.achievement', $this->_data);
+    }
+
+
+    public function achievementAction(Request $request)
+    {
+
+        $id = session('cv_user_id', false);
+
+        $this->validate($request, [
+            'header' => 'required',
+            'header.*' => 'required',
+            'about' => 'required',
+            'about.*' => 'required'
+        ]);
+        $achieve = $request->header;
+        if (achievement::where('cv_id', $id)->first()) {
+            achievement::where('cv_id', $id)->delete();
+            foreach ($achieve as $key => $value) {
+                $data['header'] = $request->header[$key];
+                $data['about'] = $request->about[$key];
+                $data['cv_id'] = $id;
+                achievement::create($data);
+            }
+        } else {
+            foreach ($achieve as $key => $value) {
+                $data['header'] = $request->header[$key];
+                $data['about'] = $request->about[$key];
+                $data['cv_id'] = $id;
+                achievement::create($data);
+            }
+        }
+
+
+        return redirect(route('page6'));
 
     }
 
@@ -177,8 +239,6 @@ class frontendController extends Controller
 
     public function educationAction(Request $request)
     {
-
-
         $id = session('cv_user_id', false);
         $check = $request->checkMe;
 
@@ -208,6 +268,7 @@ class frontendController extends Controller
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
                 $data['attending'] = $request->attending[$i];
+                $data['description'] = $request->description[$i];
                 $data['startTime'] = $request->startTime[$i];
                 if ($data['attending'] === "true") {
                     $data['grade'] = 'attending';
@@ -231,6 +292,7 @@ class frontendController extends Controller
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
                 $data['attending'] = $request->attending[$i];
+                $data['description'] = $request->description[$i];
 
                 $data['startTime'] = $request->startTime[$i];
                 if ($data['attending'] === 'true') {
@@ -248,6 +310,62 @@ class frontendController extends Controller
         return redirect(route('page5'));
     }
 
+
+    public function training()
+    {
+        $this->checkSession();
+
+        return view('Frontend.pages.training', $this->_data);
+    }
+
+    public function trainingAction(Request $request)
+    {
+        $id = session('cv_user_id', false);
+
+        $this->validate($request, [
+            'trainingName' => 'required',
+            'trainingName.*' => 'required',
+            'trainingCenter' => 'required',
+            'trainingCenter.*' => 'required',
+            'location' => 'required',
+            'location.*' => 'required',
+            'startTime' => 'required',
+            'startTime.*' => 'required',
+            'endTime' => 'required',
+            'endTime.*' => 'required'
+        ]);
+        $train = $request->trainingCenter;
+
+        if (training::where('cv_id', $id)->first()) {
+            training::where('cv_id', $id)->delete();
+            foreach ($train as $key => $value) {
+                $data['trainingName'] = $request->trainingName[$key];
+                $data['trainingCenter'] = $request->trainingCenter[$key];
+                $data['location'] = $request->location[$key];
+                $data['startTime'] = $request->startTime[$key];
+                $data['endTime'] = $request->endTime[$key];
+                $data['description'] = $request->description[$key];
+                $data['cv_id'] = $id;
+                training::create($data);
+            }
+        } else {
+            foreach ($train as $key => $value) {
+                $data['trainingName'] = $request->trainingName[$key];
+                $data['trainingCenter'] = $request->trainingCenter[$key];
+                $data['location'] = $request->location[$key];
+                $data['startTime'] = $request->startTime[$key];
+                $data['endTime'] = $request->endTime[$key];
+                $data['description'] = $request->description[$key];
+                $data['cv_id'] = $id;
+                training::create($data);
+            }
+        }
+        return redirect(route('page3'));
+
+
+    }
+
+
     public function experience()
     {
         $this->checkSession();
@@ -257,6 +375,7 @@ class frontendController extends Controller
 
     public function experienceAction(Request $request)
     {
+
         $id = session('cv_user_id', false);
         $this->validate($request, [
             'jobTitle' => 'required',
@@ -318,7 +437,7 @@ class frontendController extends Controller
             }
 
         }
-        return redirect(route('page6'));
+        return redirect(route('page8'));
     }
 
 

@@ -7,16 +7,16 @@
 
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;">
+    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
-             aria-valuemin="0" aria-valuemax="100" style="width:0%;background-color:#3F51B5">
+             aria-valuemin="0" aria-valuemax="100" style="width:0%;background-color:#3F51B5;">
         </div>
     </div>
 @endsection
 
 
 @section('contentHeader')
-    <br><br><br><h2 style="text-align: center">Cv<b>Builder</b></h2>
+    <br><br><br><h2 style="text-align: center;color: whitesmoke;">Cv<b style="color: honeydew"> Generator</b></h2>
 @endsection
 
 
@@ -61,18 +61,13 @@
                     </div>
                     <br>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-image"></i></span>
-                        <input type="file" name="image" class="form-control" placeholder="your Image">
-                    </div>
-                    <br>
-                    <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-flag"></i></span>
                         <input type="text" name="address" value="{{$detail->address}}" class="form-control"
                                placeholder="Current Address">
                     </div>
                     <br>
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-birthday-cake"> &nbsp;Date of Birth(A.D)</i></span>
+                        <span class="input-group-addon"><i class="fa fa-birthday-cake"> &nbsp;(A.D)</i></span>
                         <input type="date" name="dateOfBirth" class="form-control" value="{{$detail->dateOfBirth}}" placeholder="Date of Birth">
                     </div>
                     <br>
@@ -155,18 +150,13 @@
                         </div>
                         <br>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-image"></i></span>
-                            <input type="file" name="image" class="form-control" placeholder="your Image">
-                        </div>
-                        <br>
-                        <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-flag"></i></span>
                             <input type="text" name="address" value="{{old('address')??''}}" class="form-control"
                                    placeholder="Current Address">
                         </div>
                         <br>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-birthday-cake"> &nbsp;Date of Birth(A.D)</i></span>
+                            <span class="input-group-addon"><i class="fa fa-birthday-cake"> (A.D)</i></span>
                             <input type="date" name="dateOfBirth" class="form-control" value="{{old('dateOfBirth')??''}}">
                         </div>
                         <br>
@@ -247,8 +237,8 @@
                         </div>
                         <br>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-birthday-cake"> &nbsp;Date of Birth(A.D)</i></span>
-                            <input type="date" name="dateOfBirth" class="form-control" placeholder="Date of Birth">
+                            <span class="input-group-addon"><i class="fa fa-birthday-cake"> &nbsp;(A.D)</i></span>
+                            <input type="date" name="dateOfBirth" class="form-control">
                         </div>
                         <br>
                         <div class="input-group">
@@ -317,20 +307,20 @@
     <script>
         $(function () {
             $("#myDetail").submit(function () {
-                $('#myInnerBar').css({'width': '14.5%'})
-            })
+                $('#myInnerBar').css({'width': '10%'})
+            });
 
 
             //iCheck for checkbox and radio inputs
             $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
                 checkboxClass: 'icheckbox_minimal-blue',
                 radioClass: 'iradio_minimal-blue'
-            })
+            });
             //Red color scheme for iCheck
             $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
                 checkboxClass: 'icheckbox_minimal-red',
                 radioClass: 'iradio_minimal-red'
-            })
+            });
             //Flat red color scheme for iCheck
             $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
                 checkboxClass: 'icheckbox_flat-green',

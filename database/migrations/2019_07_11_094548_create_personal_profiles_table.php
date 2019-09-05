@@ -19,6 +19,9 @@ class CreatePersonalProfilesTable extends Migration
             $table->string('availableFor');
             $table->string('jobCategory');
             $table->string('expectedSalary');
+            $table->string('jobCategoryTitle')->nullable();
+            $table->string('preferredLocation')->nullable();
+            $table->string('interestedInJob')->nullable();
             $table->text('careerObjective');
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();

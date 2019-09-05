@@ -12,10 +12,26 @@
     <header class="main-header headSticky">
         <nav class="navbar navbar-static-top">
             <div class="container">
-                <div class="navbar-header">
-                    <a href="../../index2.html" class="navbar-brand"><b>Talent</b>CONNECTS</a>
-                    <a href="{{route('flushSession')}}" class="btn btn-success">make new CV</a>
+                <div style="position: relative;width: 100%;" class="navbar-header">
+                    <a href="{{route('dashboard')}}" class="navbar-brand"><b>CV</b> Generator</a>
+                    {{--<a href="{{route('flushSession')}}" class="btn btn-success">make new CV</a>--}}
+                    <a style="position: absolute;right: 10px;padding-top: 15px;color: white;" href="https://talentconnects.com.np/index.php">
+                        <img style="height: 25px;" src="{{URL::to('/Uploads/logo/logo-07.png')}}" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Talent <b>Connects</b></a>
                 </div>
+
+                {{--side header--}}
+                {{--<div class="navbar-custom-menu">--}}
+                    {{--<ul class="nav navbar-nav">--}}
+                        {{--<!-- Messages: style can be found in dropdown.less-->--}}
+                        {{--<li class="dropdown messages-menu">--}}
+                            {{--<a href="https://talentconnects.com.np/index.php">--}}
+                                {{--<img style="height: 25px;" src="{{URL::to('/Uploads/logo/logo-07.png')}}" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Talent <b>Connects</b></a>--}}
+                        {{--</li>--}}
+
+                    {{--</ul>--}}
+                {{--</div>--}}
+
+                {{--end of side header--}}
 
                 {{--login info and others--}}
                 {{--<div class="navbar-custom-menu">--}}
@@ -198,6 +214,6 @@
     {{--</footer>--}}
 </div>
 <div style="text-align: right;margin-top: 10px;margin-right: 10px">
-    <strong>Copyright &copy; 2019 <a href="">Talent Connect</a>.</strong> All rights reserved
+    <strong>Copyright &copy; 2019 <a href="">Talent Connects</a>.</strong> All rights reserved
 </div>
 @include('Frontend.layouts.footer')

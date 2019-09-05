@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\checkAchievement;
 use App\Http\Middleware\checkEducation;
 use App\Http\Middleware\checkExperience;
 use App\Http\Middleware\checkPersonalProfile;
@@ -72,6 +73,7 @@ class Kernel extends HttpKernel
         'checkExperience' => checkExperience::class,
         'checkReference' => checkReference::class,
         'checkTemplate'=>checkTemplate::class,
+        'checkAchievement'=>checkAchievement::class,
     ];
 
     /**

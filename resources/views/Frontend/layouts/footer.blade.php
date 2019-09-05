@@ -35,6 +35,11 @@
 <script src="{{URL::to('lib/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{URL::to('lib/js/demo.js')}}"></script>
+<script src="{{URL::to('plugin/ckeditor/ckeditor.js')}}"></script>
+<script>
+    CKEDITOR.replaceClass = 'ckeditor';
+</script>
+
 
 @yield('my-footer')
 

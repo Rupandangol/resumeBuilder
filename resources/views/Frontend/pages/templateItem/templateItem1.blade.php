@@ -105,14 +105,22 @@
 
             @endif
             <h3>Contact</h3>
-            <p id="myContact">Email:
-                <br>
+            <p id="myContact">
+            <div style="word-wrap: break-word;font-size: 11px">
+                Email:<br>
                 {{$personalDetail->email}}<br><br>
+            </div>
+            <div style="word-wrap: break-word;font-size: 11px">
                 Address: <br> {{$personalDetail->address}}<br><br>
-                @if($personalDetail->website)
-                Website: <br> {{$personalDetail->website}} <br><br>
-                @endif
+            </div>
+            @if($personalDetail->website)
+                <div style="word-wrap: break-word;font-size: 11px;">
+                    Website: <br> {{$personalDetail->website}} <br><br>
+                </div>
+            @endif
+            <div style="word-wrap: break-word;font-size: 11px">
                 Phone No: <br> {{$personalDetail->mobileNo}}
+            </div>
             </p>
 
             <br>
@@ -134,8 +142,11 @@
             <p>{{ucfirst($personalProfile->jobCategory)}}</p>
             <hr>
             <h3>Objective</h3>
-            <p style="font-size: 14px;">{{$personalProfile->careerObjective}}</p>
-
+            <div style="margin-top: -15px; font-size: 14px;">
+                <?php
+                echo htmlspecialchars_decode($personalProfile->careerObjective);
+                ?>
+            </div>
             <hr>
             @if(!count($experience)==0)
                 <h3>Experience</h3>
@@ -152,7 +163,12 @@
                     <ul style="font-size: 14px" id="myExp">
                         <li>{{$value->jobTitle}}</li>
                         <li>{{$value->location}}</li>
-                        <li>{{$value->jobSummary}}
+                        <li>
+                            <div style="margin-top: -5px">
+                                <?php
+                                echo htmlspecialchars_decode($value->jobSummary);
+                                ?>
+                            </div>
                         </li>
                     </ul>
                 @endforeach
@@ -173,9 +189,66 @@
                 <ul style="font-size: 14px" id="myEdu">
                     <li>{{$value->subject}}, {{$value->grade}}</li>
                     <li>{{$value->location}}</li>
+                    <li>
+                        <div style="margin-top: -5px">
+                            <?php
+                            echo htmlspecialchars_decode($value->description);
+                            ?>
+                        </div>
+                    </li>
                 </ul>
             @endforeach
             <hr>
+
+            {{--training--}}
+
+            @if(!count($training)==0)
+                <h3>Training</h3>
+                @foreach($training as $value)
+                    <i style=" float: left;">{{$value->trainingName}}</i>
+                    <i style="font-size: 12px; float: right;">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
+                        to
+                        @if($value->endTime==='Current')
+                            Current
+                        @else
+                            {{\Carbon\Carbon::parse($value->endTime)->format('M Y')}}
+                        @endif
+                    </i>
+                    <ul style="font-size: 14px" id="myExp">
+                        <li>{{$value->trainingCenter}}</li>
+                        <li>{{$value->location}}</li>
+                        <li>
+                            <div style="margin-top: -5px">
+                                <?php
+                                echo htmlspecialchars_decode($value->description);
+                                ?>
+                            </div>
+                        </li>
+                    </ul>
+                @endforeach
+                <hr>
+            @endif
+            {{--end of training--}}
+
+            {{--achievement--}}
+            @if(!count($achievement)==0)
+                <h3>Achievement</h3>
+                @foreach($achievement as $value)
+                    <i style=" float: left;">{{$value->header}}</i>
+                    <ul style="font-size: 14px" id="myExp">
+                        <li>
+                            <div style="margin-top: -5px">
+                                <?php
+                                echo htmlspecialchars_decode($value->about);
+                                ?>
+                            </div>
+                        </li>
+                    </ul>
+                @endforeach
+                <hr>
+            @endif
+            {{--endof achievement--}}
+
             <h3>Reference</h3>
             @forelse($reference as $value)
                 <p>{{ucfirst($value->name)}}
@@ -185,7 +258,7 @@
                     {{$value->email}}, {{$value->contactNumber}}
                 </p>
             @empty
-                <p>Reference Available at request</p>
+                <p style="font-size: 14px">Reference Available at request</p>
             @endforelse
         </div>
         <div id="footer">

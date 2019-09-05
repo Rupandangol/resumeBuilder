@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Model\Skill;
+use App\Model\PersonalProfile;
 use Closure;
 
 class checkEducation
@@ -16,9 +16,9 @@ class checkEducation
      */
     public function handle($request, Closure $next)
     {
-        $myId = Skill::where('cv_id', session('cv_user_id'))->first();
+        $myId = PersonalProfile::where('cv_id', session('cv_user_id'), false)->first();
         if (!$myId) {
-            return redirect(route('page3'));
+            return redirect(route('page2'));
         }
 
         return $next($request);
