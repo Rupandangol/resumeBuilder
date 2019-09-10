@@ -2,6 +2,9 @@
 @section('heading')
     Add Admin
 @endsection
+
+
+
 @section('content')
     <div class="box box-info">
         <div class="box-header with-border">
@@ -43,7 +46,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="button" class="btn btn-default">Cancel</button>
+                <a class="btn btn-info" href="{{url('/@admin@')}}">Cancel</a>
                 <button type="submit" class="btn btn-info pull-right">Sign in</button>
             </div>
             <!-- /.box-footer -->

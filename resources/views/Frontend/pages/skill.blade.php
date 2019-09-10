@@ -169,7 +169,7 @@
                     $('#addNewSkill').on('click', function (e) {
                         e.preventDefault();
 
-                        var BlockCount = $('.myBody').find('.addedBlock').length |50;
+                        var BlockCount = $('.myBody').find('.addedBlock').length;
 
                         var appendBlock = "<div class=\"addedBlock\">\n" +
                             "                                <div class=\"row\">\n" +

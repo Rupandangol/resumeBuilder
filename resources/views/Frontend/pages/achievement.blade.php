@@ -119,7 +119,7 @@
         $(function () {
             $('#addAchievement').on('click', function (e) {
                 e.preventDefault();
-                var BlockCount=$('.myBody').find('.appendAchievement').length|50;
+                var BlockCount=$('.myBody').find('.appendAchievement').length;
 
                 var appendText = "  <div class=\"appendAchievement\">\n" +
                     "                        <div class=\"form-group\">\n" +

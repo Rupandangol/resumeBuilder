@@ -428,7 +428,7 @@
         $(function () {
             $('#addNewEdu').on('click', function (e) {
                 e.preventDefault();
-                var BlockCount = $('.myBody').find('.addedEdu').length|50;
+                var BlockCount = $('.myBody').find('.addedEdu').length;
                 var addedEdu = "<div class=\"addedEdu\">\n" +
                     "\n" +
                     "                                <div class=\"row\">\n" +

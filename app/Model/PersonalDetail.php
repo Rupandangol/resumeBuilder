@@ -17,4 +17,33 @@ class PersonalDetail extends Model
         'dateOfBirth',
         'gender'
     ];
+
+    public function getProfile(){
+        return $this->hasOne(
+          'App\Model\PersonalProfile',
+          'cv_id',
+          'id'
+        );
+    }
+    public function getExp(){
+        return $this->hasMany(
+            'App\Model\Experience',
+            'cv_id',
+            'id'
+        );
+    }
+    public function getSkill(){
+        return $this->hasMany(
+          'App\Model\Skill',
+          'cv_id',
+          'id'
+        );
+    }
+    public function getEdu(){
+        return $this->hasMany(
+            'App\Model\AcademicQualification',
+            'cv_id',
+            'id'
+        );
+    }
 }

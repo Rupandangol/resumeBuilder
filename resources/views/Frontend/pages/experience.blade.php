@@ -401,7 +401,7 @@
         $(function () {
             $('#addExperience').on('click', function (e) {
                 e.preventDefault();
-                var BlockCount=$('.myBody').find('.addedExp').length|50;
+                var BlockCount=$('.myBody').find('.addedExp').length;
                 var experienceBlock = "<div class=\"addedExp\">\n" +
                     "                                <div class=\"row\">\n" +
                     "                                    <div class=\"form-group col-md-4\">\n" +

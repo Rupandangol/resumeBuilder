@@ -71,6 +71,8 @@ Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->mi
 Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkAchievement');
 Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkAchievement');
 
+//TAC
+Route::get('/TermsAndCondition','frontendController@Tac')->name('Tac');
 
 Route::get('/afterDownload', 'pdfController@afterDownload')->name('afterDownload');
 //
@@ -103,3 +105,6 @@ Route::get('/@admin@/manageAdmin', 'backendController@manageAdmin')->name('manag
 
 //view info
 Route::get('/@admin@/viewInfo','backendController@viewInfo')->name('viewInfo');
+
+//Details Info
+Route::get('/@admin@/viewInfo/details/{id}','backendController@details')->name('detailInfo');

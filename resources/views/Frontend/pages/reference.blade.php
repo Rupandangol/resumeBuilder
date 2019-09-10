@@ -272,7 +272,7 @@
                 </div>
             </div>
             <span style="margin-left: 10px">
-              By submitting you are agreeing to the <a href="https://talentconnects.com.np/terms.php">Terms and Condition.</a>
+              By submitting you are agreeing to the <a href="{{route('Tac')}}">Terms and Condition.</a>
                 </span>
             <button id="addNewRef" class="btn btn-success btn-sm btn-block"> Add New Reference</button>
 

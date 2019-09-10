@@ -27,15 +27,15 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" class="user-image"
                                  alt="User Image">
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs">John Doe</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" class="img-circle" alt="User Image">
 
                                 <p>
-                                    Alexander Pierce - Web Developer
+                                    John Doe - Web Developer
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
@@ -92,7 +92,7 @@
                 {{--admin--}}
                 <li class="active treeview menu-open">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Admin</span>
+                        <i class="fa fa-users"></i> <span>Admin</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -104,19 +104,23 @@
                     </ul>
                 </li>
                 {{--end of admin--}}
-                {{--Database--}}
-                <li class="active treeview menu-open">
+
+                {{--database--}}
+
+                <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Informations</span>
+                        <i class="fa fa-folder"></i> <span>Data Recorded</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('viewInfo')}}"><i class="fa fa-circle-o"></i> View All Info</a></li>
+                        <li><a href="{{route('viewInfo')}}"><i class="fa fa-circle-o"></i> View All Data</a></li>
                     </ul>
                 </li>
+
                 {{--end of database--}}
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -130,7 +134,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section style="overflow: scroll" class="content">
             @yield('content')
         </section>
         <!-- /.content -->

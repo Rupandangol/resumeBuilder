@@ -569,4 +569,8 @@ class frontendController extends Controller
     }
 
 
+    public function  Tac(){
+        return view('TermsAndCondition.TaC');
+    }
+
 }

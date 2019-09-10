@@ -204,7 +204,7 @@
         $(function () {
             $('#addTraining').on('click', function (e) {
                 e.preventDefault();
-                var BlockCount = $('.myBody').find('.appendTrain').length | 50;
+                var BlockCount = $('.myBody').find('.appendTrain').length;
 
                 var appendTraining = "<div class=\"appendTrain\">\n" +
                     "                                <div class=\"row\">\n" +
