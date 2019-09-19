@@ -46,7 +46,7 @@ class frontendController extends Controller
         $this->validate($request, [
             'fullName' => 'required',
             'email' => 'required',
-            'mobileNo' => 'required',
+            'mobileNo' => 'required|min:10|max:10',
 //            'website' => 'required',
 //        'image' => 'required',
             'dateOfBirth' => 'required',

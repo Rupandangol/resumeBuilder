@@ -7,7 +7,8 @@
 
 
 @section('progressBar')
-    <div id="myProgressBar" class="progress" style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
+    <div id="myProgressBar" class="progress"
+         style="background-color: #2c3b41;position: fixed;top:50px; width: 100%;z-index: 20">
         <div id="myInnerBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="40"
              aria-valuemin="0" aria-valuemax="100" style="width:0%;background-color:#3F51B5;">
         </div>
@@ -22,11 +23,15 @@
 
 @section('content')
     <div class="box box-info">
-        @if($errors->has('fullName')||$errors->has('email')||$errors->has('mobileNo')||$errors->has('address')||$errors->has('dateOfBirth'))
+        @if($errors->has('fullName')||$errors->has('email')||$errors->has('address')||$errors->has('dateOfBirth'))
             <div class="alert alert-danger">
                 <p>Do not leave empty box</p>
             </div>
         @endif
+        @if($errors->has('mobileNo'))
+            <div class="alert alert-danger">{{$errors->first('mobileNo')}}</div>
+        @endif
+
         {{--personal details--}}
         <form id="myDetail" action="{{url('/cvForm')}}" enctype="multipart/form-data" method="post">
             {{csrf_field()}}
@@ -51,6 +56,7 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                        <span class="input-group-addon">(977)</span>
                         <input type="number" name="mobileNo" value="{{$detail->mobileNo}}" class="form-control"
                                placeholder="Mobile Number">
                     </div><br>
@@ -68,7 +74,8 @@
                     <br>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-birthday-cake"> &nbsp;(A.D)</i></span>
-                        <input type="date" name="dateOfBirth" class="form-control" value="{{$detail->dateOfBirth}}" placeholder="Date of Birth">
+                        <input type="date" name="dateOfBirth" class="form-control" value="{{$detail->dateOfBirth}}"
+                               placeholder="Date of Birth">
                     </div>
                     <br>
                     <div class="input-group">
@@ -117,10 +124,8 @@
                             <label>
                                 Others
                             </label>
-
                         </div>
                     </div>
-
                 @else
                     {{----}}
                     {{----}}
@@ -128,7 +133,8 @@
                     @if(old('fullName'))
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                            <input type="text" name="fullName" value="{{ucfirst(old('fullName')??'')}}" class="form-control"
+                            <input type="text" name="fullName" value="{{ucfirst(old('fullName')??'')}}"
+                                   class="form-control"
                                    placeholder="Full Name">
                         </div>
                         <br>
@@ -140,9 +146,11 @@
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <span class="input-group-addon">(977)</span>
                             <input type="number" name="mobileNo" value="{{old('mobileNo')??''}}" class="form-control"
                                    placeholder="Mobile Number">
-                        </div><br>
+                        </div>
+                        <br>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
                             <input type="text" name="website" class="form-control" value="{{old('website')??''}}"
@@ -157,7 +165,8 @@
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-birthday-cake"> (A.D)</i></span>
-                            <input type="date" name="dateOfBirth" class="form-control" value="{{old('dateOfBirth')??''}}">
+                            <input type="date" name="dateOfBirth" class="form-control"
+                                   value="{{old('dateOfBirth')??''}}">
                         </div>
                         <br>
                         <div class="input-group">
@@ -206,7 +215,6 @@
                                 <label>
                                     Others
                                 </label>
-
                             </div>
                         </div>
 
@@ -223,12 +231,15 @@
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                            <span class="input-group-addon">(977)</span>
                             <input type="number" name="mobileNo" class="form-control" placeholder="Mobile Number">
+
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-globe"></i></span>
-                            <input type="text" name="website" class="form-control" placeholder="LinkedIn Profile (Optional)">
+                            <input type="text" name="website" class="form-control"
+                                   placeholder="LinkedIn Profile (Optional)">
                         </div>
                         <br>
                         <div class="input-group">

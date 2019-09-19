@@ -46,11 +46,11 @@
 
         {{--end of dropdown--}}
         <div class="row">
-            <div class="template_image col-md-4">
-                <a style="cursor: pointer" class="myTemplate" data-href="{{route('template1View')}}"><img
-                            id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/1.8.png')}}" alt=""></a>
-                <p style="color: white; margin-left: 50px">Sample 1</p>
-            </div>
+            {{--<div class="template_image col-md-4">--}}
+                {{--<a style="cursor: pointer" class="myTemplate" data-href="{{route('template1View')}}"><img--}}
+                            {{--id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/1.8.png')}}" alt=""></a>--}}
+                {{--<p style="color: white; margin-left: 50px">Sample 1</p>--}}
+            {{--</div>--}}
             {{--<div class="template_image col-md-4">--}}
                 {{--<a class="myTemplate"  data-href="{{route('template2View')}}"><img--}}
                             {{--id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/6.png')}}" alt=""></a>--}}
@@ -59,7 +59,7 @@
             <div class="template_image col-md-4">
                 <a style="cursor: pointer" class="myTemplate"  data-href="{{route('template3View')}}"><img
                             id="templateImage" src="{{URL::to('/Uploads/resumeTemplate/2.7.png')}}" alt=""></a>
-                <p style="margin-left: 50px;color: white;">Sample 2</p>
+                <p style="margin-left: 50px;color: white;">Sample 1</p>
             </div>
         </div>
     </div>

@@ -8,6 +8,31 @@
     <script>
         $(function () {
             $('#myTable').DataTable();
+
+            $('.yesNo').on('click', function () {
+                var chosen = confirm('Update Looking for job');
+                var base_url = window.location.origin;
+                var btn=$(this);
+                if (chosen === true) {
+                    var id = $(this).val();
+                    $.ajax({
+                        url: base_url + "/@admin@/viewInfo/looking",
+                        data: {'admin_id': id},
+                        cache: false,
+                        success: function (data) {
+                            if(data==='yes'){
+                                btn.prop('class','btn btn-info')
+
+                            }else{
+                                btn.prop('class','btn btn-default')
+
+                            }
+                            // console.log(data);
+                        }
+                    });
+
+                }
+            })
         })
     </script>
 @endsection
@@ -22,12 +47,12 @@
             <td>SN</td>
             <td>Full Name</td>
             <td>Job Category</td>
-            <td>Age</td>
-            <td>Expected Salary</td>
+            <td>Email</td>
+            <td>Mobile No.</td>
+            <td>Looking for job</td>
             <td>Preferred Location</td>
             <td>Level</td>
             <td>Available for</td>
-            <td>Experience Year</td>
             <td>Details</td>
         </tr>
         </thead>
@@ -37,37 +62,26 @@
                 <td>{{++$key}}</td>
                 <td>{{$value->fullName}}</td>
                 <td>{{$value->getProfile->jobCategoryTitle}}</td>
-                <td>{{\Carbon\Carbon::parse($value->dateOfBirth)->age}}</td>
-                <td>{{$value->getProfile->expectedSalary}}</td>
+                <td>{{$value->email}}</td>
+                <td>{{$value->mobileNo}}</td>
+                <td>
+                    @if($value->getProfile->interestedInJob==='yes')
+                        <button type="button" value="{{$value->id}}"
+                                class="yesNo btn btn-info"><i class="fa fa-check-square"></i></button>
+                    @else
+                        <button type="button" value="{{$value->id}}"
+                                class="yesNo btn btn-default"><i class="fa fa-check-square"></i></button>
+                    @endif
+                </td>
                 <td>{{$value->getProfile->preferredLocation}}</td>
                 <td>{{$value->getProfile->lookingFor}}</td>
                 <td>{{$value->getProfile->availableFor}}</td>
-                <td>
-                    @forelse($value->getExp as $item)
-                        <?php
-                        $startYear=\Carbon\Carbon::parse($item->startTime);
-                        ?>
-                        @if($item->endTime==='Current')
-                            <?php
-                                $now=\Carbon\Carbon::now();
-                                ?>
-                            {{$startYear->diff($now)->format('%yY %mM')}},
-                        @else
-                            <?php
-                                $endYear=\Carbon\Carbon::parse($item->endTime);
-                                ?>
-
-                            {{$endYear->diff($startYear)->format('%yY %mM')}},
-                        @endif
-                    @empty
-                        No Experience
-                    @endforelse
-
-
-                </td>
-                <td><a class="btn btn-info" href="{{url('/@admin@/viewInfo/details/'.$value->id)}}"><i class="fa fa-file-archive-o"></i></a></td>
+                <td><a class="btn btn-info" href="{{url('/@admin@/viewInfo/details/'.$value->id)}}"><i
+                                class="fa fa-file-archive-o"></i></a></td>
             </tr>
         @endforeach
         </tbody>
-    </table>
+    </table><br>
+    {{--<a style="float: right" class="btn btn-info" href="{{route('excelDownload')}}">Download Full data in Excel</a>--}}
 @endsection
+

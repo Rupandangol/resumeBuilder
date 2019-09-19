@@ -46,33 +46,34 @@ Route::get('/trainingSkip', 'skipController@skipTrain')->name('skipTrain')->midd
 //skill
 Route::get('/skill', 'frontendController@skill')->middleware('checkSkill')->middleware('checkExperience');
 Route::post('/skill', 'frontendController@skillAction')->name('page3');
+Route::get('/skillSkip', 'skipController@skipSkill')->name('skipSkill');
 
 //achievement
-Route::get('/achievement', 'frontendController@achievement')->name('page9')->middleware('checkAchievement');
+Route::get('/achievement', 'frontendController@achievement')->name('page9')->middleware('checkExperience');
 Route::post('/achievement', 'frontendController@achievementAction');
-Route::get('/achievementSkip', 'skipController@skipAchieve')->name('skipAchieve')->middleware('checkAchievement');
+Route::get('/achievementSkip', 'skipController@skipAchieve')->name('skipAchieve')->middleware('checkExperience');
 
 //reference
-Route::get('/reference', 'frontendController@reference')->name('page6')->middleware('checkAchievement');
+Route::get('/reference', 'frontendController@reference')->name('page6')->middleware('checkExperience');
 Route::post('/reference', 'frontendController@referenceAction');
-Route::get('/referenceSkip', 'skipController@skipRef')->name('skipRef')->middleware('checkAchievement');
+Route::get('/referenceSkip', 'skipController@skipRef')->name('skipRef')->middleware('checkExperience');
 //
 
 ////    Template
-Route::get('/template', 'frontendController@template')->name('page7')->middleware('checkAchievement');
+Route::get('/template', 'frontendController@template')->name('page7')->middleware('checkExperience');
 
 
-Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkAchievement');
-Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkAchievement');
+Route::get('/template1View', 'frontendController@template1')->name('template1View')->middleware('checkExperience');
+Route::get('/templatePreview1', 'pdfController@previewCv')->name('preview1')->middleware('checkExperience');
 //
-Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkAchievement');
-Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkAchievement');
+Route::get('/template2View', 'frontendController@template2')->name('template2View')->middleware('checkExperience');
+Route::get('/templatePreview2', 'pdfController@previewCv')->name('preview2')->middleware('checkExperience');
 //
-Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkAchievement');
-Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkAchievement');
+Route::get('/template3View', 'frontendController@template3')->name('template3View')->middleware('checkExperience');
+Route::get('/templatePreview4', 'pdfController@previewCv')->name('preview3')->middleware('checkExperience');
 
 //TAC
-Route::get('/TermsAndCondition','frontendController@Tac')->name('Tac');
+Route::get('/TermsAndCondition', 'frontendController@Tac')->name('Tac');
 
 Route::get('/afterDownload', 'pdfController@afterDownload')->name('afterDownload');
 //
@@ -92,19 +93,55 @@ Route::get('/test', 'pdfController@templateItem1');
 
 
 //backend
-
-Route::get('/@admin@', 'backendController@dashboard');
+Route::group(['prefix' => '@admin@', 'middleware' => 'auth:admin'], function () {
+    Route::get('/', 'dashboardController@dashboard')->name('admin-dashboard');
 
 
 //admin
-Route::get('/@admin@/addAdmin', 'backendController@addAdmin')->name('addAdmin');
-Route::post('/@admin@/addAdmin','backendController@addAdminAction');
-
-Route::get('/@admin@/manageAdmin', 'backendController@manageAdmin')->name('manageAdmin');
+    Route::get('/addAdmin', 'backendController@addAdmin')->name('addAdmin');
+    Route::post('/addAdmin', 'backendController@addAdminAction');
 
 
-//view info
-Route::get('/@admin@/viewInfo','backendController@viewInfo')->name('viewInfo');
+    Route::get('/manageAdmin', 'backendController@manageAdmin')->name('manageAdmin');
+    Route::get('/manageAdmin/delete/{id}', 'backendController@deleteAdmin')->name('deleteAdmin');
+    Route::get('/manageAdmin/update/{id}', 'backendController@updateAdmin')->name('updateAdmin');
+    Route::post('/manageAdmin/update/{id}', 'backendController@updateAdminAction');
+
+//view info Updater
+    Route::get('/viewInfo', 'backendController@viewInfo')->name('viewInfo');
+
+    //full data
+    Route::get('/fullData','backendController@fullData')->name('fullData');
+
+
+//looking for job
+    Route::get('/viewInfo/looking', 'ajaxController@looking');
 
 //Details Info
-Route::get('/@admin@/viewInfo/details/{id}','backendController@details')->name('detailInfo');
+    Route::get('/viewInfo/details/{id}', 'backendController@details')->name('detailInfo');
+
+//Status
+    Route::get('/manageAdmin/status', 'statusController@statusAction')->name('statusAction');
+
+
+    Route::get('/excel/download', 'backendController@excelD')->name('excelDownload');
+});
+
+//login
+Route::get('/loginAdmin', 'loginController@login')->name('loginAdmin');
+Route::post('/loginAdmin', 'loginController@loginAction');
+Route::get('/logoutAdmin', 'loginController@logOutAdmin')->name('logoutAdmin');
+
+//Forgot password
+Route::get('/resetLink','loginController@resetlink')->name('resetLink');
+Route::post('/resetLink','loginController@resetlinkPost');
+Route::get('/reset/{token?}','loginController@reset')->name('reset');
+Route::post('/reset/{token?}','loginController@resetPost');
+
+
+
+
+//AUth
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');

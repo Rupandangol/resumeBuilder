@@ -6,11 +6,11 @@
     <header class="main-header">
 
         <!-- Logo -->
-        <a href="index2.html" class="logo">
+        <a href="{{url('/')}}" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>T</b>C</span>
+            <span class="logo-mini"><b>C</b>V</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Talent</b>Connects</span>
+            <span class="logo-lg"><b>CV</b> Generator</span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -27,32 +27,21 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" class="user-image"
                                  alt="User Image">
-                            <span class="hidden-xs">John Doe</span>
+                            <span class="hidden-xs">
+                                {{ucfirst(Auth::guard('admin')->user()->username)}}
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" class="img-circle" alt="User Image">
+                                <img src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" class="img-circle"
+                                     alt="User Image">
 
                                 <p>
-                                    John Doe - Web Developer
-                                    <small>Member since Nov. 2012</small>
+                                    {{Auth::guard('admin')->user()->username}}
+                                    <small>Member
+                                        since {{\Carbon\Carbon::parse(Auth::guard('admin')->user()->created_at)->diffForHumans()}}</small>
                                 </p>
-                            </li>
-                            <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
                             </li>
                             <!-- Menu Footer-->
                             <li class="user-footer">
@@ -60,7 +49,7 @@
                                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="{{route('logoutAdmin')}}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
                             </li>
                         </ul>
@@ -81,7 +70,7 @@
                     <img src="{{URL::to('/Uploads/genderImage/usermale.jpg')}}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>John Doe</p>
+                    <p>{{ucfirst(Auth::guard('admin')->user()->username)}}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -90,24 +79,40 @@
                 <li class="header">MAIN NAVIGATION</li>
 
                 {{--admin--}}
-                <li class="active treeview menu-open">
+                @if(Auth::guard('admin')->user()->privileges==='Super Admin')
+                    <li class="treeview {{$admin_active??''}}">
+                        <a href="#">
+                            <i class="fa fa-users"></i> <span>Admin</span>
+                            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="{{$admin_active1??''}}"><a
+                                        href="{{route('addAdmin')}}"><i class="fa fa-circle-o"></i> Add Admin</a></li>
+                            <li class="{{$admin_active2??''}}"><a href="{{route('manageAdmin')}}"><i class="fa fa-circle-o"></i> Manage
+                                    Admin</a></li>
+                        </ul>
+                    </li>
+                @endif
+                {{--end of admin--}}
+                {{--Dashboard--}}
+                <li class="treeview {{$dash_active??''}}">
                     <a href="#">
-                        <i class="fa fa-users"></i> <span>Admin</span>
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{route('addAdmin')}}"><i class="fa fa-circle-o"></i> Add Admin</a></li>
-                        <li class="active"><a href="{{route('manageAdmin')}}"><i class="fa fa-circle-o"></i> Manage
-                                Admin</a></li>
+                    <ul class="treeview-menu ">
+                        <li class="{{$dash_active??''}}"><a href="{{route('admin-dashboard')}}"><i class="fa fa-circle-o"></i> Visualization</a></li>
                     </ul>
                 </li>
-                {{--end of admin--}}
+                {{--Dashboard--}}
 
                 {{--database--}}
 
-                <li class="treeview">
+                <li class="treeview {{$data_active??''}}">
                     <a href="#">
                         <i class="fa fa-folder"></i> <span>Data Recorded</span>
                         <span class="pull-right-container">
@@ -115,7 +120,9 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('viewInfo')}}"><i class="fa fa-circle-o"></i> View All Data</a></li>
+                        <li class=" {{$data_active2??''}}"><a href="{{route('fullData')}}"><i class="fa fa-circle-o"></i> Full Data</a></li>
+                        <li class=" {{$data_active1??''}}"><a href="{{route('viewInfo')}}"><i class="fa fa-circle-o"></i> Updater</a></li>
+
                     </ul>
                 </li>
 

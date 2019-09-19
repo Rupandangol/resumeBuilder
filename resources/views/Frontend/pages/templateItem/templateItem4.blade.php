@@ -108,7 +108,7 @@
 
         {{--gender--}}
         <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Gender <br> <span
-        style="color: black; font-size: 13px"> {{$personalDetail->gender}}</span></h4>
+                    style="color: black; font-size: 13px"> {{$personalDetail->gender}}</span></h4>
 
 
         {{--endof gender--}}
@@ -155,9 +155,9 @@
             <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
 
             @foreach($experience as $value)
-                <strong style="font-size: 15px">{{ucfirst($value->jobTitle)}} at {{ucfirst($value->companyName)}}
-                    , {{ucfirst($value->location)}}</strong>
-                <p style="margin: 0;padding: 0;font-size: 15px">{{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
+                <p style="margin: 0;padding: 0;font-size: 15px"><strong style="font-size: 15px">{{ucfirst($value->jobTitle)}} at {{ucfirst($value->companyName)}}
+                    <br> {{ucfirst($value->location)}}</strong>||
+               {{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
                     -
                     @if($value->endTime==='Current')
                         Present
@@ -176,18 +176,20 @@
         {{--end of experience--}}
 
         {{--skill--}}
-        <h4 style="text-transform: uppercase;font-family: sans-serif">Skills</h4>
-        <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
+        @if(!count($skill)==0)
+            <h4 style="text-transform: uppercase;font-family: sans-serif">Skills</h4>
+            <hr style="margin-top: -0.7em;color: lightblue;background-color: lightblue;border-color:lightblue;">
 
-        @foreach($skill as $value)
-            <strong style="font-size: 15px">{{ucfirst($value->skill)}}</strong>
-            <div class="skillasdf" style="margin-top: -15px;padding: 0;font-size: 15px;">
-                <?php
-                echo htmlspecialchars_decode($value->about);
+            @foreach($skill as $value)
+                <strong style="font-size: 15px">{{ucfirst($value->skill)}}</strong>
+                <div class="skillasdf" style="margin-top: -15px;padding: 0;font-size: 15px;">
+                    <?php
+                    echo htmlspecialchars_decode($value->about);
 
-                ?>
-            </div>
-        @endforeach
+                    ?>
+                </div>
+            @endforeach
+        @endif
         {{--end of skill--}}
 
 

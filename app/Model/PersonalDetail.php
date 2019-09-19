@@ -46,4 +46,26 @@ class PersonalDetail extends Model
             'id'
         );
     }
+    public function getTraining(){
+        return $this->hasMany(
+          'App\Model\training',
+          'cv_id',
+          'id'
+        );
+    }
+    public function getAchievement(){
+        return $this->hasMany(
+            'App\Model\achievement',
+            'cv_id',
+            'id'
+        );
+    }
+    public function getReference(){
+        return $this->hasMany(
+            'App\Model\Reference',
+            'cv_id',
+            'id'
+        );
+    }
+
 }

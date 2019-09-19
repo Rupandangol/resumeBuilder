@@ -124,18 +124,19 @@
             </p>
 
             <br>
-
-            <h3 style="margin-bottom: 5px">Skill</h3>
-            <p id="mySkill">
-                @foreach($skill as $value)
-                    {{$value->skill}}<br>
-            <div id="myProgressbar">
-                <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}
-                    %
+            @if(!count($skill)==0)
+                <h3 style="margin-bottom: 5px">Skill</h3>
+                <p id="mySkill">
+                    @foreach($skill as $value)
+                        {{$value->skill}}<br>
+                <div id="myProgressbar">
+                    <div style="font-size: 10px;text-align: center; width:{{$value->skillLevel}}% ;">{{$value->skillLevel}}
+                        %
+                    </div>
                 </div>
-            </div>
-            @endforeach
-            </p>
+                @endforeach
+                @endif
+                </p>
         </div>
         <div id="main">
             <h1 style="color: #1B5E20;" id="myName">{{ucfirst($personalDetail->fullName)}}</h1>

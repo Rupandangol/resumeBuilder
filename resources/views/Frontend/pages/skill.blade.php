@@ -108,11 +108,11 @@
                                     <label for="about">About</label>
                                     <textarea style="resize: none" placeholder="Detail about Skill..."
                                               class="form-control ckeditor"
-                                              name="about[]" id="" rows="3"></textarea>
+                                              name="about[]" id="" rows="3">{{old('about')[$key]??''}}</textarea>
                                 </div>
                                 <div style="text-align: right">
                                 <button class="btn btn-danger myRemoveButton"><i
-                                            class="fa fa-trash"> {{old('about')[$key]??''}}</i></button>
+                                            class="fa fa-trash"></i></button>
                                 </div>
                                 <hr style="border-color: #00BCD4">
                             </div>
@@ -155,6 +155,8 @@
                 <div class="box-footer">
                     <a href="{{route('page8')}}" class="btn btn-primary">Back</a>
                     <button type="submit" class="btn btn-primary pull-right">Next</button>
+                    <a href="{{route('skipSkill')}}" onclick="return confirm('Are you sure you want to skip?')"
+                    class="btn btn-primary pull-right">Skip</a>
                 </div>
             </div>
         </form>
@@ -162,7 +164,6 @@
 
         @endsection
         @section('my-footer')
-
             <script>
                 $(function () {
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\achievement;
 use App\Model\Experience;
 use App\Model\Reference;
+use App\Model\Skill;
 use App\Model\training;
 use Illuminate\Http\Request;
 
@@ -46,5 +47,12 @@ class skipController extends Controller
             achievement::where('cv_id',$id)->delete();
         }
         return redirect(route('page6'));
+    }
+    public function skipSkill(){
+        $id=session('cv_user_id',false);
+        if (Skill::where('cv_id',$id)->get()){
+            Skill::where('cv_id',$id)->delete();
+        }
+        return redirect(route('page9'));
     }
 }
