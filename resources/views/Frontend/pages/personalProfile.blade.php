@@ -161,6 +161,8 @@
                         <label>Preferred Job Location</label>
                         <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
                                 data-select2-id="1" name="preferredLocation" tabindex="-1" aria-hidden="true">
+                            <option @if($profile->preferredLocation==='--') selected="selected" @endif data-select2-id="3">--</option>
+                            <option @if($profile->preferredLocation==='Others') selected="selected" @endif data-select2-id="3">Others</option>
                             <option @if($profile->preferredLocation==='Kathmandu') selected="selected" @endif data-select2-id="3">Kathmandu</option>
                             <option @if($profile->preferredLocation==='Lalitpur') selected="selected" @endif data-select2-id="26">Lalitpur</option>
                             <option @if($profile->preferredLocation==='Sindhuli') selected="selected" @endif data-select2-id="27">Sindhuli</option>
@@ -238,6 +240,7 @@
                             <option @if($profile->preferredLocation==='Dadeldhura') selected="selected" @endif data-select2-id="29">Dadeldhura</option>
                             <option @if($profile->preferredLocation==='Baitadi') selected="selected" @endif data-select2-id="29">Baitadi</option>
                             <option @if($profile->preferredLocation==='Darchula') selected="selected" @endif data-select2-id="29">Darchula</option>
+                            <option @if($profile->preferredLocation==='Others') selected="selected" @endif data-select2-id="29">Others</option>
                         </select>
                     </div>
                     {{--end of preferred job--}}
@@ -261,6 +264,33 @@
                         </div>
                     </div>
                     {{--end of radio--}}
+
+                    {{--license--}}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Do you have a valid driving license?</label>
+
+                        <select name="license" class="form-control">
+                            <option @if($profile->license==='No') selected="selected" @endif>No</option>
+                            <option @if($profile->license==='Yes') selected="selected" @endif>Yes</option>
+
+                        </select>
+
+                    </div>
+                    {{--end of license--}}
+                    {{--Vehicle--}}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Do you own a vehicle?</label>
+
+                        <select name="vehicle" class="form-control">
+                            <option @if($profile->license==='No') selected="selected" @endif>No</option>
+                            <option @if($profile->license==='Yes') selected="selected" @endif>Yes</option>
+
+
+                        </select>
+
+                    </div>
+                    {{--end of Vehicle--}}
+
                     <div class="form-group">
                         <label for="exampleInputEmail1">Expected Salary</label>
                         <input type="number" class="form-control" value="{{$profile->expectedSalary}}"
@@ -395,7 +425,11 @@
                             <label>Preferred Job Location</label>
                             <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
                                     data-select2-id="1" name="preferredLocation" tabindex="-1" aria-hidden="true">
-                                <option @if(old('preferredLocation')==='Kathmandu') selected="selected"
+                                <option @if(old('preferredLocation')==='--') selected="selected"
+                                        @endif data-select2-id="3">--
+                                </option> <option @if(old('preferredLocation')==='Others') selected="selected"
+                                        @endif data-select2-id="3">Others
+                                </option> <option @if(old('preferredLocation')==='Kathmandu') selected="selected"
                                         @endif data-select2-id="3">Kathmandu
                                 </option>
                                 <option @if(old('preferredLocation')==='Lalitpur') selected="selected"
@@ -518,6 +552,7 @@
                                 <option @if(old('preferredLocation')==='Dadeldhura') selected="selected" @endif data-select2-id="29">Dadeldhura</option>
                                 <option @if(old('preferredLocation')==='Baitadi') selected="selected" @endif data-select2-id="29">Baitadi</option>
                                 <option @if(old('preferredLocation')==='Darchula') selected="selected" @endif data-select2-id="29">Darchula</option>
+                                <option @if(old('preferredLocation')==='Others') selected="selected" @endif data-select2-id="29">Others</option>
                             </select>
                         </div>
                         {{--end of preferred job--}}
@@ -540,6 +575,30 @@
                             </div>
                         </div>
                         {{--end of radio--}}
+                        {{--license--}}
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Do you have a valid driving license?</label>
+
+                            <select name="license" class="form-control">
+                                <option @if(old('license')==='No') selected="selected" @endif>No</option>
+                                <option @if(old('license')==='Yes') selected="selected" @endif>Yes</option>
+
+                            </select>
+
+                        </div>
+                        {{--end of license--}}
+                        {{--Vehicle--}}
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Do you own a vehicle?</label>
+
+                            <select name="vehicle" class="form-control">
+                                <option  @if(old('license')==='No') selected="selected" @endif>No</option>
+                                <option  @if(old('license')==='Yes') selected="selected" @endif>Yes</option>
+
+                            </select>
+
+                        </div>
+                        {{--end of Vehicle--}}
                         <div class="form-group">
                             <label for="exampleInputEmail1">Expected Salary</label>
                             <input type="number" class="form-control" value="{{old('expectedSalary')??''}}"
@@ -643,10 +702,12 @@
                         {{--preferred job--}}
 
                         <div class="form-group" data-select2-id="24">
-                            <label>Preferred Job Location</label>
+                            <label>Preferred Job Location <code style="color: #00BCD4">(Optional)</code></label>
                             <select class="form-control select2 select2-hidden-accessible" style="width: 100%;"
                                     data-select2-id="1" name="preferredLocation" tabindex="-1" aria-hidden="true">
-                                <option selected="selected" data-select2-id="3">Kathmandu</option>
+                                <option selected="selected" data-select2-id="3">--</option>
+                                <option data-select2-id="29">Others</option>
+                                <option data-select2-id="3">Kathmandu</option>
                                 <option data-select2-id="26">Lalitpur</option>
                                 <option data-select2-id="27">Sindhuli</option>
                                 <option data-select2-id="28">Ramechhap</option>
@@ -746,6 +807,32 @@
                             </div>
                         </div>
                         {{--end of radio--}}
+
+                    {{--license--}}
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Do you have a valid driving license?</label>
+
+                            <select name="license" class="form-control">
+                                <option>No</option>
+                                <option>Yes</option>
+
+                            </select>
+
+                        </div>
+                    {{--end of license--}}
+                    {{--Vehicle--}}
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Do you own a vehicle?</label>
+
+                            <select name="vehicle" class="form-control">
+                                <option>No</option>
+                                <option>Yes</option>
+
+                            </select>
+
+                        </div>
+                    {{--end of Vehicle--}}
+
                         <div class="form-group">
                             <label for="exampleInputEmail1">Expected Salary</label>
                             <input type="number" class="form-control" name="expectedSalary" id=""

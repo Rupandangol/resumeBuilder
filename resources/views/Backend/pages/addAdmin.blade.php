@@ -23,7 +23,8 @@
                         <label for="" class="col-sm-2 control-label">Username</label>
 
                         <div class="col-sm-10">
-                            <input type="text" name="username" value="{{old('username')??''}}" class="form-control" placeholder="Username">
+                            <input type="text" name="username" value="{{old('username')??''}}" class="form-control"
+                                   placeholder="Username">
                             @if($errors->has('username'))
                                 <code><i class="fa fa-info-circle"></i> {{$errors->first('username')}}</code>
                             @endif
@@ -33,7 +34,8 @@
                         <label for="" class="col-sm-2 control-label">Email</label>
 
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" value="{{old('email')??''}}" name="email" placeholder="Email">
+                            <input type="email" class="form-control" value="{{old('email')??''}}" name="email"
+                                   placeholder="Email">
                             @if($errors->has('email'))
                                 <code><i class="fa fa-info-circle"></i> {{$errors->first('email')}}</code>
                             @endif
@@ -44,7 +46,9 @@
                         <label class="col-sm-2 control-label">Privileges</label>
                         <div class="col-sm-10">
                             <select name="privileges" class="form-control">
-                                <option @if(old('privileges')==='Super Admin') selected @endif value="Super Admin">Super Admin</option>
+                                <option @if(old('privileges')==='Super Admin') selected @endif value="Super Admin">Super
+                                    Admin
+                                </option>
                                 <option @if(old('privileges')==='Admin') selected @endif value="Admin">Admin</option>
                             </select>
                         </div>
@@ -53,7 +57,8 @@
                         <label for="" class="col-sm-2 control-label">Password</label>
 
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control password-check" name="password" placeholder="Password">
+                            <span class="help-block"><i class=""></i> Password needs minimum of 5 characters and at least one: Number, Lowercase, UpperCase and Special Characters</span>
                             @if($errors->has('password'))
                                 <code><i class="fa fa-info-circle"></i> {{$errors->first('password')}}</code>
                             @endif
@@ -63,7 +68,7 @@
                         <label for="" class="col-sm-2 control-label">Confirm Password</label>
 
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password_confirmation"
+                            <input type="password" class="form-control confirm-check" name="password_confirmation"
                                    placeholder="Confirm Password">
                         </div>
                     </div>
@@ -110,7 +115,9 @@
                         <label for="" class="col-sm-2 control-label">Password</label>
 
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control password-check" name="password"
+                                   placeholder="Password">
+                            <span class="help-block"><i class=""></i> Password needs minimum of 5 characters and at least one: Number, Lowercase, UpperCase and Special Characters</span>
                             @if($errors->has('password'))
                                 <code><i class="fa fa-info-circle"></i> {{$errors->first('password')}}</code>
                             @endif
@@ -120,7 +127,7 @@
                         <label for="" class="col-sm-2 control-label">Confirm Password</label>
 
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" name="password_confirmation"
+                            <input type="password" id="" class="form-control confirm-check" name="password_confirmation"
                                    placeholder="Confirm Password">
                         </div>
                     </div>
@@ -134,4 +141,61 @@
             @endif
         </form>
     </div>
+@endsection
+@section('my-footer')
+    <script>
+        $(function () {
+            $('.password-check').on('keyup', function () {
+                var value = $(this).val();
+                var parent1 = $(this).parent().parent();
+                var child1 = $(this).parent().find('span').children();
+
+                if(value.length===0){
+                    parent1.prop('class','form-group');
+                    child1.prop('class', '');
+
+                }else{
+                    if (value.length < 5) {
+                        parent1.prop('class', 'form-group has-error');
+                        child1.prop('class', 'fa fa-times');
+                    }
+                    else {
+                        if (/\d/.test(value)) {
+                            if (/[a-z]/.test(value)) {
+                                if (/[A-Z]/.test(value)) {
+                                    if (/[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(value)) {
+                                        parent1.prop('class', 'form-group has-success');
+                                        child1.prop('class', 'fa fa-check');
+
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+
+            });
+            $('.confirm-check').on('keyup',function () {
+                var password1=$('.password-check').val();
+                var confirm1=$(this).val();
+                var parent2 = $(this).parent().parent();
+
+                if(confirm1.length===0){
+                    parent2.prop('class', 'form-group');
+
+                }else{
+                    if(password1===confirm1){
+                        parent2.prop('class', 'form-group has-success');
+                    }
+                    else{
+                        parent2.prop('class', 'form-group has-error');
+
+                    }
+                }
+
+            })
+            
+        })
+    </script>
 @endsection

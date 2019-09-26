@@ -155,7 +155,8 @@
                 <div class="box-footer">
                     <a href="{{route('page8')}}" class="btn btn-primary">Back</a>
                     <button type="submit" class="btn btn-primary pull-right">Next</button>
-                    <a href="{{route('skipSkill')}}" onclick="return confirm('Are you sure you want to skip?')"
+                    <a href="{{route('skipSkill')}}"
+                       {{--onclick="return confirm('Are you sure you want to skip?')"--}}
                     class="btn btn-primary pull-right">Skip</a>
                 </div>
             </div>

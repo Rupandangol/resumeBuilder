@@ -73,5 +73,39 @@ class pdfController extends Controller
     }
 
 
+    public function cvBackendPreview($id){
+
+        $data['personalDetail'] = PersonalDetail::find($id);
+        $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->first();
+        $data['education'] = AcademicQualification::where(['cv_id' => $id])->get();
+        $data['skill'] = Skill::where(['cv_id' => $id])->get();
+        $data['experience'] = Experience::where(['cv_id' => $id])->get();
+        $data['reference'] = Reference::where(['cv_id' => $id])->get();
+        $data['training'] = training::where(['cv_id' => $id])->get();
+        $data['achievement'] = achievement::where(['cv_id' => $id])->get();
+
+        $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem4', $data);
+
+
+        return $pdf->stream();
+//        return $pdf->download($data['personalDetail']->fullName . '.pdf');
+    }
+    public function cvBackendDownload($id){
+
+        $data['personalDetail'] = PersonalDetail::find($id);
+        $data['personalProfile'] = PersonalProfile::where(['cv_id' => $id])->first();
+        $data['education'] = AcademicQualification::where(['cv_id' => $id])->get();
+        $data['skill'] = Skill::where(['cv_id' => $id])->get();
+        $data['experience'] = Experience::where(['cv_id' => $id])->get();
+        $data['reference'] = Reference::where(['cv_id' => $id])->get();
+        $data['training'] = training::where(['cv_id' => $id])->get();
+        $data['achievement'] = achievement::where(['cv_id' => $id])->get();
+
+        $pdf = PDF::loadView('Frontend.pages.templateItem.templateItem4', $data);
+
+
+        return $pdf->stream();
+//        return $pdf->download($data['personalDetail']->fullName . '.pdf');
+    }
 }
 

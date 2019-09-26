@@ -14,6 +14,7 @@ class Experience extends Model
         'startTime',
         'endTime',
         'jobSummary',
+        'salary',
         'current',
         'cv_id'
     ];

@@ -22,11 +22,13 @@ class CreatePersonalProfilesTable extends Migration
             $table->string('jobCategoryTitle')->nullable();
             $table->string('preferredLocation')->nullable();
             $table->string('interestedInJob')->nullable();
+            $table->string('license');
+            $table->string('vehicle');
             $table->text('careerObjective');
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
 
-            $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade');
+            $table->foreign('cv_id')->references('id')->on('personal_details')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

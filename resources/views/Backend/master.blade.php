@@ -99,7 +99,7 @@
                 {{--Dashboard--}}
                 <li class="treeview {{$dash_active??''}}">
                     <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                        <i class="fa fa-tachometer-alt fa-dashboard"></i> <span>Dashboard</span>
                         <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

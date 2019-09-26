@@ -17,6 +17,7 @@ class CreatePersonalDetailsTable extends Migration
             $table->Increments('id');
             $table->string('fullName');
             $table->string('email');
+            $table->string('countryCode');
             $table->string('mobileNo');
             $table->string('website')->nullable();
             $table->string('image')->nullable();

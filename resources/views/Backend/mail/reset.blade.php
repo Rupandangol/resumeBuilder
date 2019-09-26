@@ -9,10 +9,15 @@
 </head>
 <body>
 
-Hi {{$item}}!<br>
+<h1>Hi {{$item}},</h1>
 
-To change Password you can use this password reset Link below: <br>
-<a href="{{$data}}">{{$data}}</a>
+<p>Please use following link to <a href="{{$data}}">reset your password</a></p>
+<p>If you did not request this password change please feel free to ignore it.</p>
+
+<p>
+    Thanks,
+    Cv Generator Team
+</p>
 
 </body>
 </html>

@@ -22,7 +22,8 @@ class frontendController extends Controller
 
     public function index()
     {
-        return view('Frontend.pages.dashboard');
+        $hide='0';
+        return view('Frontend.pages.dashboard',compact('hide'));
     }
 
     public function createNew()
@@ -34,19 +35,21 @@ class frontendController extends Controller
 
     public function cvForm()
     {
+        $hide='1';
+        $detail_active='active';
         $this->checkSession();
-        return view('Frontend.pages.cvForm', $this->_data);
+        return view('Frontend.pages.cvForm', $this->_data,compact('detail_active','hide'));
     }
 
 
     public function cvFormAction(Request $request)
     {
-        $checkSession = session('cv_user_id', false);
 
+        $checkSession = session('cv_user_id', false);
         $this->validate($request, [
             'fullName' => 'required',
             'email' => 'required',
-            'mobileNo' => 'required|min:10|max:10',
+            'mobileNo' => 'required',
 //            'website' => 'required',
 //        'image' => 'required',
             'dateOfBirth' => 'required',
@@ -56,7 +59,8 @@ class frontendController extends Controller
         ]);
         $data['fullName'] = $request->fullName;
         $data['email'] = $request->email;
-        $data['mobileNo'] = $request->mobileNo;
+        $data['countryCode']=$request->countryCode;
+        $data['mobileNo'] =$request->mobileNo;
         $data['website'] = $request->website;
         $data['address'] = $request->address;
         $data['dateOfBirth'] = $request->dateOfBirth;
@@ -87,13 +91,16 @@ class frontendController extends Controller
 
     public function personalProfile()
     {
+        $hide='1';
+
+        $profile_active='active';
+
         $this->checkSession();
-        return view('Frontend.pages.personalProfile', $this->_data);
+        return view('Frontend.pages.personalProfile', $this->_data,compact('profile_active','hide'));
     }
 
     public function personalProfileAction(Request $request)
     {
-//        return $request->all();
         $checkSession = session('cv_user_id', false);
 
         $this->validate($request, [
@@ -113,6 +120,8 @@ class frontendController extends Controller
         $data['careerObjective'] = $request->careerObjective;
         $data['preferredLocation'] = $request->preferredLocation;
         $data['jobCategoryTitle'] = $request->jobCategoryTitle;
+        $data['license']=$request->license;
+        $data['vehicle']=$request->vehicle;
         $data['interestedInJob'] = $request->interestedInJob;
 
         $data['cv_id'] = $checkSession;
@@ -131,8 +140,12 @@ class frontendController extends Controller
 
     public function skill()
     {
+        $hide='1';
+
+        $skill_active='active';
+
         $this->checkSession();
-        return view('Frontend.pages.skill', $this->_data);
+        return view('Frontend.pages.skill', $this->_data,compact('skill_active','hide'));
     }
 
     public function skillAction(Request $request)
@@ -188,8 +201,12 @@ class frontendController extends Controller
 
     public function achievement()
     {
+                $hide='1';
+
+        $achievement_active='active';
+
         $this->checkSession();
-        return view('Frontend.pages.achievement', $this->_data);
+        return view('Frontend.pages.achievement', $this->_data,compact('achievement_active','hide'));
     }
 
 
@@ -230,10 +247,14 @@ class frontendController extends Controller
 
     public function education()
     {
+                $hide='1';
+
+        $education_active='active';
+
         $this->checkSession();
 
 
-        return view('Frontend.pages.education', $this->_data);
+        return view('Frontend.pages.education', $this->_data,compact('education_active','hide'));
     }
 
 
@@ -267,6 +288,7 @@ class frontendController extends Controller
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
+                $data['subjectTitle'] = $request->subjectTitle[$i];
                 $data['attending'] = $request->attending[$i];
                 $data['description'] = $request->description[$i];
                 $data['startTime'] = $request->startTime[$i];
@@ -291,6 +313,7 @@ class frontendController extends Controller
                 $data['institute'] = $request->institute[$i];
                 $data['location'] = $request->location[$i];
                 $data['subject'] = $request->subject[$i];
+                $data['subjectTitle'] = $request->subjectTitle[$i];
                 $data['attending'] = $request->attending[$i];
                 $data['description'] = $request->description[$i];
 
@@ -313,9 +336,13 @@ class frontendController extends Controller
 
     public function training()
     {
+                $hide='1';
+
+        $training_active='active';
+
         $this->checkSession();
 
-        return view('Frontend.pages.training', $this->_data);
+        return view('Frontend.pages.training', $this->_data,compact('training_active','hide'));
     }
 
     public function trainingAction(Request $request)
@@ -368,14 +395,18 @@ class frontendController extends Controller
 
     public function experience()
     {
+                $hide='1';
+
+        $experience_active='active';
+
         $this->checkSession();
 
-        return view('/Frontend/pages/experience', $this->_data);
+        return view('/Frontend/pages/experience', $this->_data,compact('experience_active','hide'));
     }
 
     public function experienceAction(Request $request)
     {
-
+//        return $request->all();
         $id = session('cv_user_id', false);
         $this->validate($request, [
             'jobTitle' => 'required',
@@ -411,6 +442,7 @@ class frontendController extends Controller
                 }
 
                 $data['jobSummary'] = $request->jobSummary[$i];
+                $data['salary'] = $request->salary[$i];
                 $data['current'] = $request->current[$i];
                 $data['cv_id'] = $id;
                 Experience::create($data);
@@ -431,6 +463,7 @@ class frontendController extends Controller
                     $data['endTime'] = $request->endTime[$i];
                 }
                 $data['jobSummary'] = $request->jobSummary[$i];
+                $data['salary'] = $request->salary[$i];
                 $data['current'] = $request->current[$i];
                 $data['cv_id'] = $id;
                 Experience::create($data);
@@ -443,8 +476,12 @@ class frontendController extends Controller
 
     public function reference()
     {
+                $hide='1';
+
+        $reference_active='active';
+
         $this->checkSession();
-        return view('/Frontend/pages/reference', $this->_data);
+        return view('/Frontend/pages/reference', $this->_data,compact('reference_active','hide'));
     }
 
     public function referenceAction(Request $request)
@@ -499,15 +536,20 @@ class frontendController extends Controller
     public
     function template()
     {
+                $hide='1';
 
-        return view('/Frontend/pages/template');
+        $template_active='active';
+
+        return view('/Frontend/pages/template',compact('template_active','hide'));
     }
 
     public
     function template1()
     {
+                $hide='1';
 
-        return view('Frontend.pages.templateList.template1');
+
+        return view('Frontend.pages.templateList.template1',compact('hide') );
     }
 
     public
@@ -526,8 +568,9 @@ class frontendController extends Controller
 
     public function template2()
     {
+        $hide='1';
 
-        return view('Frontend.pages.templateList.template2');
+        return view('Frontend.pages.templateList.template2',compact('hide') );
     }
 
     public function template2Action()
@@ -545,8 +588,9 @@ class frontendController extends Controller
     }
 
     public function template3()
-    {
-        return view('Frontend.pages.templateList.template3');
+    {        $hide='1';
+
+        return view('Frontend.pages.templateList.template3' ,compact('hide'));
     }
 
     public function template3Action()

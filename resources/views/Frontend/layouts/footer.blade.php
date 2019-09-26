@@ -39,7 +39,20 @@
 <script>
     CKEDITOR.replaceClass = 'ckeditor';
 </script>
+<script>
+    $(document).click(function(){
+        $("#dropdown1-content").css({display:'none'});
+    });
 
+    /* Clicks within the dropdown won't make
+       it past the dropdown itself */
+    $("#dropdown1").click(function(e){
+        e.stopPropagation();
+    });
+        $("#dropdown1-content").click(function(e){
+        e.stopPropagation();
+    });
+</script>
 
 @yield('my-footer')
 

@@ -22,6 +22,7 @@ class CreateExperiencesTable extends Migration
             $table->string('endTime')->nullable();
             $table->text('jobSummary');
             $table->string('current')->nullable();
+            $table->string('salary')->nullable();
             $table->integer('cv_id')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('cv_id')->references('id')->on('personal_details')->onUpdate('cascade')->onDelete('cascade');

@@ -34,10 +34,10 @@
 
 
         <div class="box-header with-border">
-            <h3 class="box-title">Education &nbsp;&nbsp;&nbsp;</h3>
-            <div class="myTooltip"><i class="fa fa-info-circle fa-lg"></i>
-                <span class="mytooltiptext">Start from your highest education level </span>
-            </div>
+            <h3 class="box-title">Education &nbsp;&nbsp;&nbsp;</h3><code style="color: #00BCD4">(Start from your highest education level )</code>
+            {{--<div class="myTooltip"><i class="fa fa-info-circle fa-lg"></i>--}}
+                {{--<span class="mytooltiptext">Start from your highest education level </span>--}}
+            {{--</div>--}}
         </div>
         <!-- /.box-header -->
         <!-- form start -->
@@ -58,10 +58,28 @@
                                            placeholder="Enter Institute">
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <label for="">Location</label>
-                                    <input type="text" value="{{$value->location}}" name="location[]"
-                                           class="myEdu form-control" id=""
-                                           placeholder="Enter Location">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="exampleInputEmail1">Level Title</label>
+
+                                            <select name="subjectTitle[]" class="form-control">
+                                                <option @if($value->subjectTitle) selected @endif>PHD</option>
+                                                <option @if($value->subjectTitle) selected @endif>Master</option>
+                                                <option @if($value->subjectTitle) selected @endif>Bachelor</option>
+                                                <option @if($value->subjectTitle) selected @endif>Diploma</option>
+                                                <option @if($value->subjectTitle) selected @endif>+2</option>
+                                                <option @if($value->subjectTitle) selected @endif>SLC</option>
+                                                <option @if($value->subjectTitle) selected @endif>Others</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="">Location</label>
+                                            <input type="text" name="location[]" value="{{$value->location}}" class="myEdu form-control" id=""
+                                                   placeholder="Enter Location">
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="">Level</label>
@@ -130,10 +148,28 @@
                                                placeholder="Enter Institute">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="">Location</label>
-                                        <input type="text" value="{{old('location')[$key]??''}}" name="location[]"
-                                               class="myEdu form-control" id=""
-                                               placeholder="Enter Location">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Level Title</label>
+
+                                                <select name="subjectTitle[]" class="form-control">
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>PHD</option>
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>Master</option>
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>Bachelor</option>
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>Diploma</option>
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>+2</option>
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>SLC</option>
+                                                    <option @if(old('subjectTitle')[$key]??'') selected @endif>Others</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">Location</label>
+                                                <input type="text" name="location[]" value="{{old('location')[$key]??''}}" class="myEdu form-control" id=""
+                                                       placeholder="Enter Location">
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="">Level</label>
@@ -197,9 +233,28 @@
                                                placeholder="Enter Institute">
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="">Location</label>
-                                        <input type="text" name="location[]" class="myEdu form-control" id=""
-                                               placeholder="Enter Location">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="exampleInputEmail1">Level Title</label>
+
+                                                <select name="subjectTitle[]" class="form-control">
+                                                    <option>PHD</option>
+                                                    <option>Master</option>
+                                                    <option>Bachelor</option>
+                                                    <option>Diploma</option>
+                                                    <option>+2</option>
+                                                    <option>SLC</option>
+                                                    <option>Others</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="">Location</label>
+                                                <input type="text" name="location[]" class="myEdu form-control" id=""
+                                                       placeholder="Enter Location">
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="">Level</label>
@@ -429,7 +484,7 @@
             $('#addNewEdu').on('click', function (e) {
                 e.preventDefault();
                 var BlockCount = $('.myBody').find('.addedEdu').length;
-                var addedEdu = "<div class=\"addedEdu\">\n" +
+                var addedEdu="<div class=\"addedEdu\">\n" +
                     "\n" +
                     "                                <div class=\"row\">\n" +
                     "                                    <div class=\"form-group col-md-4\">\n" +
@@ -438,9 +493,28 @@
                     "                                               placeholder=\"Enter Institute\">\n" +
                     "                                    </div>\n" +
                     "                                    <div class=\"form-group col-md-4\">\n" +
-                    "                                        <label for=\"\">Location</label>\n" +
-                    "                                        <input type=\"text\" name=\"location[]\" class=\"myEdu form-control\" id=\"\"\n" +
-                    "                                               placeholder=\"Enter Location\">\n" +
+                    "                                        <div class=\"row\">\n" +
+                    "                                            <div class=\"col-md-6\">\n" +
+                    "                                                <label for=\"exampleInputEmail1\">Level Title</label>\n" +
+                    "\n" +
+                    "                                                <select name=\"subjectTitle[]\" class=\"form-control\">\n" +
+                    "                                                    <option>PHD</option>\n" +
+                    "                                                    <option>Master</option>\n" +
+                    "                                                    <option>Bachelor</option>\n" +
+                    "                                                    <option>Diploma</option>\n" +
+                    "                                                    <option>+2</option>\n" +
+                    "                                                    <option>SLC</option>\n" +
+                    "                                                    <option>Others</option>\n" +
+                    "                                                </select>\n" +
+                    "\n" +
+                    "                                            </div>\n" +
+                    "                                            <div class=\"col-md-6\">\n" +
+                    "                                                <label for=\"\">Location</label>\n" +
+                    "                                                <input type=\"text\" name=\"location[]\" class=\"myEdu form-control\" id=\"\"\n" +
+                    "                                                       placeholder=\"Enter Location\">\n" +
+                    "                                            </div>\n" +
+                    "\n" +
+                    "                                        </div>\n" +
                     "                                    </div>\n" +
                     "                                    <div class=\"form-group col-md-4\">\n" +
                     "                                        <label for=\"\">Level</label>\n" +
@@ -471,7 +545,7 @@
                     "                                </div>\n" +
                     "                                <div class=\"form-group\">\n" +
                     "                                    <label for=\"\">Description <code style=\"color: #00BCD4\">(Optional)</code></label>\n" +
-                    "                                    <textarea style=\"resize: none;\" name=\"description[]\" id='ckeditor-"+BlockCount+"' rows=\"4\"\n" +
+                    "                                    <textarea style=\"resize: none;\" name=\"description[]\" id='ckeditor-" + BlockCount + "' rows=\"4\"\n" +
                     "                                              placeholder=\"Enter Description .. (Optional)\"\n" +
                     "                                              class=\"ckeditor form-control\"></textarea>\n" +
                     "                                </div>\n" +
@@ -488,9 +562,69 @@
                     "                                    </div>\n" +
                     "                                </div>\n" +
                     "                                <hr style=\"border-color: #00BCD4\">\n" +
-                    "                            </div>";
+                    "                            </div>\n";
+                // var addedEdu = "<div class=\"addedEdu\">\n" +
+                //     "\n" +
+                //     "                                <div class=\"row\">\n" +
+                //     "                                    <div class=\"form-group col-md-4\">\n" +
+                //     "                                        <label for=\"\">Institute</label>\n" +
+                //     "                                        <input type=\"text\" name=\"institute[]\" class=\"myEdu form-control\" id=\"\"\n" +
+                //     "                                               placeholder=\"Enter Institute\">\n" +
+                //     "                                    </div>\n" +
+                //     "                                    <div class=\"form-group col-md-4\">\n" +
+                //     "                                        <label for=\"\">Location</label>\n" +
+                //     "                                        <input type=\"text\" name=\"location[]\" class=\"myEdu form-control\" id=\"\"\n" +
+                //     "                                               placeholder=\"Enter Location\">\n" +
+                //     "                                    </div>\n" +
+                //     "                                    <div class=\"form-group col-md-4\">\n" +
+                //     "                                        <label for=\"\">Level</label>\n" +
+                //     "                                        <input type=\"text\" name=\"subject[]\" class=\"myEdu form-control\" id=\"\"\n" +
+                //     "                                               placeholder=\"Eg: SLC/+2/Bachelor in Computer Engineering \">\n" +
+                //     "                                    </div>\n" +
+                //     "\n" +
+                //     "                                </div>\n" +
+                //     "\n" +
+                //     "                                <div class=\"row changeItem\">\n" +
+                //     "                                    <div class=\"form-group col-md-4 forGrade\">\n" +
+                //     "                                        <label for=\"\">Grade</label>\n" +
+                //     "                                        <input type=\"text\" name=\"grade[]\" required\n" +
+                //     "                                               class=\"myEdu form-control myGrade\" id=\"\"\n" +
+                //     "                                               placeholder=\"Eg: 98% or 3.00 gpa \">\n" +
+                //     "                                    </div>\n" +
+                //     "                                    <div class=\"form-group col-md-4\">\n" +
+                //     "                                        <label for=\"\">Joined Year</label>\n" +
+                //     "                                        <input type=\"number\" name=\"startTime[]\" class=\"date-own form-control\" id=\"\"\n" +
+                //     "                                               placeholder=\"Enter Jonined Year \">\n" +
+                //     "                                    </div>\n" +
+                //     "                                    <div class=\"form-group col-md-4 forPassed\">\n" +
+                //     "                                        <label for=\"\">Passed Year</label>\n" +
+                //     "                                        <input type=\"number\" name=\"endTime[]\" required\n" +
+                //     "                                               class=\"date-own form-control myPassedYear\" id=\"\"\n" +
+                //     "                                               placeholder=\"Enter Passed Year\">\n" +
+                //     "                                    </div>\n" +
+                //     "                                </div>\n" +
+                //     "                                <div class=\"form-group\">\n" +
+                //     "                                    <label for=\"\">Description <code style=\"color: #00BCD4\">(Optional)</code></label>\n" +
+                //     "                                    <textarea style=\"resize: none;\" name=\"description[]\" id='ckeditor-" + BlockCount + "' rows=\"4\"\n" +
+                //     "                                              placeholder=\"Enter Description .. (Optional)\"\n" +
+                //     "                                              class=\"ckeditor form-control\"></textarea>\n" +
+                //     "                                </div>\n" +
+                //     "\n" +
+                //     "                                <div class=\"row\">\n" +
+                //     "                                    <div style=\"padding-left: 50px;padding-top: 10px\" class=\"form-group col-md-6\">\n" +
+                //     "                                        <input class=\"checkThis\" type=\"checkbox\"> <b>Tick if you are still attending\n" +
+                //     "                                            this School/College</b>\n" +
+                //     "                                        <input class=\"checkThen\" type=\"hidden\" name=\"attending[]\" value=\"false\">\n" +
+                //     "                                    </div>\n" +
+                //     "                                    <div style=\"text-align: right\" class=\"form-group col-md-6\">\n" +
+                //     "                                        <button class=\"btn btn-danger removeEducation\"><i class=\"fa fa-trash\"></i>\n" +
+                //     "                                        </button>\n" +
+                //     "                                    </div>\n" +
+                //     "                                </div>\n" +
+                //     "                                <hr style=\"border-color: #00BCD4\">\n" +
+                //     "                            </div>";
                 $('.myBody').append(addedEdu);
-                CKEDITOR.replace('ckeditor-'+BlockCount);
+                CKEDITOR.replace('ckeditor-' + BlockCount);
                 attending();
                 countAddedEdu();
                 removeEducation();

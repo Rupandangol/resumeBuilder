@@ -12,6 +12,7 @@ class AcademicQualification extends Model
         'location',
         'startTime',
         'subject',
+        'subjectTitle',
         'grade',
         'endTime',
         'description',

@@ -46,6 +46,7 @@
         <tr>
             <td>SN</td>
             <td>Full Name</td>
+            <td>Highest Education</td>
             <td>Job Category</td>
             <td>Email</td>
             <td>Mobile No.</td>
@@ -58,9 +59,11 @@
         </thead>
         <tbody>
         @foreach($details as $key=>$value)
+            @if($value->getProfile)
             <tr>
                 <td>{{++$key}}</td>
                 <td>{{$value->fullName}}</td>
+                <td>{{$value->getEdu->first()->subjectTitle}}</td>
                 <td>{{$value->getProfile->jobCategoryTitle}}</td>
                 <td>{{$value->email}}</td>
                 <td>{{$value->mobileNo}}</td>
@@ -79,6 +82,7 @@
                 <td><a class="btn btn-info" href="{{url('/@admin@/viewInfo/details/'.$value->id)}}"><i
                                 class="fa fa-file-archive-o"></i></a></td>
             </tr>
+            @endif
         @endforeach
         </tbody>
     </table><br>

@@ -5,6 +5,89 @@
         top: 0;
         width: 100%;
     }
+
+    .dropdown-lg-show {
+        display: block !important;
+    }
+
+    .dropdown-lg-hide {
+        display: none !important;
+    }
+
+    .dropdown1 span {
+        margin-top: 50px !important;
+    }
+
+    .dropdown1 {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown1-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 12px 16px;
+        z-index: 1;
+    }
+
+    .logo-nav {
+        position: absolute;
+        right: 10px;
+        padding-top: 15px;
+        color: white;
+    }
+
+    .custom-dropdown {
+        padding-left: 5px;
+        border-bottom: 1px solid lightgrey;
+        min-width: 160px;
+    }
+
+    .custom-dropdown:hover {
+        font-weight: bold;
+
+    }
+
+    @media (max-width: 1200px) {
+        .dropdown-lg-show {
+            display: none !important;
+        }
+
+        .dropdown-lg-hide {
+            display: block !important;
+        }
+    }
+
+    .nav-xs-logo-hide {
+        display: block;
+    }
+
+    .nav-xs-logo {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .logo-nav {
+            margin-top: -57px !important;
+        }
+
+        .nav-xs-logo-hide {
+            display: none;
+        }
+
+        .nav-xs-logo {
+            display: block;
+        }
+
+        .navbar-header {
+            height: 40px;
+        }
+    }
+
+
 </style>
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
@@ -13,175 +96,76 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div style="position: relative;width: 100%;" class="navbar-header">
-                    <a href="{{route('dashboard')}}" class="navbar-brand"><b>CV</b> Generator</a>
-                    {{--<a href="{{route('flushSession')}}" class="btn btn-success">make new CV</a>--}}
-                    <a style="position: absolute;right: 10px;padding-top: 15px;color: white;" href="https://talentconnects.com.np/index.php">
-                        <img style="height: 25px;" src="{{URL::to('/Uploads/logo/logo-07.png')}}" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Talent <b>Connects</b></a>
+                    <a href="{{route('dashboard')}}" class="navbar-brand nav-xs-logo-hide"><b>CV</b> Generator</a>
+                    <a href="{{route('dashboard')}}" class="navbar-brand nav-xs-logo"><b>CV</b></a>
+                {{--<a href="{{route('flushSession')}}" class="btn btn-success">make new CV</a>--}}
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="navbar-collapse pull-left" id="navbar-collapse">
+                        @if($hide==='1')
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown-lg-show {{$detail_active??''}}"><a
+                                            href="{{route('page1')}}">Details<span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="dropdown-lg-show {{$profile_active??''}}"><a
+                                            href="{{route('page2')}}">Profile</a></li>
+                                <li class="dropdown-lg-show {{$education_active??''}}"><a href="{{route('page4')}}">Education</a>
+                                </li>
+                                <li class="dropdown-lg-show {{$experience_active??''}}"><a href="{{route('page5')}}">Experience</a>
+                                </li>
+                                <li class="dropdown-lg-show {{$training_active??''}}"><a
+                                            href="{{route('page8')}}">Training</a></li>
+                                <li class="dropdown-lg-show {{$skill_active??''}}"><a
+                                            href="{{route('page3')}}">Skill</a>
+                                </li>
+                                <li class="dropdown-lg-show {{$achievement_active??''}}"><a href="{{route('page9')}}">Achievement</a>
+                                </li>
+                                <li class="dropdown-lg-show {{$reference_active??''}}"><a href="{{route('page6')}}">Reference</a>
+                                </li>
+                                <li class="dropdown-lg-show {{$template_active??''}}"><a
+                                            href="{{route('page7')}}">Template</a></li>
+
+                                {{--<div class="dropdown">--}}
+                                {{--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example--}}
+                                {{--<span class="caret"></span></button>--}}
+                                {{--<ul class="dropdown-menu">--}}
+                                {{--<li><a href="#">HTML</a></li>--}}
+                                {{--<li><a href="#">CSS</a></li>--}}
+                                {{--<li><a href="#">JavaScript</a></li>--}}
+                                {{--</ul>--}}
+                                {{--</div>--}}
+                                <li style="margin-left: 50px" class="dropdown1 dropdown-lg-hide" id="dropdown1">
+                                    {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"--}}
+                                    {{--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                                    <a> <i class="fa fa-list"></i>
+                                    </a>
+                                    {{--</a>--}}
+                                    <div class="dropdown1-content" id="dropdown1-content"
+                                         aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item custom-dropdown"
+                                           href="{{route('page1')}}">Details</a><br>
+                                        <a class="dropdown-item custom-dropdown"
+                                           href="{{route('page2')}}">Profile</a><br>
+                                        <a class="dropdown-item custom-dropdown" href="{{route('page4')}}">Education</a><br>
+                                        <a class="dropdown-item custom-dropdown"
+                                           href="{{route('page5')}}">Experience</a><br>
+                                        <a class="dropdown-item custom-dropdown"
+                                           href="{{route('page8')}}">Training</a><br>
+                                        <a class="dropdown-item custom-dropdown" href="{{route('page3')}}">Skill</a><br>
+                                        <a class="dropdown-item custom-dropdown"
+                                           href="{{route('page9')}}">Achievement</a><br>
+                                        <a class="dropdown-item custom-dropdown" href="{{route('page6')}}">Reference</a><br>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        @endif
+                        <a class="logo-nav" href="https://talentconnects.com.np/index.php">
+                            <img style="height: 25px;" src="{{URL::to('/Uploads/logo/logo-07.png')}}" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Talent
+                            <b>Connects</b></a>
+                    </div>
+                    <!-- /.navbar-collapse -->
                 </div>
 
-                {{--side header--}}
-                {{--<div class="navbar-custom-menu">--}}
-                    {{--<ul class="nav navbar-nav">--}}
-                        {{--<!-- Messages: style can be found in dropdown.less-->--}}
-                        {{--<li class="dropdown messages-menu">--}}
-                            {{--<a href="https://talentconnects.com.np/index.php">--}}
-                                {{--<img style="height: 25px;" src="{{URL::to('/Uploads/logo/logo-07.png')}}" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Talent <b>Connects</b></a>--}}
-                        {{--</li>--}}
-
-                    {{--</ul>--}}
-                {{--</div>--}}
-
-                {{--end of side header--}}
-
-                {{--login info and others--}}
-                {{--<div class="navbar-custom-menu">--}}
-                {{--<ul class="nav navbar-nav">--}}
-                {{--<!-- Messages: style can be found in dropdown.less-->--}}
-                {{--<li class="dropdown messages-menu">--}}
-                {{--<!-- Menu toggle button -->--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                {{--<i class="fa fa-envelope-o"></i>--}}
-                {{--<span class="label label-success">4</span>--}}
-                {{--</a>--}}
-                {{--<ul class="dropdown-menu">--}}
-                {{--<li class="header">You have 4 messages</li>--}}
-                {{--<li>--}}
-                {{--<!-- inner menu: contains the messages -->--}}
-                {{--<ul class="menu">--}}
-                {{--<li><!-- start message -->--}}
-                {{--<a href="#">--}}
-                {{--<div class="pull-left">--}}
-                {{--<!-- User Image -->--}}
-                {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle"--}}
-                {{--alt="User Image">--}}
-                {{--</div>--}}
-                {{--<!-- Message title and timestamp -->--}}
-                {{--<h4>--}}
-                {{--Support Team--}}
-                {{--<small><i class="fa fa-clock-o"></i> 5 mins</small>--}}
-                {{--</h4>--}}
-                {{--<!-- The message -->--}}
-                {{--<p>Why not buy a new awesome theme?</p>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<!-- end message -->--}}
-                {{--</ul>--}}
-                {{--<!-- /.menu -->--}}
-                {{--</li>--}}
-                {{--<li class="footer"><a href="#">See All Messages</a></li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--<!-- /.messages-menu -->--}}
-
-                {{--<!-- Notifications Menu -->--}}
-                {{--<li class="dropdown notifications-menu">--}}
-                {{--<!-- Menu toggle button -->--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                {{--<i class="fa fa-bell-o"></i>--}}
-                {{--<span class="label label-warning">10</span>--}}
-                {{--</a>--}}
-                {{--<ul class="dropdown-menu">--}}
-                {{--<li class="header">You have 10 notifications</li>--}}
-                {{--<li>--}}
-                {{--<!-- Inner Menu: contains the notifications -->--}}
-                {{--<ul class="menu">--}}
-                {{--<li><!-- start notification -->--}}
-                {{--<a href="#">--}}
-                {{--<i class="fa fa-users text-aqua"></i> 5 new members joined today--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<!-- end notification -->--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li class="footer"><a href="#">View all</a></li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--<!-- Tasks Menu -->--}}
-                {{--<li class="dropdown tasks-menu">--}}
-                {{--<!-- Menu Toggle Button -->--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                {{--<i class="fa fa-flag-o"></i>--}}
-                {{--<span class="label label-danger">9</span>--}}
-                {{--</a>--}}
-                {{--<ul class="dropdown-menu">--}}
-                {{--<li class="header">You have 9 tasks</li>--}}
-                {{--<li>--}}
-                {{--<!-- Inner menu: contains the tasks -->--}}
-                {{--<ul class="menu">--}}
-                {{--<li><!-- Task item -->--}}
-                {{--<a href="#">--}}
-                {{--<!-- Task title and progress text -->--}}
-                {{--<h3>--}}
-                {{--Design some buttons--}}
-                {{--<small class="pull-right">20%</small>--}}
-                {{--</h3>--}}
-                {{--<!-- The progress bar -->--}}
-                {{--<div class="progress xs">--}}
-                {{--<!-- Change the css width attribute to simulate progress -->--}}
-                {{--<div class="progress-bar progress-bar-aqua" style="width: 20%"--}}
-                {{--role="progressbar" aria-valuenow="20" aria-valuemin="0"--}}
-                {{--aria-valuemax="100">--}}
-                {{--<span class="sr-only">20% Complete</span>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--</a>--}}
-                {{--</li>--}}
-                {{--<!-- end task item -->--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--<li class="footer">--}}
-                {{--<a href="#">View all tasks</a>--}}
-                {{--</li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--<!-- User Account Menu -->--}}
-                {{--<li class="dropdown user user-menu">--}}
-                {{--<!-- Menu Toggle Button -->--}}
-                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}
-                {{--<!-- The user image in the navbar-->--}}
-                {{--<img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}
-                {{--<!-- hidden-xs hides the username on small devices so only the image appears. -->--}}
-                {{--<span class="hidden-xs">Alexander Pierce</span>--}}
-                {{--</a>--}}
-                {{--<ul class="dropdown-menu">--}}
-                {{--<!-- The user image in the menu -->--}}
-                {{--<li class="user-header">--}}
-                {{--<img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}
-
-                {{--<p>--}}
-                {{--Alexander Pierce - Web Developer--}}
-                {{--<small>Member since Nov. 2012</small>--}}
-                {{--</p>--}}
-                {{--</li>--}}
-                {{--<!-- Menu Body -->--}}
-                {{--<li class="user-body">--}}
-                {{--<div class="row">--}}
-                {{--<div class="col-xs-4 text-center">--}}
-                {{--<a href="#">Followers</a>--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-4 text-center">--}}
-                {{--<a href="#">Sales</a>--}}
-                {{--</div>--}}
-                {{--<div class="col-xs-4 text-center">--}}
-                {{--<a href="#">Friends</a>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<!-- /.row -->--}}
-                {{--</li>--}}
-                {{--<!-- Menu Footer-->--}}
-                {{--<li class="user-footer">--}}
-                {{--<div class="pull-left">--}}
-                {{--<a href="#" class="btn btn-default btn-flat">Profile</a>--}}
-                {{--</div>--}}
-                {{--<div class="pull-right">--}}
-                {{--<a href="#" class="btn btn-default btn-flat">Sign out</a>--}}
-                {{--</div>--}}
-                {{--</li>--}}
-                {{--</ul>--}}
-                {{--</li>--}}
-                {{--</ul>--}}
-                {{--</div>--}}
-                {{--end of login info and others--}}
 
             </div>
             <!-- /.container-fluid -->
@@ -213,7 +197,18 @@
     {{--<!-- /.container -->--}}
     {{--</footer>--}}
 </div>
-<div style="text-align: right;margin-top: 10px;margin-right: 10px">
+<div style="text-align: center;margin-top: 10px;margin-right: 10px">
     <strong>Copyright &copy; 2019 <a href="">Talent Connects</a>.</strong> All rights reserved
 </div>
+<script>
+    var drop = document.getElementById('dropdown1');
+    drop.onclick = function () {
+        var dropcontent = document.getElementById('dropdown1-content');
+        var checkdrop = dropcontent.style.display;
+        if (checkdrop == '')
+            dropcontent.style.display = 'block';
+        else
+            dropcontent.style.display = '';
+    }
+</script>
 @include('Frontend.layouts.footer')

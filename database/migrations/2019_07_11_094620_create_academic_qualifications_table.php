@@ -16,6 +16,7 @@ class CreateAcademicQualificationsTable extends Migration
         Schema::create('academic_qualifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('institute')->nullable();
+            $table->string('subjectTitle')->nullable();
             $table->string('subject')->nullable();
             $table->string('grade')->nullable();
             $table->string('location')->nullable();

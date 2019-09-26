@@ -222,7 +222,8 @@
                             <div class="row child2">
                                 <div class="form-group col-md-8">
                                     <label for="">Job Summary</label>
-                                    <textarea style="resize: none" class="form-control ckeditor" name="jobSummary[]" id=""
+                                    <textarea style="resize: none" class="form-control ckeditor" name="jobSummary[]"
+                                              id=""
                                               rows="5"
                                               placeholder="Detail About your Job..."> {{$value->jobSummary}}
                                          </textarea>
@@ -245,12 +246,16 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div style="padding-left: 50px;padding-top: 10px" class="col-md-6">
+                                <div style="padding-left: 50px;padding-top: 10px" class="col-md-4">
                                     <input class="checkExp" @if($value->current==='true') checked
                                            @endif type="checkbox"> <b>Tick if you still have this job</b>
                                     <input class="checkExpThis" name="current[]" value="false" type="hidden">
                                 </div>
-                                <div style="text-align: right" class=" col-md-6">
+                                <div class="col-md-4">
+                                    <input type="number" name="salary[]"
+                                           placeholder="Salary: (Optional)" value="{{$value->salary}}" class="enterExperience form-control" id="">
+                                </div>
+                                <div style="text-align: right" class=" col-md-4">
                                     <button class="btn btn-danger removeExperience "><i class="fa fa-trash"></i>
                                     </button>
                                 </div>
@@ -286,7 +291,8 @@
                                 <div class="row child2">
                                     <div class="form-group col-md-8">
                                         <label for="">Job Summary</label>
-                                        <textarea style="resize: none" class="form-control ckeditor" name="jobSummary[]" id=""
+                                        <textarea style="resize: none" class="form-control ckeditor" name="jobSummary[]"
+                                                  id=""
                                                   rows="5"
                                                   placeholder="Detail About your Job..."> {{old('jobSummary')[$key]??''}} </textarea>
                                     </div>
@@ -309,12 +315,17 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div style="padding-left: 50px;padding-top: 10px" class="col-md-6">
+                                    <div style="padding-left: 50px;padding-top: 10px" class="col-md-4">
                                         <input class="checkExp" @if(old('current')[$key]==='true') checked
                                                @endif type="checkbox"> <b>Tick if you still have this job</b>
                                         <input class="checkExpThis" name="current[]" value="false" type="hidden">
                                     </div>
-                                    <div style="text-align: right" class=" col-md-6">
+                                    <div class="col-md-4">
+                                        <input type="number" name="salary[]"
+                                               placeholder="Salary: (Optional)" value="{{old('salary')[$key]??''}}"
+                                               class="enterExperience form-control" id="">
+                                    </div>
+                                    <div style="text-align: right" class=" col-md-4">
                                         <button class="btn btn-danger removeExperience "><i class="fa fa-trash"></i>
                                         </button>
                                     </div>
@@ -344,7 +355,8 @@
                                 <div class="row child2">
                                     <div class="form-group col-md-8">
                                         <label for="">Job Summary</label>
-                                        <textarea style="resize: none" class="form-control ckeditor" name="jobSummary[]" id=""
+                                        <textarea style="resize: none" class="form-control ckeditor" name="jobSummary[]"
+                                                  id=""
                                                   rows="5"
                                                   placeholder="Detail About your Job..."></textarea>
                                     </div>
@@ -365,11 +377,15 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div style="padding-left: 50px;padding-top: 10px" class="col-md-6">
+                                    <div style="padding-left: 50px;padding-top: 10px" class="col-md-4">
                                         <input class="checkExp" type="checkbox"> <b>Tick if you still have this job</b>
                                         <input class="checkExpThis" name="current[]" value="false" type="hidden">
                                     </div>
-                                    <div style="text-align: right" class=" col-md-6">
+                                    <div class="col-md-4">
+                                        <input type="number" name="salary[]"
+                                               placeholder="Salary: (Optional)" class="enterExperience form-control" id="">
+                                    </div>
+                                    <div style="text-align: right" class=" col-md-4">
                                         <button class="btn btn-danger removeExperience "><i class="fa fa-trash"></i>
                                         </button>
                                     </div>
@@ -387,7 +403,8 @@
             <div class="box-footer">
                 <a href="{{route('page4')}}" class="btn btn-primary ">Back</a>
                 <button id="expButton" class="btn btn-primary pull-right" type="submit">Next</button>
-                <a href="{{route('skipExp')}}" onclick="return confirm('Are you sure you want to skip?')"
+                <a href="{{route('skipExp')}}"
+                   {{--onclick="return confirm('Are you sure you want to skip?')"--}}
                    class="btn btn-primary pull-right">Skip</a>
             </div>
         </form>
@@ -401,7 +418,7 @@
         $(function () {
             $('#addExperience').on('click', function (e) {
                 e.preventDefault();
-                var BlockCount=$('.myBody').find('.addedExp').length;
+                var BlockCount = $('.myBody').find('.addedExp').length;
                 var experienceBlock = "<div class=\"addedExp\">\n" +
                     "                                <div class=\"row\">\n" +
                     "                                    <div class=\"form-group col-md-4\">\n" +
@@ -424,7 +441,7 @@
                     "                                <div class=\"row child2\">\n" +
                     "                                    <div class=\"form-group col-md-8\">\n" +
                     "                                        <label for=\"\">Job Summary</label>\n" +
-                    "                                        <textarea style=\"resize: none\" class=\"form-control ckeditor\" name=\"jobSummary[]\" id='ckeditor-"+BlockCount+"' rows=\"5\"\n" +
+                    "                                        <textarea style=\"resize: none\" class=\"form-control ckeditor\" name=\"jobSummary[]\" id='ckeditor-" + BlockCount + "' rows=\"5\"\n" +
                     "                                                  placeholder=\"Detail About your Job...\"></textarea>\n" +
                     "                                    </div>\n" +
                     "                                    <div class=\"col-md-4 child2-1\">\n" +
@@ -444,11 +461,15 @@
                     "                                    </div>\n" +
                     "                                </div>\n" +
                     "                                <div class=\"row\">\n" +
-                    "                                    <div style=\"padding-left: 50px;padding-top: 10px\" class=\"col-md-6\">\n" +
+                    "                                    <div style=\"padding-left: 50px;padding-top: 10px\" class=\"col-md-4\">\n" +
                     "                                        <input class=\"checkExp\" type=\"checkbox\"> <b>Tick if you still have this job</b>\n" +
                     "                                        <input class=\"checkExpThis\" name=\"current[]\" value=\"false\" type=\"hidden\">\n" +
                     "                                    </div>\n" +
-                    "                                    <div style=\"text-align: right\" class=\" col-md-6\">\n" +
+                    "                                    <div class=\"col-md-4\">\n" +
+                    "                                        <input type=\"number\" name=\"salary[]\"\n" +
+                    "                                          placeholder=\"Salary: (Optional)\"     class=\"enterExperience form-control\" id=\"\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div style=\"text-align: right\" class=\" col-md-4\">\n" +
                     "                                        <button class=\"btn btn-danger removeExperience \"><i class=\"fa fa-trash\"></i>\n" +
                     "                                        </button>\n" +
                     "                                    </div>\n" +
@@ -456,7 +477,7 @@
                     "                                <hr style=\"border-color: #00BCD4\">\n" +
                     "                            </div>";
                 $('.myBody').append(experienceBlock);
-                CKEDITOR.replace('ckeditor-'+BlockCount);
+                CKEDITOR.replace('ckeditor-' + BlockCount);
                 removeExp();
                 current();
                 checkNumber();
@@ -514,6 +535,7 @@
                     }
                 })
             }
+
             onEnterExp();
 
 

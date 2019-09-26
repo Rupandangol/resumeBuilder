@@ -152,12 +152,12 @@ class dashboardController extends Controller
         }
         //to count the full time count
         $fullTimeCount = DB::table('personal_profiles')->whereIN('availableFor', ['Full Time'])->count();
-
+        $dash_active='active';
 
         return view('Backend.pages.dashboard', ['Gender' => $gender, 'GenderCount' => $genderCount, 'Age' => $temp, 'IndustryCount' => $count,
             'jobCat' => $jobCatData, 'jobCatCount' => $jobCatCount, 'percentage' => $percentageArray, 'AgeArray' => $ageCountArray, 'AgeData' => $ageCountData, 'MaxCount' => $maxNo,
             'InterestedCandidateCount' => $interestedCandidateCount, 'LookingFor' => $LookingFor, 'JobLevelCount' => $jobLevelCount, 'JobLevel' => $jobLevel, 'Downloads' => $downloads, 'JobSearchCount' => $jobSearchCount
-            , 'Location' => $location, 'LocationCount' => $locationCount, 'FullTimeCount' => $fullTimeCount]);
+            , 'Location' => $location, 'LocationCount' => $locationCount, 'FullTimeCount' => $fullTimeCount],compact('dash_active'));
 
 
     }

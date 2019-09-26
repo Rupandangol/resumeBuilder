@@ -36,6 +36,7 @@
         }
 
         #userImg {
+            /*margin-top: 24px;*/
             margin-left: 20px;
             width: 210px;
             height: 210px;
@@ -89,7 +90,7 @@
         {{--contact--}}
         <h4 style="text-transform: uppercase;font-family: sans-serif;color: #42A5F5;">Contact</h4>
         <strong style="font-size: 15px;font-family: sans-serif">PHONE:</strong>
-        <p style="margin: 0;padding: 0;font-size: 15px">{{$personalDetail->mobileNo}}</p><br>
+        <p style="margin: 0;padding: 0;font-size: 15px">(+{{$personalDetail->countryCode}}) {{$personalDetail->mobileNo}}</p><br>
 
         {{--end of contact--}}
 
@@ -156,7 +157,7 @@
 
             @foreach($experience as $value)
                 <p style="margin: 0;padding: 0;font-size: 15px"><strong style="font-size: 15px">{{ucfirst($value->jobTitle)}} at {{ucfirst($value->companyName)}}
-                    <br> {{ucfirst($value->location)}}</strong>||
+                    <br> {{ucfirst($value->location)}}</strong>|
                {{\Carbon\Carbon::parse($value->startTime)->format('M Y')}}
                     -
                     @if($value->endTime==='Current')

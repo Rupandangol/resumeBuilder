@@ -119,9 +119,15 @@ Route::group(['prefix' => '@admin@', 'middleware' => 'auth:admin'], function () 
 
 //Details Info
     Route::get('/viewInfo/details/{id}', 'backendController@details')->name('detailInfo');
+    Route::get('/viewInfo/details/deleteProfile/{id}','backendController@profileDelete')->name('profileDelete');
 
 //Status
     Route::get('/manageAdmin/status', 'statusController@statusAction')->name('statusAction');
+
+
+//    cv Backend Download
+    Route::get('/viewInfo/details/cvDownload/{id}','pdfController@cvBackendDownload')->name('cvBackendDownload');
+    Route::get('/viewInfo/details/cvPreview/{id}','pdfController@cvBackendPreview')->name('cvBackendPreview');
 
 
     Route::get('/excel/download', 'backendController@excelD')->name('excelDownload');

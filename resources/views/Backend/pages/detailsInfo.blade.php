@@ -1,6 +1,8 @@
 @extends('Backend.master')
 @section('heading')
     Details
+    <a style="" class="btn btn-info" href="{{route('cvBackendDownload',$details->id)}}">Download CV</a>
+    <a style="" class="btn btn-info" href="{{route('cvBackendPreview',$details->id)}}">Preview CV</a>
 @endsection
 
 @section('content')
@@ -28,11 +30,10 @@
                 <h3 class="profile-username text-center">{{$details->fullName}}</h3>
 
                 <p class="text-muted text-center">{{$details->getProfile->jobCategory}}</p>
+                <p style="word-wrap: break-word" class="text-muted text-center">{{$details->email}}</p>
+
 
                 <ul class="list-group list-group-unbordered">
-                    <li class="list-group-item">
-                        <b>Email</b> <a class="pull-right">{{$details->email}}</a>
-                    </li>
                     <li class="list-group-item">
                         <b>Mobile No.</b> <a class="pull-right">{{$details->mobileNo}}</a>
                     </li>
@@ -73,8 +74,15 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
+
+                <p style="word-wrap: break-word" class="text-muted">
+                    {{$details->address}}
+                </p>
+
+                <hr>
                 @if($details->website)
-                    <strong><i class="fa fa-globe"></i> Website</strong>
+                    <strong><i class="fa fa-globe margin-r-5"></i> Website</strong>
 
                     <p style="word-wrap: break-word" class="text-muted">
                         {{$details->website}}
@@ -85,19 +93,46 @@
                 <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
 
                 <p>
-                    @foreach($details->getSkill as $value)
+                    @forelse($details->getSkill as $value)
                         <span class="label label-primary">{{$value->skill}}</span>
-                    @endforeach
-                </p>
+                @empty
+                    <p class="text-muted">No skill</p>
+                    @endforelse
 
-                <hr>
-                <strong><i class="fa fa-search"></i> Looking For a job</strong>
+                    </p>
 
-                <p class="text-muted">
-                    {{$details->getProfile->interestedInJob}}
-                </p>
+                    <hr>
+                    <strong><i class="fa fa-search margin-r-5"></i> Looking For a job</strong>
 
-                <hr>
+                    <p class="text-muted">
+                        {{$details->getProfile->interestedInJob}}
+                    </p>
+
+                    <hr>
+                    <strong><i class="fa fa-list-alt margin-r-5"></i> Job Category Title</strong>
+
+                    <p class="text-muted">
+                        {{$details->getProfile->jobCategoryTitle}}
+                    </p>
+
+                    <hr>
+                    <strong><i class="fa fa-list-ol margin-r-5"></i> Job Category</strong>
+
+                    <p class="text-muted">
+                        {{$details->getProfile->jobCategory}}
+                    </p>
+
+                    <hr>
+                    @if(Auth::guard('admin')->user()->privileges==='Super Admin')
+                    <strong><i class="fa fa-trash"></i> Delete this Profile</strong>
+
+                    <p class="text-muted">
+                    <a class="btn btn-danger" href="{{route('profileDelete',$details->id)}}"><i
+                    class="fa fa-trash"></i></a>
+                    </p>
+
+                    <hr>
+                    @endif
 
 
             </div>
@@ -113,13 +148,13 @@
     <div class="col-md-9">
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#education" data-toggle="tab">Education</a></li>
-                <li><a href="#experience" data-toggle="tab">Experience</a></li>
+                <li class="active"><a href="#experience" data-toggle="tab">Experience</a></li>
+                <li><a href="#education" data-toggle="tab">Education</a></li>
                 <li><a href="#skills" data-toggle="tab">Skills</a></li>
                 <li><a href="#others" data-toggle="tab">Others</a></li>
             </ul>
             <div class="tab-content">
-                <div class="active tab-pane" id="education">
+                <div class="tab-pane" id="education">
                 @foreach($details->getEdu as $value)
                     <!-- Post -->
                         <div class="post">
@@ -162,17 +197,17 @@
 
             {{--Experience--}}
             <!-- /.tab-pane -->
-                <div class="tab-pane" id="experience">
+                <div class="active tab-pane" id="experience">
                     <!-- The timeline -->
 
 
-                        @forelse($details->getExp as $value)
+                    @forelse($details->getExp as $value)
                         <ul class="timeline timeline-inverse">
                             <!-- timeline time label -->
 
                             <li class="time-label">
                         <span class="bg-red">
-                          {{\Carbon\Carbon::parse($value->startTime)->format('d Y M')}}
+                          {{\Carbon\Carbon::parse($value->startTime)->format('d M Y')}}
                         </span>
 
 
@@ -216,10 +251,10 @@
                         </span>
                             </li>
                             <!-- /.timeline-label -->
-                    </ul>
+                        </ul>
                     @empty
                         <p style="text-align: center">
-                           <i>No Experience</i>
+                            <i>No Experience</i>
                         </p>
                     @endforelse
                 </div>
@@ -232,7 +267,7 @@
                     <div class="box-footer text-black">
                         <h4>Skills</h4>
                         <div class="row">
-                            @foreach($details->getSkill as $value)
+                            @forelse($details->getSkill as $value)
                                 <div class="col-sm-6">
                                     <!-- Progress bars -->
                                     <div class="clearfix">
@@ -251,7 +286,11 @@
                                         </p>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <hr>
+                                <p style="text-align: center"><i>No Skill</i></p>
+                                <hr>
+                            @endforelse
                         </div>
                         <!-- /.row -->
                     </div>
@@ -309,13 +348,13 @@
                                     <dt>About</dt>
                                     <dd>
                                         <?php
-                                            echo htmlspecialchars_decode($value->about)
+                                        echo htmlspecialchars_decode($value->about)
                                         ?>
                                     </dd>
 
                                 </dl>
                             </div>
-                    @empty
+                        @empty
                             <p style="text-align: center"><i>No Achievements</i></p>
                     @endforelse
 
@@ -330,36 +369,37 @@
 
                             <h3 class="box-title">References</h3>
                         </div>
-                        @forelse($details->getReference as $value)
+                    @forelse($details->getReference as $value)
                         <!-- /.box-header -->
-                        <div class="box-body">
-                            <dl class="dl-horizontal">
-                                <dt>Full Name</dt>
-                                <dd>{{$value->name}}</dd>
-                                <dt>Designation</dt>
-                                <dd>{{$value->designation}}</dd>
-                                <dt>Company Name</dt>
-                                <dd>{{$value->companyName}}</dd>
-                                <dt>Contact Number</dt>
-                                <dd>{{$value->contactNumber}}
-                                </dd>
-                                <dt>Email</dt>
-                                <dd>{{$value->email}}
-                                </dd>
-                            </dl>
-                        </div>
-                            @empty
-                                <p style="text-align: center"><i>No References</i></p>
-                        @endforelse
-                        <!-- /.box-body -->
+                            <div class="box-body">
+                                <dl class="dl-horizontal">
+                                    <dt>Full Name</dt>
+                                    <dd>{{$value->name}}</dd>
+                                    <dt>Designation</dt>
+                                    <dd>{{$value->designation}}</dd>
+                                    <dt>Company Name</dt>
+                                    <dd>{{$value->companyName}}</dd>
+                                    <dt>Contact Number</dt>
+                                    <dd>{{$value->contactNumber}}
+                                    </dd>
+                                    <dt>Email</dt>
+                                    <dd>{{$value->email}}
+                                    </dd>
+                                </dl>
+                            </div>
+                        @empty
+                            <p style="text-align: center"><i>No References</i></p>
+                    @endforelse
+                    <!-- /.box-body -->
                     </div>
-                    {{--end of reference--}}
 
-                </div>
+                {{--end of reference--}}
+
+
                 <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
             </div>
-            <!-- /.tab-content -->
+            <!-- /.nav-tabs-custom -->
         </div>
-        <!-- /.nav-tabs-custom -->
-    </div>
 @endsection

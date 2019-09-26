@@ -281,7 +281,8 @@
             <div class="box-footer">
                 <a href="{{route('page9')}}" style="border-radius: 24px" class="btn btn-primary">Back</a>
                 <button style="border-radius: 24px" class="btn btn-primary pull-right" id="refButton">Submit</button>
-                <a href="{{route('skipRef')}}" onclick="return confirm('Are you sure you want to skip?')"
+                <a href="{{route('skipRef')}}"
+                   {{--onclick="return confirm('Are you sure you want to skip?')"--}}
                    style="border-radius: 24px" class="btn btn-primary pull-right">Skip</a>
             </div>
         </form>

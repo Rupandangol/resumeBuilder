@@ -10,6 +10,7 @@ class PersonalDetail extends Model
     protected $fillable = [
         'fullName',
         'email',
+        'countryCode',
         'mobileNo',
         'website',
         'image',

@@ -25,7 +25,15 @@ class backendController extends Controller
         $this->validate($request, [
             'username' => 'required|min:4|unique:admins,username',
             'email' => 'required|unique:admins,email',
-            'password' => 'required|confirmed'
+            'password' => [
+                'required',
+                'min:5',
+                'confirmed',
+                'regex:/[a-z]/',
+                'regex:/[A-Z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*#?&]/'
+            ]
         ]);
         $data['username'] = $request->username;
         $data['email'] = $request->email;
@@ -77,8 +85,6 @@ class backendController extends Controller
 
 
 
-
-
     public function viewInfo()
     {
         $data_active='active';
@@ -99,20 +105,24 @@ class backendController extends Controller
         $data['details']=PersonalDetail::find($id);
         return view('Backend.pages.detailsInfo',$data);
     }
-//    public function excelD(){
-//        $data =Admin::get()->toArray();
-//
-//        return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
-//            $excel->sheet('mySheet', function($sheet) use ($data)
-//            {
-//                $sheet->fromArray($data);
-//            });
-//        })->download('invoices.xlsx');
-//    }
-
-    public function excelD()
-    {
-        return Excel::download(new ExportView(), 'invoices.xlsx');
+    public function profileDelete($id){
+        PersonalDetail::find($id)->delete();
+        return redirect(route('viewInfo'));
     }
+    public function excelD(){
+        $data =Admin::get()->toArray();
+
+        return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+            $excel->sheet('mySheet', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->download('invoices.xlsx');
+    }
+
+//    public function excelD()
+//    {
+//        return Excel::download(new ExportView(), 'invoices.xlsx');
+//    }
 
 }

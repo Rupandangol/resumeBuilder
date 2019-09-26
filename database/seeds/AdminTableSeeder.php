@@ -16,7 +16,8 @@ class AdminTableSeeder extends Seeder
             'username' => 'asdf',
             'email'=>'rupan87@gmail.com',
             'password' => '$2y$10$DLzbZbUM0ahFtA3681uUOuRJjUcREfqKIv6YiSXkt/2P9iRUh9SuC',
-            'status' => '1'
+            'status' => '1',
+            'privileges' => 'Super Admin'
         ]);
     }
 }

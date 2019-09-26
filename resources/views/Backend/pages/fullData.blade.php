@@ -18,7 +18,7 @@
             $('#myTable').DataTable( {
                 dom: 'Bfrtip',
                 buttons: [
-                    'csv', 'excel', 'pdf'
+                    'csv', 'excel'
                 ]
             } );
         } );
@@ -34,14 +34,18 @@
         <tr>
             <td>SN</td>
             <td>Full Name</td>
+            <td>Highest Education</td>
             <td>Address</td>
             <td>Email</td>
             <td>Mobile No.</td>
             <td>Gender</td>
+            <td>Age</td>
             <td>Job Category Title</td>
             <td>Job Category</td>
             <td>Expected Salary</td>
             <td>Looking for job</td>
+            <td>License</td>
+            <td>Vehicle</td>
             <td>Preferred Location</td>
             <td>Level</td>
             <td>Available for</td>
@@ -50,17 +54,24 @@
         </thead>
         <tbody>
         @foreach($details as $key=>$value)
+            @if($value->getProfile)
             <tr>
                 <td>{{++$key}}</td>
                 <td>{{$value->fullName}}</td>
+                <td>
+                    {{$value->getEdu->first()->subjectTitle}}
+                </td>
                 <td>{{$value->address}}</td>
                 <td>{{$value->email}}</td>
                 <td>{{$value->mobileNo}}</td>
                 <td>{{$value->gender}}</td>
+                <td>{{\Carbon\Carbon::parse($value->dateOfBirth)->age}}</td>
                 <td>{{$value->getProfile->jobCategoryTitle}}</td>
                 <td>{{$value->getProfile->jobCategory}}</td>
                 <td>{{$value->getProfile->expectedSalary}}</td>
                 <td>{{$value->getProfile->interestedInJob}}</td>
+                <td>{{$value->getProfile->license}}</td>
+                <td>{{$value->getProfile->vehicle}}</td>
                 <td>{{$value->getProfile->preferredLocation}}</td>
                 <td>{{$value->getProfile->lookingFor}}</td>
                 <td>{{$value->getProfile->availableFor}}</td>
@@ -87,6 +98,7 @@
 
                 </td>
             </tr>
+            @endif
         @endforeach
         </tbody>
     </table><br>

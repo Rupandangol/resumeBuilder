@@ -15,6 +15,8 @@ class PersonalProfile extends Model
         'careerObjective',
         'cv_id',
         'interestedInJob',
+        'license',
+        'vehicle',
         'preferredLocation',
         'jobCategoryTitle'
     ];
